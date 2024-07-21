@@ -1,0 +1,55 @@
+@import "@/styles/variables.module.scss";
+
+.baseContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: $color-white;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  &.Small {
+    width: 100px;
+    height: 40px;
+  }
+
+  &.Medium {
+    width: 150px;
+    height: 50px;
+  }
+
+  &.Large {
+    width: 300px;
+    height: 42px;
+  }
+
+  &.Round {
+    border-radius: 50px;
+  }
+
+  &.Square {
+    border-radius: 5px;
+  }
+
+  &.Black {
+    background-color: $color-black;
+  }
+
+  &.Red {
+    background-color: $color-red;
+  }
+
+  &.Stroke {
+    background-color: transparent;
+    border: 1px solid $color-black;
+    color: $color-black;
+  }
+
+  &.None {
+    background-color: transparent;
+    color: $color-black;
+  }
+}
+

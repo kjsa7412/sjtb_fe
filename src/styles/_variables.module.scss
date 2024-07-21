@@ -1,0 +1,46 @@
+// default
+$default-padding: 24px;
+$default-width-contents: 1248px;
+
+
+// colors
+$color-white: #ffffff;
+$color-black: #000000FF;
+$color-blue: #2C2CFFFF;
+$color-red: #ff0000;
+$color-gray: #C0C0C0;
+$color-text: #000;
+$color-text-light: #fff;
+$color-lightGray: #d3d3d3;
+
+// z index levels
+$level-1: 1;
+$level-2: 2;
+$level-3: 3;
+$level-4: 4;
+$level-5: 5;
+$level-global-header: 1000;
+$level-global-popup: 2000;
+$level-global-overlay: 5000;
+$level-global-top: 9000;
+
+// break points
+$bp-xs: 575px;
+$bp-sm: 767px;
+$bp-md: 900px;
+$bp-lg: 1248px;
+
+// path
+// font
+$font-popup-menu: 14px;
+$font-header: 14px;
+$font-footer: 14px;
+$font-banner: 60px;
+
+// height
+$height-header: 54px;
+$height-banner: 354px;
+$height-footer: 68px;
+
+// blank
+$blank-header: $height-header;

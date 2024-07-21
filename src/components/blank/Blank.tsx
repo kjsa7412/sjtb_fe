@@ -1,0 +1,26 @@
+import styles from './Blank.module.scss';
+import {EBlank} from "@/types/enums/common-enum";
+
+interface Props {
+    type: EBlank,
+    size?: number
+}
+
+const Blank = ({type, size = 10}: Props) => {
+    const dynamicStyle = () => {
+        if (type === EBlank.Row && size) {
+            return {width: `${size}px`};
+        } else if (type === EBlank.Column && size) {
+            return {height: `${size}px`};
+        }
+        return {};
+    };
+
+    return (
+        <div className={`${type === EBlank.Header && styles.HeaderBlank}`}
+             style={dynamicStyle()}
+        />
+    );
+};
+
+export default Blank;
