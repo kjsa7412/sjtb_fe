@@ -9,16 +9,25 @@ import {useRecoilState} from "recoil";
 import Overlay from "@/components/overlay/Overlay";
 import {signInPopupAtom} from "@/atoms/signInPopupAtom";
 import {FormProvider, useForm} from 'react-hook-form';
-import {notifyPopupAtom} from "@/atoms/notifyPopupAtom";
 import Input from "@/components/input/Input";
 import {useEffect} from "react";
+import {signUpPopupAtom} from "@/atoms/signUpPopupAtom";
 
 
 const SignInPopup = () => {
     const [rcSignInPopupAtom, setRcSignInPopupAtom] = useRecoilState<IOptionPopup>(signInPopupAtom);
+    const [rcSignUpPopupAtom, setRcSignUpPopupAtom] = useRecoilState<IOptionPopup>(signUpPopupAtom);
 
     const closePopup = () => {
         setRcSignInPopupAtom(false);
+    }
+
+    const openPopup = () => {
+        setRcSignInPopupAtom(false);
+        setRcSignUpPopupAtom((prev) => ({
+            ...prev,
+            isOpen: !prev.isOpen
+        }));
     }
 
     const methods = useForm({
@@ -71,14 +80,14 @@ const SignInPopup = () => {
                                     <Input width="300" formDataName="pw" placeholder="PW" shape={EInputShape.Round}/>
                                 </div>
                                 <div className={styles.body_button}>
-                                    <TextButton controller={{isSubmit:true, label: "Sign In"}} styles={{
+                                    <TextButton controller={{isSubmit: true, label: "Sign In"}} styles={{
                                         size: EButtonSize.Large,
                                         shape: EButtonShape.Round,
                                         type: EButtonType.Black
                                     }}/>
                                 </div>
                                 <div className={styles.body_button}>
-                                    <TextButton controller={{onClick: closePopup, label: "Sign Up"}} styles={{
+                                    <TextButton controller={{onClick: openPopup, label: "Sign Up"}} styles={{
                                         size: EButtonSize.Large,
                                         shape: EButtonShape.Round,
                                         type: EButtonType.None

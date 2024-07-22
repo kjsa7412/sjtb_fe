@@ -13,7 +13,7 @@ const TextButton = (props: ITextButton) => {
                                      ${styles[props.styles?.shape || EButtonShape.Round]}
                                      ${styles[props.styles?.type || EButtonType.Red]}`}
                             onClick={props.controller?.onClick || null}
-                            type={props.controller?.isSubmit ? "submit" : undefined}
+                            type={props.controller?.isSubmit ? "submit" : "button"}
                     >
                         {!!props.controller?.label && props.controller.label}
                     </button>
