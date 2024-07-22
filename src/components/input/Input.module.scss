@@ -1,0 +1,26 @@
+@import "@/styles/variables.module.scss";
+
+.inputBox {
+  background-color: transparent;
+  border: 1px solid $color-black;
+  color: $color-black;
+  font-size: 14px;
+  height: 42px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+
+  &::placeholder {
+    font-size: 14px;
+    color: $color-gray;
+    text-align: center;
+  }
+
+  &.Round {
+    border-radius: 50px;
+  }
+
+  &.Square {
+    border-radius: 5px;
+  }
+}

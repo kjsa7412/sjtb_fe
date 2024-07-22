@@ -8,14 +8,15 @@ const TextButton = (props: ITextButton) => {
         <>
             {
                 isOpen &&
-                    <div className={`${styles.baseContainer}
+                    <button className={`${styles.baseContainer}
                                      ${styles[props.styles?.size || EButtonSize.Medium]}
                                      ${styles[props.styles?.shape || EButtonShape.Round]}
                                      ${styles[props.styles?.type || EButtonType.Red]}`}
-                         onClick={props.controller?.onClick || null}
+                            onClick={props.controller?.onClick || null}
+                            type={props.controller?.isSubmit ? "submit" : undefined}
                     >
                         {!!props.controller?.label && props.controller.label}
-                    </div>
+                    </button>
             }
         </>
     )

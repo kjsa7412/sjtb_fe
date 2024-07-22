@@ -20,6 +20,7 @@ import BodyContainer from "@/components/containers/BodyContainer";
 import ContentsContainer from "@/components/containers/ContentsContainer";
 import Label from "@/components/label/Label";
 import RowContainer from "@/components/containers/RowContainer";
+import Input from "@/components/input/Input";
 
 const Index = () => {
     const [rcConfirmOptionPopup, setRcConfirmOptionPopup] = useRecoilState<IOptionPopup>(confirmPopupAtom);

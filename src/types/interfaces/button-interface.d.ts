@@ -4,7 +4,8 @@ export interface ITextButton {
     controller?: {
         isOpen?: boolean,
         onClick?: Function,
-        label?: string
+        label?: string,
+        isSubmit?: boolean
     },
     styles?: {
         size?: EButtonSize,
