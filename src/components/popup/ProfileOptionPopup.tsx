@@ -1,15 +1,32 @@
 'use client';
 
 import styles from "./ProfileOptionPopup.module.scss";
-import {useRecoilState} from "recoil";
+import {useRecoilState, useResetRecoilState} from "recoil";
 import {IOptionPopup} from "@/types/interfaces/popup-interface";
 import {profileOptionPopupAtom} from "@/atoms/profileOptionPopupAtom";
 import {useEffect, useRef} from "react";
 import {EElementId} from "@/types/enums/common-enum";
+import {userAtom} from "@/atoms/userAtom";
+import {loginAtom} from "@/atoms/loginAtom";
+import {editProfilePopupAtom} from "@/atoms/editProfilePopupAtom";
 
 const ProfileOptionPopup = () => {
     const targetRef = useRef(null);
-    const [rcProfileOptionPopup, setRcProfileOptionPopup] = useRecoilState<IOptionPopup>(profileOptionPopupAtom);
+    const [rcProfileOptionPopup, setRcProfileOptionPopup] = useRecoilState<IOptionPopup>(profileOptionPopupAtom)
+    const [rcEditProfilePopup, setRcEditProfilePopup] = useRecoilState<IOptionPopup>(editProfilePopupAtom);
+    const resetRcUserAtom = useResetRecoilState(userAtom);
+    const resetRcLoginAtom = useResetRecoilState(loginAtom);
+
+    const signOut = () => {
+        setRcProfileOptionPopup({isOpen: false});
+        resetRcUserAtom();
+        resetRcLoginAtom();
+    }
+
+    const editProfile = () => {
+        setRcProfileOptionPopup({isOpen: false});
+        setRcEditProfilePopup({isOpen: true});
+    }
 
     useEffect(() => {
         const updatePosition = () => {
@@ -38,14 +55,14 @@ const ProfileOptionPopup = () => {
         <>
             {rcProfileOptionPopup.isOpen &&
                 <div ref={targetRef} className={styles.baseContainer} style={{top: rcProfileOptionPopup.position.top, left: rcProfileOptionPopup.position.left}}>
-                    <div className={styles.itemContainer}>
+                    <div className={styles.itemContainer} onClick={editProfile}>
                         Profile
                     </div>
                     <div className={styles.itemContainer}>
                         Posts
                     </div>
                     <div className={styles.line}/>
-                    <div className={styles.itemContainer}>
+                    <div className={styles.itemContainer} onClick={signOut}>
                         Sign Out
                     </div>
                 </div>

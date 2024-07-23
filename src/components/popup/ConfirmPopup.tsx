@@ -28,10 +28,10 @@ const ConfirmPopup = () => {
                         </div>
                         <div className={styles.body}>
                             <div className={styles.body_mainText}>
-                                Delete Blog
+                                {setRcConfirmOptionPopup.title}
                             </div>
                             <div className={styles.body_mainSubText}>
-                                삭제 된 글을 복구가 불가능합니다.
+                                {setRcConfirmOptionPopup.desc}
                             </div>
                             <Blank type={EBlank.Column} size={20}/>
                             <div className={styles.body_buttonContainer}>

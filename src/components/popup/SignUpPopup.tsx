@@ -22,11 +22,8 @@ const SignUpPopup = () => {
     }
 
     const openPopup = () => {
-        setRcSignUpPopupAtom(false);
-        setRcSignInPopupAtom((prev) => ({
-            ...prev,
-            isOpen: !prev.isOpen
-        }));
+        setRcSignUpPopupAtom({isOpen: false});
+        setRcSignInPopupAtom({isOpen: true});
     }
 
     const methods = useForm({
@@ -68,7 +65,7 @@ const SignUpPopup = () => {
                             <CloseButton onClick={closePopup}/>
                         </div>
                         <FormProvider {...methods}>
-                            <form className={styles.body} onSubmit={methods.handleSubmit(handleFunction)}>
+                            <form className={styles.body} onSubmit={methods.handleSubmit(handleFunction)} autocomplete="off">
                                 <div className={styles.body_title}>
                                     Join Us
                                 </div>

@@ -4,10 +4,15 @@ import Link from "next/link";
 import styles from "./HeaderItem.module.scss";
 import Icons from "@/components/Icons";
 import {EElementId, EIcon} from "@/types/enums/common-enum";
-import {IProfileOptionPopup} from "@/types/interfaces/popup-interface";
+import {IOptionPopup} from "@/types/interfaces/popup-interface";
 import {profileOptionPopupAtom} from "@/atoms/profileOptionPopupAtom";
 import {useRecoilState} from "recoil";
 import {useRef} from "react";
+import {ILogin} from "@/types/interfaces/common-interface";
+import {loginAtom} from "@/atoms/loginAtom";
+import {editProfilePopupAtom} from "@/atoms/editProfilePopupAtom";
+import signInPopup from "@/components/popup/SignInPopup";
+import {signInPopupAtom} from "@/atoms/signInPopupAtom";
 
 export const HeaderLogo = () => {
     return (
@@ -20,7 +25,9 @@ export const HeaderLogo = () => {
 };
 
 export const HeaderProfile = () => {
-    const [rcProfileOptionPopup, setRcProfileOptionPopup] = useRecoilState<IProfileOptionPopup>(profileOptionPopupAtom);
+    const [rcLogin, setRcLogin] = useRecoilState<ILogin>(loginAtom);
+    const [rcProfileOptionPopup, setRcProfileOptionPopup] = useRecoilState<IOptionPopup>(profileOptionPopupAtom);
+    const [rcSignInPopup, setRcSignInPopup] = useRecoilState<IOptionPopup>(signInPopupAtom);
     const targetRef = useRef(null);
 
     const togglePopup = () => {
@@ -35,18 +42,35 @@ export const HeaderProfile = () => {
         }
     };
 
+    const onClick = () => {
+        if(rcLogin.isLogin) {
+            return togglePopup();
+        } else {
+            return setRcSignInPopup((prev) => ({
+                ...prev,
+                isOpen: !prev.isOpen
+            }));
+        }
+    };
+
 
     return (
-        <div id={EElementId.HeaderProfile} ref={targetRef} className={styles.profileContainer} onClick={togglePopup}>
+        <div id={EElementId.HeaderProfile} ref={targetRef} className={styles.profileContainer} onClick={onClick}>
             <Icons iconType={EIcon.Avatar} width={'32'} height={'32'} fill={'#C0C0C0'}/>
         </div>
     )
 }
 
 export const HeaderAction = () => {
+    const [rcLogin, setRcLogin] = useRecoilState<ILogin>(loginAtom);
     return (
-        <div className={styles.actionContainer}>
-            <p style={{fontWeight: 'bold'}}>Write</p>
-        </div>
+        <>
+            {
+                !!rcLogin.isLogin &&
+                <div className={styles.actionContainer}>
+                    <p style={{fontWeight: 'bold'}}>Write</p>
+                </div>
+            }
+        </>
     )
 }

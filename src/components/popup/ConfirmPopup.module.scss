@@ -10,6 +10,7 @@
   height: 400px;
   background-color: $color-white;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  z-index: $level-global-top;
 
   @media (max-width: 700px) {
     width: 100%;

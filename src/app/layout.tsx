@@ -4,7 +4,6 @@ import "@/styles/globals.scss";
 import HeaderBase from "@/components/header/HeaderBase";
 import {HeaderAction, HeaderLogo, HeaderProfile} from "@/components/header/HeaderItem";
 import MainContainer from "@/components/containers/MainContainer";
-import {RecoilRoot} from "recoil";
 import ProfileOptionPopup from "@/components/popup/ProfileOptionPopup";
 import RecoilRootWrapper from "@/providers/RecoilWrapper";
 import ConfirmPopup from "@/components/popup/ConfirmPopup";
@@ -39,11 +38,11 @@ export default function RootLayout({children}: Props) {
                     <HeaderBase left={[<HeaderLogo/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>
                     {children}
                     <ProfileOptionPopup/>
-                    <ConfirmPopup/>
-                    <NotifyPopup/>
                     <EditProfilePopup/>
                     <SignInPopup/>
                     <SignUpPopup/>
+                    <ConfirmPopup/>
+                    <NotifyPopup/>
                 </RecoilRootWrapper>
             </MainContainer>
         </body>

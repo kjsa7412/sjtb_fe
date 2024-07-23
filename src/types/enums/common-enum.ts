@@ -11,7 +11,8 @@ export const enum EIcon {
     ArrowDown = "ArrowDown",
     TrashCan = "TrashCan",
     Picture = "Picture",
-    Avatar = "Avatar"
+    Avatar = "Avatar",
+    Option = "Option"
 }
 
 export const enum EBlank {

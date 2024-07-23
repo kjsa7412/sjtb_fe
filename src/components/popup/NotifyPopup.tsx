@@ -28,10 +28,10 @@ const NotifyPopup = () => {
                         </div>
                         <div className={styles.body}>
                             <div className={styles.body_mainText}>
-                                Created Blog
+                                {rcNotifyOptionPopup.title}
                             </div>
                             <div className={styles.body_mainSubText}>
-                                작성한 글이 게시되었습니다.
+                                {rcNotifyOptionPopup.desc}
                             </div>
                             <Blank type={EBlank.Column} size={20}/>
                             <div className={styles.body_buttonContainer}>

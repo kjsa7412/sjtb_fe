@@ -4,6 +4,8 @@ import {IOptionPopup} from "@/types/interfaces/popup-interface";
 export const notifyPopupAtom = atom<IOptionPopup>({
     key: 'notifyPopupAtom',
     default: {
-        isOpen: false
+        isOpen: false,
+        title: "",
+        desc: ""
     },
 });
