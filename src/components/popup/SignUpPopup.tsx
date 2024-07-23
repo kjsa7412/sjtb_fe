@@ -65,7 +65,7 @@ const SignUpPopup = () => {
                             <CloseButton onClick={closePopup}/>
                         </div>
                         <FormProvider {...methods}>
-                            <form className={styles.body} onSubmit={methods.handleSubmit(handleFunction)} autocomplete="off">
+                            <form className={styles.body} onSubmit={methods.handleSubmit(handleFunction)} autoComplete="off">
                                 <div className={styles.body_title}>
                                     Join Us
                                 </div>

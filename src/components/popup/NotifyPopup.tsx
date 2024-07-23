@@ -3,18 +3,20 @@
 import styles from './NotifyPopup.module.scss';
 import CloseButton from "@/components/button/CloseButton";
 import TextButton from "@/components/button/TextButton";
-import {EBlank, EButtonShape, EButtonSize, EButtonType} from "@/types/enums/common-enum";
+import {EBlank, EButtonShape, EButtonSize, EButtonType, EPopup} from "@/types/enums/common-enum";
 import Blank from "@/components/blank/Blank";
 import {IOptionPopup} from "@/types/interfaces/popup-interface";
 import {useRecoilState} from "recoil";
 import {notifyPopupAtom} from "@/atoms/notifyPopupAtom";
 import Overlay from "@/components/overlay/Overlay";
+import usePopupState from "@/hooks/usePopupState";
 
 const NotifyPopup = () => {
     const [rcNotifyOptionPopup, setRcNotifyOptionPopup] = useRecoilState<IOptionPopup>(notifyPopupAtom);
 
     const closePopup = () => {
-        setRcNotifyOptionPopup(false);
+        //setRcNotifyOptionPopup({isOpen: false});
+        usePopupState({close: EPopup.Notify});
     }
 
     return (

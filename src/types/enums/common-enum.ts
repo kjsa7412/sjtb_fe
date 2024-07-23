@@ -47,3 +47,13 @@ export const enum EInputShape {
     Round = 'Round',
     Square = 'Square'
 }
+
+export const enum EPopup {
+    BoardOption = 'BaordOption',
+    Confirm = 'Confirm',
+    EditProfile = 'EditProfile',
+    Notify = 'Notify',
+    ProfileOption = 'ProfileOption',
+    SignIn = 'SignIn',
+    SignUp = 'SjinUp'
+}
