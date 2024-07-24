@@ -3,24 +3,18 @@
 import styles from './ConfirmPopup.module.scss';
 import CloseButton from "@/components/button/CloseButton";
 import TextButton from "@/components/button/TextButton";
-import {EBlank, EButtonShape, EButtonSize, EButtonType} from "@/types/enums/common-enum";
+import {EBlank, EButtonShape, EButtonSize, EButtonType, EPopup} from "@/types/enums/common-enum";
 import Blank from "@/components/blank/Blank";
-import {IOptionPopup} from "@/types/interfaces/popup-interface";
-import {useRecoilState} from "recoil";
-import {confirmPopupAtom} from "@/atoms/confirmPopupAtom";
 import Overlay from "@/components/overlay/Overlay";
+import usePopup from "@/hooks/usePopup";
 
 const ConfirmPopup = () => {
-    const [rcConfirmOptionPopup, setRcConfirmOptionPopup] = useRecoilState<IOptionPopup>(confirmPopupAtom);
-
-    const closePopup = () => {
-        setRcConfirmOptionPopup(false);
-    }
-
+    const popupController = usePopup();
+    const closePopup = () => popupController.openPopup(EPopup.Confirm);
     return (
         <>
             {
-                rcConfirmOptionPopup.isOpen &&
+                popupController.isPopupOpen(EPopup.Confirm) &&
                 <Overlay>
                     <div className={styles.baseContainer}>
                         <div className={styles.header}>
@@ -28,10 +22,10 @@ const ConfirmPopup = () => {
                         </div>
                         <div className={styles.body}>
                             <div className={styles.body_mainText}>
-                                {setRcConfirmOptionPopup.title}
+                                {setRcConfirmPopup.title}
                             </div>
                             <div className={styles.body_mainSubText}>
-                                {setRcConfirmOptionPopup.desc}
+                                {setRcConfirmPopup.desc}
                             </div>
                             <Blank type={EBlank.Column} size={20}/>
                             <div className={styles.body_buttonContainer}>

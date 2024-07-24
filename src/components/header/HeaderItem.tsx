@@ -3,16 +3,12 @@
 import Link from "next/link";
 import styles from "./HeaderItem.module.scss";
 import Icons from "@/components/Icons";
-import {EElementId, EIcon} from "@/types/enums/common-enum";
-import {IOptionPopup} from "@/types/interfaces/popup-interface";
-import {profileOptionPopupAtom} from "@/atoms/profileOptionPopupAtom";
+import {EElementId, EIcon, EPopup} from "@/types/enums/common-enum";
 import {useRecoilState} from "recoil";
 import {useRef} from "react";
 import {ILogin} from "@/types/interfaces/common-interface";
 import {loginAtom} from "@/atoms/loginAtom";
-import {editProfilePopupAtom} from "@/atoms/editProfilePopupAtom";
-import signInPopup from "@/components/popup/SignInPopup";
-import {signInPopupAtom} from "@/atoms/signInPopupAtom";
+import usePopup from "@/hooks/usePopup";
 
 export const HeaderLogo = () => {
     return (
@@ -26,19 +22,17 @@ export const HeaderLogo = () => {
 
 export const HeaderProfile = () => {
     const [rcLogin, setRcLogin] = useRecoilState<ILogin>(loginAtom);
-    const [rcProfileOptionPopup, setRcProfileOptionPopup] = useRecoilState<IOptionPopup>(profileOptionPopupAtom);
-    const [rcSignInPopup, setRcSignInPopup] = useRecoilState<IOptionPopup>(signInPopupAtom);
     const targetRef = useRef(null);
+    const popupController = usePopup();
 
     const togglePopup = () => {
-        if (!rcProfileOptionPopup.isOpen) {
-            const rect = targetRef.current.getBoundingClientRect();
-            setRcProfileOptionPopup({
-                isOpen: true,
-                position: { top: rect.bottom, left: rect.left },
-            });
+        if (popupController.isPopupOpen(EPopup.ProfileOption)) {
+            console.log("123");
+            popupController.closePopup(EPopup.ProfileOption);
         } else {
-            setRcProfileOptionPopup({ ...rcProfileOptionPopup, isOpen: false });
+            console.log("456");
+            const rect = targetRef.current.getBoundingClientRect();
+            popupController.openPopup(EPopup.ProfileOption, {position: { top: rect.bottom, left: rect.left }})
         }
     };
 
@@ -46,13 +40,9 @@ export const HeaderProfile = () => {
         if(rcLogin.isLogin) {
             return togglePopup();
         } else {
-            return setRcSignInPopup((prev) => ({
-                ...prev,
-                isOpen: !prev.isOpen
-            }));
+            return popupController.openPopup(EPopup.SignIn);
         }
     };
-
 
     return (
         <div id={EElementId.HeaderProfile} ref={targetRef} className={styles.profileContainer} onClick={onClick}>

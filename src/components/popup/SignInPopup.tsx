@@ -3,35 +3,28 @@
 import styles from './SignInPopup.module.scss';
 import CloseButton from "@/components/button/CloseButton";
 import TextButton from "@/components/button/TextButton";
-import {EButtonShape, EButtonSize, EButtonType, EInputShape} from "@/types/enums/common-enum";
-import {IOptionPopup} from "@/types/interfaces/popup-interface";
+import {EButtonShape, EButtonSize, EButtonType, EInputShape, EPopup} from "@/types/enums/common-enum";
 import {useRecoilState} from "recoil";
 import Overlay from "@/components/overlay/Overlay";
-import {signInPopupAtom} from "@/atoms/signInPopupAtom";
 import {FormProvider, useForm} from 'react-hook-form';
 import Input from "@/components/input/Input";
 import {useEffect} from "react";
-import {signUpPopupAtom} from "@/atoms/signUpPopupAtom";
 import {ILogin, IUser} from "@/types/interfaces/common-interface";
 import {loginAtom} from "@/atoms/loginAtom";
 import {userAtom} from "@/atoms/userAtom";
-import {notifyPopupAtom} from "@/atoms/notifyPopupAtom";
+import usePopup from "@/hooks/usePopup";
 
 
 const SignInPopup = () => {
     const [rcLogin, setRcLogin] = useRecoilState<ILogin>(loginAtom);
     const [rcUser, setRcUser] = useRecoilState<IUser>(userAtom);
-    const [rcSignInPopupAtom, setRcSignInPopupAtom] = useRecoilState<IOptionPopup>(signInPopupAtom);
-    const [rcSignUpPopupAtom, setRcSignUpPopupAtom] = useRecoilState<IOptionPopup>(signUpPopupAtom);
-    const [rcNotifyPopupAtom, setNotifyPopupAtom] = useRecoilState<IOptionPopup>(notifyPopupAtom);
+    const popupController = usePopup();
 
-    const closePopup = () => {
-        setRcSignInPopupAtom(false);
-    }
+    const closePopup = () => popupController.closePopup(EPopup.SignIn);
 
     const openPopup = () => {
-        setRcSignInPopupAtom({isOpen: false});
-        setRcSignUpPopupAtom({isOpen: true});
+        popupController.closePopup(EPopup.SignIn);
+        popupController.openPopup(EPopup.SignUp);
     }
 
     const methods = useForm({
@@ -47,12 +40,12 @@ const SignInPopup = () => {
         const data = methods.getValues();
 
         if (!data.id) {
-            setNotifyPopupAtom({isOpen: true, title: "로그인 실패", desc: "유저아이디 정보를 확인해주세요."});
+            popupController.openPopup(EPopup.Notify, {title: "로그인 실패", desc: "유저아이디 정보를 확인해주세요."});
             return;
         }
 
         if (!data.pw) {
-            setNotifyPopupAtom({isOpen: true, title: "로그인 실패", desc: "비민번호를 확인해주세요."});
+            popupController.openPopup(EPopup.Notify, {title: "로그인 실패", desc: "비민번호를 확인해주세요."});
             return;
         }
 
@@ -65,12 +58,12 @@ const SignInPopup = () => {
         return () => {
             methods.reset();
         };
-    },[rcSignInPopupAtom.isOpen]);
+    },[popupController.isPopupOpen(EPopup.SignIn)]);
 
     return (
         <>
             {
-                rcSignInPopupAtom.isOpen &&
+                popupController.isPopupOpen(EPopup.SignIn) &&
                 <Overlay>
                     <div className={styles.baseContainer}>
                         <div className={styles.header}>

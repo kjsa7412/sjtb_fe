@@ -3,27 +3,21 @@
 import styles from './SignUpPopup.module.scss';
 import CloseButton from "@/components/button/CloseButton";
 import TextButton from "@/components/button/TextButton";
-import {EButtonShape, EButtonSize, EButtonType, EInputShape} from "@/types/enums/common-enum";
-import {IOptionPopup} from "@/types/interfaces/popup-interface";
-import {useRecoilState} from "recoil";
+import {EButtonShape, EButtonSize, EButtonType, EInputShape, EPopup} from "@/types/enums/common-enum";
 import Overlay from "@/components/overlay/Overlay";
-import {signUpPopupAtom} from "@/atoms/signUpPopupAtom";
 import {FormProvider, useForm} from 'react-hook-form';
 import Input from "@/components/input/Input";
 import {useEffect} from "react";
-import {signInPopupAtom} from "@/atoms/signInPopupAtom";
+import usePopup from "@/hooks/usePopup";
 
 const SignUpPopup = () => {
-    const [rcSignUpPopupAtom, setRcSignUpPopupAtom] = useRecoilState<IOptionPopup>(signUpPopupAtom);
-    const [rcSignInPopupAtom, setRcSignInPopupAtom] = useRecoilState<IOptionPopup>(signInPopupAtom);
+    const popupController = usePopup();
 
-    const closePopup = () => {
-        setRcSignUpPopupAtom(false);
-    }
+    const closePopup = () => popupController.closePopup(EPopup.SignUp);
 
     const openPopup = () => {
-        setRcSignUpPopupAtom({isOpen: false});
-        setRcSignInPopupAtom({isOpen: true});
+        popupController.closePopup(EPopup.SignUp);
+        popupController.openPopup(EPopup.SignIn);
     }
 
     const methods = useForm({
@@ -53,12 +47,12 @@ const SignUpPopup = () => {
         return () => {
             methods.reset();
         };
-    },[rcSignUpPopupAtom.isOpen]);
+    },[popupController.isPopupOpen(EPopup.SignUp)]);
 
     return (
         <>
             {
-                rcSignUpPopupAtom.isOpen &&
+                popupController.isPopupOpen(EPopup.SignUp) &&
                 <Overlay>
                     <div className={styles.baseContainer}>
                         <div className={styles.header}>

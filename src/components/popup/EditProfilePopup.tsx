@@ -1,25 +1,19 @@
 'use client';
 
 import styles from './EditProfilePopup.module.scss';
+import {EButtonShape, EButtonSize, EButtonType, EPopup} from "@/types/enums/common-enum";
 import CloseButton from "@/components/button/CloseButton";
 import TextButton from "@/components/button/TextButton";
-import {EButtonShape, EButtonSize, EButtonType} from "@/types/enums/common-enum";
-import {IOptionPopup} from "@/types/interfaces/popup-interface";
-import {useRecoilState} from "recoil";
 import Overlay from "@/components/overlay/Overlay";
-import {editProfilePopupAtom} from "@/atoms/editProfilePopupAtom";
+import usePopup from "@/hooks/usePopup";
 
 const EditProfilePopup = () => {
-    const [rcEditProfilePopupAtom, setRcEditProfilePopupAtom] = useRecoilState<IOptionPopup>(editProfilePopupAtom);
-
-    const closePopup = () => {
-        setRcEditProfilePopupAtom(false);
-    }
-
+    const popupController = usePopup();
+    const closePopup = () => popupController.closePopup(EPopup.EditProfile);
     return (
         <>
             {
-                rcEditProfilePopupAtom.isOpen &&
+                popupController.isPopupOpen(EPopup.EditProfile) &&
                 <Overlay>
                     <div className={styles.baseContainer}>
                         <div className={styles.header}>

@@ -2,30 +2,27 @@
 
 import styles from "./ProfileOptionPopup.module.scss";
 import {useRecoilState, useResetRecoilState} from "recoil";
-import {IOptionPopup} from "@/types/interfaces/popup-interface";
-import {profileOptionPopupAtom} from "@/atoms/profileOptionPopupAtom";
-import {useEffect, useRef} from "react";
-import {EElementId} from "@/types/enums/common-enum";
+import {useEffect, useRef, useState} from "react";
+import {EElementId, EPopup} from "@/types/enums/common-enum";
 import {userAtom} from "@/atoms/userAtom";
 import {loginAtom} from "@/atoms/loginAtom";
-import {editProfilePopupAtom} from "@/atoms/editProfilePopupAtom";
+import usePopup from "@/hooks/usePopup";
 
 const ProfileOptionPopup = () => {
     const targetRef = useRef(null);
-    const [rcProfileOptionPopup, setRcProfileOptionPopup] = useRecoilState<IOptionPopup>(profileOptionPopupAtom)
-    const [rcEditProfilePopup, setRcEditProfilePopup] = useRecoilState<IOptionPopup>(editProfilePopupAtom);
+    const popupController = usePopup();
     const resetRcUserAtom = useResetRecoilState(userAtom);
     const resetRcLoginAtom = useResetRecoilState(loginAtom);
 
     const signOut = () => {
-        setRcProfileOptionPopup({isOpen: false});
         resetRcUserAtom();
         resetRcLoginAtom();
+        popupController.closePopup(EPopup.ProfileOption);
     }
 
     const editProfile = () => {
-        setRcProfileOptionPopup({isOpen: false});
-        setRcEditProfilePopup({isOpen: true});
+        popupController.closePopup(EPopup.ProfileOption);
+        popupController.openPopup(EPopup.EditProfile);
     }
 
     useEffect(() => {
@@ -34,14 +31,16 @@ const ProfileOptionPopup = () => {
             if (targetElement) {
                 const rect = targetElement.getBoundingClientRect();
                 const thisRect = targetRef.current.getBoundingClientRect();
-                setRcProfileOptionPopup((prev) => ({
-                    ...prev,
-                    position: { top: rect.bottom - 10, left: rect.left - thisRect.width + 30},
-                }));
+                popupController.openPopup(EPopup.ProfileOption, {
+                    position: {
+                        top: rect.bottom - 10,
+                        left: rect.left - thisRect.width + 30
+                    }
+                });
             }
         };
 
-        if (rcProfileOptionPopup.isOpen) {
+        if (popupController.isPopupOpen(EPopup.ProfileOption)) {
             window.addEventListener('resize', updatePosition);
             updatePosition();
         }
@@ -49,12 +48,15 @@ const ProfileOptionPopup = () => {
         return () => {
             window.removeEventListener('resize', updatePosition);
         };
-    }, [rcProfileOptionPopup.isOpen]);
+    }, [popupController.isPopupOpen(EPopup.ProfileOption)]);
 
     return (
         <>
-            {rcProfileOptionPopup.isOpen &&
-                <div ref={targetRef} className={styles.baseContainer} style={{top: rcProfileOptionPopup.position.top, left: rcProfileOptionPopup.position.left}}>
+            {popupController.isPopupOpen(EPopup.ProfileOption) &&
+                <div ref={targetRef} className={styles.baseContainer} style={{
+                    top: popupController.getPopupData(EPopup.ProfileOption).position.top,
+                    left: popupController.getPopupData(EPopup.ProfileOption).position.left
+                }}>
                     <div className={styles.itemContainer} onClick={editProfile}>
                         Profile
                     </div>
