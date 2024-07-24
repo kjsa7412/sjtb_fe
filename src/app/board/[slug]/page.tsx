@@ -3,6 +3,14 @@ import {EBlank} from "@/types/enums/common-enum";
 import PageContainer from "@/components/containers/PageContainer";
 import Banner from "@/components/banner/Banner";
 import {getPostBySlug} from "@/utils/postUtil";
+import WriterInfo from "@/components/read/WriterInfo";
+import ContentsContainer from "@/components/containers/ContentsContainer";
+import BodyContainer from "@/components/containers/BodyContainer";
+import Tag from "@/components/read/Tag";
+import TagList from "@/components/read/TagList";
+import Reaction from "@/components/read/Reaction";
+import WriteComment from "@/components/read/WriteComment";
+import ReadComment from "@/components/read/ReadComment";
 
 interface Props {
     params: {
@@ -18,7 +26,18 @@ const Post = (props: Props) => {
         <PageContainer>
             <Blank type={EBlank.Header}/>
             <Banner title={post?.title || ""} writer={post?.writer || ""} info={{date: post?.date || "", avatar: ""}}/>
-            {props.params.slug}
+            <BodyContainer>
+                <ContentsContainer>
+                    <WriterInfo/>
+                    <TagList/>
+                    <Reaction/>
+                    <WriteComment/>
+                    <ReadComment/>
+                    <ReadComment/>
+                    <ReadComment/>
+                    <ReadComment/>
+                </ContentsContainer>
+            </BodyContainer>
         </PageContainer>
     )
 }

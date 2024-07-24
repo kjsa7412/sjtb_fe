@@ -22,10 +22,10 @@ const ConfirmPopup = () => {
                         </div>
                         <div className={styles.body}>
                             <div className={styles.body_mainText}>
-                                {setRcConfirmPopup.title}
+                                {popupController.getPopupData(EPopup.Confirm).title}
                             </div>
                             <div className={styles.body_mainSubText}>
-                                {setRcConfirmPopup.desc}
+                                {popupController.getPopupData(EPopup.Confirm).desc}
                             </div>
                             <Blank type={EBlank.Column} size={20}/>
                             <div className={styles.body_buttonContainer}>

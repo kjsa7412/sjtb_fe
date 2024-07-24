@@ -12,7 +12,10 @@ export const enum EIcon {
     TrashCan = "TrashCan",
     Picture = "Picture",
     Avatar = "Avatar",
-    Option = "Option"
+    Option = "Option",
+    Like1 = "Like1",
+    Like2 = "Like2",
+    Comment = "Comment"
 }
 
 export const enum EBlank {
