@@ -5,11 +5,12 @@ import {ILogin, IUser} from "@/types/interfaces/common-interface";
 import {loginAtom} from "@/atoms/loginAtom";
 import {useRecoilState} from "recoil";
 import {userAtom} from "@/atoms/userAtom";
-import {EIcon} from "@/types/enums/common-enum";
+import {EBannerType, EIcon} from "@/types/enums/common-enum";
 import Icons from "@/components/Icons";
 import {IconPostOption} from "../../../public/svgs";
 
 interface IBanner {
+    type?: EBannerType,
     title: string,
     writer?: string,
     info?: {
@@ -30,7 +31,7 @@ const Banner = (props: IBanner) => {
                         <p>{props.title}</p>
                     </div>
                     {
-                        !!rcLogin.isLogin &&
+                        (props.type !== EBannerType.Home) && rcLogin.isLogin &&
                         <div className={styles.info}>
                             <div className={styles.date}>
                                 {props.info?.date || ""}

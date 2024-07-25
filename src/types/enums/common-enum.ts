@@ -60,3 +60,8 @@ export const enum EPopup {
     SignIn = 'SignIn',
     SignUp = 'SjinUp'
 }
+
+export const enum EBannerType {
+    Home = 'Home',
+    Orther = 'Other'
+}

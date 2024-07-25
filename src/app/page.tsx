@@ -1,6 +1,6 @@
 import PageContainer from "@/components/containers/PageContainer";
 import Blank from "@/components/blank/Blank";
-import {EBlank} from "@/types/enums/common-enum";
+import {EBannerType, EBlank} from "@/types/enums/common-enum";
 import Banner from "@/components/banner/Banner";
 import FooterBase from "@/components/footer/FooterBase";
 import ColumnPost from "@/components/post/ColumnPost";
@@ -17,7 +17,7 @@ const Index = () => {
     return (
         <PageContainer>
             <Blank type={EBlank.Header}/>
-            <Banner title={"Welcome"}/>
+            <Banner title={"Welcome"} type={EBannerType.Home}/>
             <BodyContainer>
                 <ContentsContainer>
                     <Label text={'인기 있는 글'}/>

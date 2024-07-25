@@ -4,25 +4,25 @@ import {IPopupData, IPopupState} from "@/types/interfaces/popup-interface";
 export const popupState = atom<IPopupState>({
     key: 'popupState',
     default: {
-        boardOption: false,
-        confirm: false,
-        editProfile: false,
-        notify: false,
-        profileOption: false,
-        signIn: false,
-        signUp: false
+        BoardOption: false,
+        Confirm: false,
+        EditProfile: false,
+        Notify: false,
+        ProfileOption: false,
+        SignIn: false,
+        SignUp: false
     },
 });
 
 export const popupData = atom<IPopupData>({
     key: 'popupData',
     default: {
-        boardOption: undefined,
-        confirm: undefined,
-        editProfile: undefined,
-        notify: undefined,
-        profileOption: undefined,
-        signIn: undefined,
-        signUp: undefined
+        BoardOption: undefined,
+        Confirm: undefined,
+        EditProfile: undefined,
+        Notify: undefined,
+        ProfileOption: undefined,
+        SignIn: undefined,
+        SignUp: undefined
     },
 });

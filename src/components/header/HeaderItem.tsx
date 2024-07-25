@@ -56,9 +56,9 @@ export const HeaderAction = () => {
     return (
         <>
             {
-                !!rcLogin.isLogin &&
+                rcLogin.isLogin &&
                 <div className={styles.actionContainer}>
-                    <p style={{fontWeight: 'bold'}}>Write</p>
+                    <p>Write</p>
                 </div>
             }
         </>
