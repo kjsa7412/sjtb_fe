@@ -11,6 +11,7 @@ import NotifyPopup from "@/components/popup/NotifyPopup";
 import EditProfilePopup from "@/components/popup/EditProfilePopup";
 import SignInPopup from "@/components/popup/SignInPopup";
 import SignUpPopup from "@/components/popup/SignUpPopup";
+import BoardOptionPopup from "@/components/popup/BoardOptionPopup";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -37,6 +38,7 @@ export default function RootLayout({children}: Props) {
                 <RecoilRootWrapper>
                     <HeaderBase left={[<HeaderLogo/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>
                     {children}
+                    <BoardOptionPopup/>
                     <ProfileOptionPopup/>
                     <EditProfilePopup/>
                     <SignInPopup/>

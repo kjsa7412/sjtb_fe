@@ -8,6 +8,8 @@ import {userAtom} from "@/atoms/userAtom";
 import {EBannerType, EIcon} from "@/types/enums/common-enum";
 import Icons from "@/components/Icons";
 import {IconPostOption} from "../../../public/svgs";
+import BoardOptionButton from "@/components/button/BoardOptionButton";
+import {IPostAtom, postAtom} from "@/atoms/postAtom";
 
 interface IBanner {
     type?: EBannerType,
@@ -20,6 +22,7 @@ interface IBanner {
 }
 
 const Banner = (props: IBanner) => {
+    const [rcPost, setRcPost] = useRecoilState<IPostAtom>(postAtom);
     const [rcLogin, setRcLogin] = useRecoilState<ILogin>(loginAtom);
     const [rcUser, setRcUser] = useRecoilState<IUser>(userAtom);
 
@@ -31,17 +34,15 @@ const Banner = (props: IBanner) => {
                         <p>{props.title}</p>
                     </div>
                     {
-                        (props.type !== EBannerType.Home) && rcLogin.isLogin &&
+                        (props.type !== EBannerType.Home) &&
                         <div className={styles.info}>
                             <div className={styles.date}>
                                 {props.info?.date || ""}
                             </div>
                             <Icons iconType={EIcon.Avatar} width={'32'} height={'32'} fill={'#C0C0C0'}/>
                             {
-                                true &&
-                                <div className={styles.option}>
-                                    <Icons iconType={EIcon.Option} width={'32'} height={'32'} fill={'#FFFFFF'}/>
-                                </div>
+                                rcPost.isMe &&
+                                <BoardOptionButton/>
                             }
                         </div>
                     }

@@ -11,11 +11,11 @@ const BoardOptionPopup = () => {
 
     useEffect(() => {
         const updatePosition = () => {
-            const targetElement = document.getElementById(EElementId.HeaderProfile);
+            const targetElement = document.getElementById(EElementId.BoardOption);
             if (targetElement) {
                 const rect = targetElement.getBoundingClientRect();
                 const thisRect = targetRef.current.getBoundingClientRect();
-                popupController.openPopup(EPopup.EditProfile, {
+                popupController.openPopup(EPopup.BoardOption, {
                     position: {
                         top: rect.bottom - 10,
                         left: rect.left - thisRect.width + 30
@@ -24,7 +24,7 @@ const BoardOptionPopup = () => {
             }
         };
 
-        if (popupController.isPopupOpen(EPopup.EditProfile)) {
+        if (popupController.isPopupOpen(EPopup.BoardOption)) {
             window.addEventListener('resize', updatePosition);
             updatePosition();
         }
@@ -32,20 +32,20 @@ const BoardOptionPopup = () => {
         return () => {
             window.removeEventListener('resize', updatePosition);
         };
-    }, [popupController.isPopupOpen(EPopup.EditProfile)]);
-
+    }, [popupController.isPopupOpen(EPopup.BoardOption)]);
+    console.log('c');
     return (
         <>
-            {popupController.isPopupOpen(EPopup.EditProfile) &&
+            {popupController.isPopupOpen(EPopup.BoardOption) &&
                 <div ref={targetRef} className={styles.baseContainer} style={{
-                    top: popupController.getPopupData(EPopup.EditProfile).position.top,
-                    left: popupController.getPopupData(EPopup.EditProfile).position.left
+                    top: popupController.getPopupData(EPopup.BoardOption).position.top,
+                    left: popupController.getPopupData(EPopup.BoardOption).position.left
                 }}>
                     <div className={styles.itemContainer}>
                         Edit Board
                     </div>
                     <div className={styles.line}/>
-                    <div className={styles.itemContainer}>
+                    <div className={`${styles.itemContainer} ${styles.warn}`}>
                         Delete Board
                     </div>
                 </div>

@@ -10,6 +10,8 @@ import ContentsContainer from "@/components/containers/ContentsContainer";
 import Label from "@/components/label/Label";
 import RowContainer from "@/components/containers/RowContainer";
 import {getAllPosts} from "@/utils/postUtil";
+import {useRecoilState} from "recoil";
+import {IPostAtom, postAtom} from "@/atoms/postAtom";
 
 const Index = () => {
     const allPosts = getAllPosts();

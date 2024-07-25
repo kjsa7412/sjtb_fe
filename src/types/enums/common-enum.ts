@@ -43,7 +43,8 @@ export const enum EButtonType {
 }
 
 export const enum EElementId {
-    HeaderProfile = 'HeaderProfile'
+    HeaderProfile = 'HeaderProfile',
+    BoardOption = 'BoardOption'
 }
 
 export const enum EInputShape {
