@@ -7,7 +7,6 @@ import {useRecoilState} from "recoil";
 import {userAtom} from "@/atoms/userAtom";
 import {EBannerType, EIcon} from "@/types/enums/common-enum";
 import Icons from "@/components/Icons";
-import {IconPostOption} from "../../../public/svgs";
 import BoardOptionButton from "@/components/button/BoardOptionButton";
 import {IPostAtom, postAtom} from "@/atoms/postAtom";
 
@@ -34,7 +33,7 @@ const Banner = (props: IBanner) => {
                         <p>{props.title}</p>
                     </div>
                     {
-                        (props.type !== EBannerType.Home) &&
+                        (props.type === EBannerType.Read) &&
                         <div className={styles.info}>
                             <div className={styles.date}>
                                 {props.info?.date || ""}

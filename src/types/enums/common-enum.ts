@@ -64,5 +64,6 @@ export const enum EPopup {
 
 export const enum EBannerType {
     Home = 'Home',
-    Orther = 'Other'
+    Search = 'Search',
+    Read = 'Read'
 }

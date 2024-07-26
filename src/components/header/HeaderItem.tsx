@@ -1,21 +1,24 @@
 'use client';
 
-import Link from "next/link";
 import styles from "./HeaderItem.module.scss";
 import Icons from "@/components/Icons";
 import {EElementId, EIcon, EPopup} from "@/types/enums/common-enum";
 import {useRecoilState} from "recoil";
-import {useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import {ILogin} from "@/types/interfaces/common-interface";
 import {loginAtom} from "@/atoms/loginAtom";
 import usePopup from "@/hooks/usePopup";
+import useActionAndNavigate from "@/hooks/useActionAndNavigate";
 
 export const HeaderLogo = () => {
+    const actionAndNavigate = useActionAndNavigate();
+
+    const onClick = () => {
+        actionAndNavigate.actionAndNavigate(`/`);
+    }
     return (
-        <div className={styles.logoContainer}>
-            <Link href={`/`}>
-                <p style={{fontWeight: 'bold'}}>TECH BLOG</p>
-            </Link>
+        <div className={styles.logoContainer} onClick={onClick}>
+            <p>TECH BLOG</p>
         </div>
     );
 };
@@ -27,17 +30,15 @@ export const HeaderProfile = () => {
 
     const togglePopup = () => {
         if (popupController.isPopupOpen(EPopup.ProfileOption)) {
-            console.log("123");
             popupController.closePopup(EPopup.ProfileOption);
         } else {
-            console.log("456");
             const rect = targetRef.current.getBoundingClientRect();
-            popupController.openPopup(EPopup.ProfileOption, {position: { top: rect.bottom, left: rect.left }})
+            popupController.openPopup(EPopup.ProfileOption, {position: {top: rect.bottom, left: rect.left}})
         }
     };
 
     const onClick = () => {
-        if(rcLogin.isLogin) {
+        if (rcLogin.isLogin) {
             return togglePopup();
         } else {
             return popupController.openPopup(EPopup.SignIn);
@@ -52,13 +53,19 @@ export const HeaderProfile = () => {
 }
 
 export const HeaderAction = () => {
+    const [action, setAction] = useState('')
     const [rcLogin, setRcLogin] = useRecoilState<ILogin>(loginAtom);
+    const actionAndNavigate = useActionAndNavigate();
+
+    useEffect(() => setAction('Write'), [])
+
     return (
         <>
             {
                 rcLogin.isLogin &&
-                <div className={styles.actionContainer}>
-                    <p>Write</p>
+                <div className={styles.actionContainer}
+                     onClick={() => actionAndNavigate.actionAndNavigate('/board/new')}>
+                    {action}
                 </div>
             }
         </>

@@ -7,7 +7,12 @@
   align-items: center;
   width: 100px;
   height: 100%;
-  font-size: $font-header;
+
+  p {
+    font-size: $font-footer;
+    font-weight: bold;
+    color: $color-black;
+  }
 }
 
 .profileContainer {
@@ -27,8 +32,5 @@
   width: 80px;
   height: 100%;
   font-size: $font-header;
-
-  p {
-    font-weight: bold;
-  }
+  font-weight: bold;
 }

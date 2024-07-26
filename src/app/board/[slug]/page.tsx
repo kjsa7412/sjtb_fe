@@ -1,5 +1,5 @@
 import Blank from "@/components/blank/Blank";
-import {EBlank} from "@/types/enums/common-enum";
+import {EBannerType, EBlank} from "@/types/enums/common-enum";
 import PageContainer from "@/components/containers/PageContainer";
 import Banner from "@/components/banner/Banner";
 import {getPostBySlug} from "@/utils/postUtil";
@@ -19,7 +19,6 @@ interface Props {
     }
 };
 
-
 const Post = async (props: Props) => {
     const post = getPostBySlug(props.params.slug);
     const content = await markdownToHtml(post?.content || "");
@@ -27,7 +26,7 @@ const Post = async (props: Props) => {
     return (
         <PageContainer>
             <Blank type={EBlank.Header}/>
-            <Banner title={post?.title || ""} writer={post?.writer || ""} info={{date: post?.date || "", avatar: ""}}/>
+            <Banner type={EBannerType.Read} title={post?.title || ""} writer={post?.writer || ""} info={{date: post?.date || "", avatar: ""}}/>
             <BodyContainer>
                 <ContentsContainer>
                     <ReadPost content={content}/>

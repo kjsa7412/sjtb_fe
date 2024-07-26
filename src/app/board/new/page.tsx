@@ -1,8 +1,11 @@
 import PageContainer from "@/components/containers/PageContainer";
+import {EBlank} from "@/types/enums/common-enum";
+import Blank from "@/components/blank/Blank";
 
 const New = () => {
     return(
         <PageContainer>
+            <Blank type={EBlank.Header}/>
             New
         </PageContainer>
     )

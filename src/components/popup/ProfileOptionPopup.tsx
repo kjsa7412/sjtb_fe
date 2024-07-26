@@ -2,27 +2,38 @@
 
 import styles from "./ProfileOptionPopup.module.scss";
 import {useRecoilState, useResetRecoilState} from "recoil";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef} from "react";
 import {EElementId, EPopup} from "@/types/enums/common-enum";
 import {userAtom} from "@/atoms/userAtom";
 import {loginAtom} from "@/atoms/loginAtom";
 import usePopup from "@/hooks/usePopup";
+import {IUser} from "@/types/interfaces/common-interface";
+import useActionAndNavigate from "@/hooks/useActionAndNavigate";
+import {postAtom} from "@/atoms/postAtom";
 
 const ProfileOptionPopup = () => {
+    const actionAndNavigate = useActionAndNavigate();
     const targetRef = useRef(null);
     const popupController = usePopup();
+    const [rcUser, setRcUser] = useRecoilState<IUser>(userAtom);
     const resetRcUserAtom = useResetRecoilState(userAtom);
     const resetRcLoginAtom = useResetRecoilState(loginAtom);
+    const resetRcPostAtom = useResetRecoilState(postAtom);
 
     const signOut = () => {
-        resetRcUserAtom();
+        actionAndNavigate.actionAndNavigate(`/`);
         resetRcLoginAtom();
-        popupController.closePopup(EPopup.ProfileOption);
+        resetRcUserAtom();
+        resetRcPostAtom();
     }
 
     const editProfile = () => {
         popupController.closePopup(EPopup.ProfileOption);
         popupController.openPopup(EPopup.EditProfile);
+    }
+
+    const onClick = () => {
+        actionAndNavigate.actionAndNavigate(`/board/search/${rcUser.userId}`);
     }
 
     useEffect(() => {
@@ -60,7 +71,7 @@ const ProfileOptionPopup = () => {
                     <div className={styles.itemContainer} onClick={editProfile}>
                         Profile
                     </div>
-                    <div className={styles.itemContainer}>
+                    <div className={styles.itemContainer} onClick={onClick}>
                         Posts
                     </div>
                     <div className={styles.line}/>

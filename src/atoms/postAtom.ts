@@ -9,6 +9,6 @@ export const postAtom = atom<IPostAtom>({
     key: 'postAtom',
     default: {
         slug: "",
-        isMe: true
+        isMe: false
     }
 });
