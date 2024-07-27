@@ -23,6 +23,8 @@ const Post = async (props: Props) => {
     const post = getPostBySlug(props.params.slug);
     const content = await markdownToHtml(post?.content || "");
 
+    console.log("Post : " + props.params.slug);
+
     return (
         <PageContainer>
             <Blank type={EBlank.Header}/>

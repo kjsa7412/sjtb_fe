@@ -1,22 +1,20 @@
 'use client';
 
-import styles from './BoardOptionPopup.module.scss';
+
 import {useEffect, useRef} from "react";
-import {EElementId, EPopup} from "@/types/enums/common-enum";
+import {usePathname} from "next/navigation";
 import usePopup from "@/hooks/usePopup";
-import {IPostAtom, postAtom} from "@/atoms/postAtom";
-import {useRecoilState} from "recoil";
 import useActionAndNavigate from "@/hooks/useActionAndNavigate";
+import styles from './BoardOptionPopup.module.scss';
+import {EElementId, EPopup} from "@/types/enums/common-enum";
 
 const BoardOptionPopup = () => {
+    const pathname = usePathname();
     const actionAndNavigate = useActionAndNavigate();
-    const [rcPost, setRcPost] = useRecoilState<IPostAtom>(postAtom);
     const targetRef = useRef(null);
     const popupController = usePopup();
-
-    const onClick = () => {
-        actionAndNavigate.actionAndNavigate(`/board/${rcPost.slug}/edit`);
-    }
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const onClick = () => actionAndNavigate.actionAndNavigate(`${baseUrl}/${pathname}/edit`);
 
     useEffect(() => {
         const updatePosition = () => {

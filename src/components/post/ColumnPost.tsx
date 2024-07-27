@@ -5,26 +5,11 @@ import Image from 'next/image';
 import Blank from "@/components/blank/Blank";
 import {EBlank} from "@/types/enums/common-enum";
 import {IPostData} from "@/types/interfaces/post-interface";
-import {IPostAtom, postAtom} from "@/atoms/postAtom";
-import {useRecoilState} from "recoil";
 import useActionAndNavigate from "@/hooks/useActionAndNavigate";
-import {userAtom} from "@/atoms/userAtom";
-import {IUser} from "@/types/interfaces/common-interface";
 
 const ColumnPost = (props: IPostData) => {
     const actionAndNavigate = useActionAndNavigate();
-    const [rcPost, setRcPost] = useRecoilState<IPostAtom>(postAtom);
-    const [rcUser, setRcUser] = useRecoilState<IUser>(userAtom);
-
-    const onClick = () => {
-        actionAndNavigate.actionAndNavigate(
-            `/board/${props.slug}`,
-            setRcPost({
-                slug: props.slug,
-                isMe: props.writer === rcUser.userId
-            })
-        )
-    }
+    const onClick = () => actionAndNavigate.actionAndNavigate(`/board/${props.slug}`)
 
     return (
         <div className={styles.baseContainer} onClick={onClick}>

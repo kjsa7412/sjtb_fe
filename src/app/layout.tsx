@@ -12,6 +12,9 @@ import EditProfilePopup from "@/components/popup/EditProfilePopup";
 import SignInPopup from "@/components/popup/SignInPopup";
 import SignUpPopup from "@/components/popup/SignUpPopup";
 import BoardOptionPopup from "@/components/popup/BoardOptionPopup";
+import queryClient from "@/libs/reactQuery";
+import { QueryClientProvider } from 'react-query';
+import ReactQueryWrapper from "@/providers/ReactQueryWrapper";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -34,7 +37,8 @@ export default function RootLayout({children}: Props) {
                 rel="stylesheet"/>
         </head>
         <body>
-            <MainContainer>
+        <MainContainer>
+            <ReactQueryWrapper>
                 <RecoilRootWrapper>
                     <HeaderBase left={[<HeaderLogo/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>
                     {children}
@@ -46,7 +50,8 @@ export default function RootLayout({children}: Props) {
                     <ConfirmPopup/>
                     <NotifyPopup/>
                 </RecoilRootWrapper>
-            </MainContainer>
+            </ReactQueryWrapper>
+        </MainContainer>
         </body>
         </html>
     );

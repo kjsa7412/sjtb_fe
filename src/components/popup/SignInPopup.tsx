@@ -13,8 +13,6 @@ import {ILogin, IUser} from "@/types/interfaces/common-interface";
 import {loginAtom} from "@/atoms/loginAtom";
 import {userAtom} from "@/atoms/userAtom";
 import usePopup from "@/hooks/usePopup";
-import {IPostAtom, postAtom} from "@/atoms/postAtom";
-
 
 const SignInPopup = () => {
     const [rcLogin, setRcLogin] = useRecoilState<ILogin>(loginAtom);

@@ -1,14 +1,12 @@
 'use client';
 
 import styles from './Banner.module.scss';
-import {ILogin, IUser} from "@/types/interfaces/common-interface";
-import {loginAtom} from "@/atoms/loginAtom";
+import {IUser} from "@/types/interfaces/common-interface";
 import {useRecoilState} from "recoil";
 import {userAtom} from "@/atoms/userAtom";
 import {EBannerType, EIcon} from "@/types/enums/common-enum";
 import Icons from "@/components/Icons";
 import BoardOptionButton from "@/components/button/BoardOptionButton";
-import {IPostAtom, postAtom} from "@/atoms/postAtom";
 
 interface IBanner {
     type?: EBannerType,
@@ -21,8 +19,6 @@ interface IBanner {
 }
 
 const Banner = (props: IBanner) => {
-    const [rcPost, setRcPost] = useRecoilState<IPostAtom>(postAtom);
-    const [rcLogin, setRcLogin] = useRecoilState<ILogin>(loginAtom);
     const [rcUser, setRcUser] = useRecoilState<IUser>(userAtom);
 
     return (
@@ -40,7 +36,7 @@ const Banner = (props: IBanner) => {
                             </div>
                             <Icons iconType={EIcon.Avatar} width={'32'} height={'32'} fill={'#C0C0C0'}/>
                             {
-                                rcPost.isMe &&
+                                rcUser.userId === props.writer &&
                                 <BoardOptionButton/>
                             }
                         </div>

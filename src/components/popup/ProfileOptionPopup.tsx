@@ -9,7 +9,6 @@ import {loginAtom} from "@/atoms/loginAtom";
 import usePopup from "@/hooks/usePopup";
 import {IUser} from "@/types/interfaces/common-interface";
 import useActionAndNavigate from "@/hooks/useActionAndNavigate";
-import {postAtom} from "@/atoms/postAtom";
 
 const ProfileOptionPopup = () => {
     const actionAndNavigate = useActionAndNavigate();
@@ -18,13 +17,11 @@ const ProfileOptionPopup = () => {
     const [rcUser, setRcUser] = useRecoilState<IUser>(userAtom);
     const resetRcUserAtom = useResetRecoilState(userAtom);
     const resetRcLoginAtom = useResetRecoilState(loginAtom);
-    const resetRcPostAtom = useResetRecoilState(postAtom);
 
     const signOut = () => {
         actionAndNavigate.actionAndNavigate(`/`);
         resetRcLoginAtom();
         resetRcUserAtom();
-        resetRcPostAtom();
     }
 
     const editProfile = () => {
