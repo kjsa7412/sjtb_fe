@@ -19,7 +19,7 @@ const Search = (props: Props) => {
             <Banner type={EBannerType.Search} title={"Result for " + props.params.keyword}/>
             <BodyContainer>
                 <ContentsContainer>
-                    <SearchPost/>
+                    <SearchPost keyword={props.params.keyword}/>
                 </ContentsContainer>
             </BodyContainer>
         </PageContainer>

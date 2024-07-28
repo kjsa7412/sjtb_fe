@@ -53,12 +53,9 @@
   align-items: flex-start;
   width: 100%;
   flex:1;
-
-  p {
-    font-size: 60px;
-    font-weight: bold;
-    color: $color-white;
-  }
+  font-size: 60px;
+  font-weight: bold;
+  color: $color-white;
 }
 
 .info {

@@ -9,13 +9,11 @@ import Icons from "@/components/Icons";
 import BoardOptionButton from "@/components/button/BoardOptionButton";
 
 interface IBanner {
-    type?: EBannerType,
+    type: EBannerType,
     title: string,
     writer?: string,
-    info?: {
-        date: string,
-        avatar: string
-    }
+    date?: string,
+    avatar?: string
 }
 
 const Banner = (props: IBanner) => {
@@ -32,7 +30,7 @@ const Banner = (props: IBanner) => {
                         (props.type === EBannerType.Read) &&
                         <div className={styles.info}>
                             <div className={styles.date}>
-                                {props.info?.date || ""}
+                                {props.date}
                             </div>
                             <Icons iconType={EIcon.Avatar} width={'32'} height={'32'} fill={'#C0C0C0'}/>
                             {

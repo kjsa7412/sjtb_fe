@@ -22,13 +22,10 @@ interface Props {
 const Post = async (props: Props) => {
     const post = getPostBySlug(props.params.slug);
     const content = await markdownToHtml(post?.content || "");
-
-    console.log("Post : " + props.params.slug);
-
     return (
         <PageContainer>
             <Blank type={EBlank.Header}/>
-            <Banner type={EBannerType.Read} title={post?.title || ""} writer={post?.writer || ""} info={{date: post?.date || "", avatar: ""}}/>
+            <Banner type={EBannerType.Read} title={post?.title || ""} writer={post?.writer || ""} date={post?.date || ""} avatar={""}/>
             <BodyContainer>
                 <ContentsContainer>
                     <ReadPost content={content}/>

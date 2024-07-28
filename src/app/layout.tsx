@@ -15,6 +15,7 @@ import BoardOptionPopup from "@/components/popup/BoardOptionPopup";
 import queryClient from "@/libs/reactQuery";
 import { QueryClientProvider } from 'react-query';
 import ReactQueryWrapper from "@/providers/ReactQueryWrapper";
+import SearchBar from "@/components/searchBar/SearchBar";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -40,7 +41,7 @@ export default function RootLayout({children}: Props) {
         <MainContainer>
             <ReactQueryWrapper>
                 <RecoilRootWrapper>
-                    <HeaderBase left={[<HeaderLogo/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>
+                    <HeaderBase left={[<HeaderLogo/>, <SearchBar/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>
                     {children}
                     <BoardOptionPopup/>
                     <ProfileOptionPopup/>

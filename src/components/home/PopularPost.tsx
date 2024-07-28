@@ -11,7 +11,7 @@ const PopularPost = () => {
             <RowContainer>
                 {
                     allPosts?.map((value, index, array) =>
-                        <ColumnPost {...value}/>
+                        <ColumnPost key={value.writer + value.slug + value.date} {...value}/>
                     )
                 }
             </RowContainer>

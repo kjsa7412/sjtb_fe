@@ -15,7 +15,8 @@ export const enum EIcon {
     Option = "Option",
     Like1 = "Like1",
     Like2 = "Like2",
-    Comment = "Comment"
+    Comment = "Comment",
+    Search = 'Search'
 }
 
 export const enum EBlank {

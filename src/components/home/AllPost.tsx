@@ -12,7 +12,7 @@ const AllPost = () => {
             {
                 allPosts?.map((value, index, array) =>
                     <>
-                        <RowPost {...value}/>
+                        <RowPost key={value.writer + value.slug + value.date} {...value}/>
                         <Blank type={EBlank.Column} size={60}/>
                     </>
                 )

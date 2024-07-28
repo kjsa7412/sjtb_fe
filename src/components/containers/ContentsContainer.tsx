@@ -1,6 +1,5 @@
 import styles from "./ContentsContainer.module.scss";
 
-
 type Props = {
     children: string | React.ReactNode;
 }
