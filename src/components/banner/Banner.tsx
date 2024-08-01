@@ -1,10 +1,12 @@
 'use client';
 
-import styles from './Banner.module.scss';
-import {IUser} from "@/types/interfaces/common-interface";
 import {useRecoilState} from "recoil";
+
+import {IUser} from "@/types/interfaces/common-interface";
 import {userAtom} from "@/atoms/userAtom";
 import {EBannerType, EIcon} from "@/types/enums/common-enum";
+
+import styles from './Banner.module.scss';
 import Icons from "@/components/Icons";
 import BoardOptionButton from "@/components/button/BoardOptionButton";
 
@@ -24,7 +26,7 @@ const Banner = (props: IBanner) => {
             <div className={styles.overlay}>
                 <div className={styles.contentContainer}>
                     <div className={styles.content}>
-                        <p>{props.title}</p>
+                        {props.title}
                     </div>
                     {
                         (props.type === EBannerType.Read) &&
@@ -32,7 +34,7 @@ const Banner = (props: IBanner) => {
                             <div className={styles.date}>
                                 {props.date}
                             </div>
-                            <Icons iconType={EIcon.Avatar} width={'32'} height={'32'} fill={'#C0C0C0'}/>
+                            <Icons iconType={EIcon.Avatar} width={32} height={32} fill={'#C0C0C0'}/>
                             {
                                 rcUser.userId === props.writer &&
                                 <BoardOptionButton/>

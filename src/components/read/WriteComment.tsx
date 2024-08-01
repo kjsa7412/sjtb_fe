@@ -1,6 +1,7 @@
+import {EButtonShape, EButtonSize, EButtonType} from "@/types/enums/common-enum";
+
 import styles from './WriteComment.module.scss';
 import TextButton from "@/components/button/TextButton";
-import {EButtonShape, EButtonSize, EButtonType} from "@/types/enums/common-enum";
 
 const WriteComment = () => {
     return (

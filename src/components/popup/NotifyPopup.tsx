@@ -1,12 +1,13 @@
 'use client';
 
-import styles from './NotifyPopup.module.scss';
 import {EBlank, EButtonShape, EButtonSize, EButtonType, EPopup} from "@/types/enums/common-enum";
+import usePopup from "@/hooks/usePopup";
+
+import styles from './NotifyPopup.module.scss';
 import CloseButton from "@/components/button/CloseButton";
 import TextButton from "@/components/button/TextButton";
 import Blank from "@/components/blank/Blank";
 import Overlay from "@/components/overlay/Overlay";
-import usePopup from "@/hooks/usePopup";
 
 const NotifyPopup = () => {
     const popupController = usePopup();

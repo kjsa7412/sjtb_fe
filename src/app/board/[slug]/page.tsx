@@ -1,8 +1,10 @@
-import Blank from "@/components/blank/Blank";
 import {EBannerType, EBlank} from "@/types/enums/common-enum";
+import {getPostBySlug} from "@/utils/postUtil";
+import markdownToHtml from "@/utils/markdownToHtml";
+
+import Blank from "@/components/blank/Blank";
 import PageContainer from "@/components/containers/PageContainer";
 import Banner from "@/components/banner/Banner";
-import {getPostBySlug} from "@/utils/postUtil";
 import WriterInfo from "@/components/read/WriterInfo";
 import ContentsContainer from "@/components/containers/ContentsContainer";
 import BodyContainer from "@/components/containers/BodyContainer";
@@ -11,13 +13,12 @@ import Reaction from "@/components/read/Reaction";
 import WriteComment from "@/components/read/WriteComment";
 import ReadComment from "@/components/read/ReadComment";
 import ReadPost from "@/components/read/ReadPost";
-import markdownToHtml from "@/utils/markdownToHtml";
 
 interface Props {
     params: {
         slug: string
     }
-};
+}
 
 const Post = async (props: Props) => {
     const post = getPostBySlug(props.params.slug);

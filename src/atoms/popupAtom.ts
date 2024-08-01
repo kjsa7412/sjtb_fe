@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+
 import {IPopupData, IPopupState} from "@/types/interfaces/popup-interface";
 
 export const popupState = atom<IPopupState>({

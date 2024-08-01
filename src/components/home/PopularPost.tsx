@@ -1,7 +1,8 @@
+import {getAllPosts} from "@/utils/postUtil";
+
 import Label from "@/components/label/Label";
 import RowContainer from "@/components/containers/RowContainer";
 import ColumnPost from "@/components/post/ColumnPost";
-import {getAllPosts} from "@/utils/postUtil";
 
 const PopularPost = () => {
     const allPosts = getAllPosts();

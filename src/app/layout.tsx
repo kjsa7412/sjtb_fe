@@ -1,20 +1,20 @@
 import React from "react";
-import type {Metadata} from "next";
+
 import "@/styles/globals.scss";
+import RecoilRootWrapper from "@/providers/RecoilWrapper";
+import ReactQueryWrapper from "@/providers/ReactQueryWrapper";
+import type {Metadata} from "next";
+
 import HeaderBase from "@/components/header/HeaderBase";
 import {HeaderAction, HeaderLogo, HeaderProfile} from "@/components/header/HeaderItem";
 import MainContainer from "@/components/containers/MainContainer";
 import ProfileOptionPopup from "@/components/popup/ProfileOptionPopup";
-import RecoilRootWrapper from "@/providers/RecoilWrapper";
 import ConfirmPopup from "@/components/popup/ConfirmPopup";
 import NotifyPopup from "@/components/popup/NotifyPopup";
 import EditProfilePopup from "@/components/popup/EditProfilePopup";
 import SignInPopup from "@/components/popup/SignInPopup";
 import SignUpPopup from "@/components/popup/SignUpPopup";
 import BoardOptionPopup from "@/components/popup/BoardOptionPopup";
-import queryClient from "@/libs/reactQuery";
-import { QueryClientProvider } from 'react-query';
-import ReactQueryWrapper from "@/providers/ReactQueryWrapper";
 import SearchBar from "@/components/searchBar/SearchBar";
 
 export const metadata: Metadata = {
@@ -41,6 +41,7 @@ export default function RootLayout({children}: Props) {
         <MainContainer>
             <ReactQueryWrapper>
                 <RecoilRootWrapper>
+                    {/* eslint-disable-next-line react/jsx-key */}
                     <HeaderBase left={[<HeaderLogo/>, <SearchBar/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>
                     {children}
                     <BoardOptionPopup/>

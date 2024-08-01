@@ -1,14 +1,16 @@
 'use client';
 
-import styles from "./ProfileOptionPopup.module.scss";
 import {useRecoilState, useResetRecoilState} from "recoil";
 import {useEffect, useRef} from "react";
+
 import {EElementId, EPopup} from "@/types/enums/common-enum";
 import {userAtom} from "@/atoms/userAtom";
 import {loginAtom} from "@/atoms/loginAtom";
 import usePopup from "@/hooks/usePopup";
 import {IUser} from "@/types/interfaces/common-interface";
 import useActionAndNavigate from "@/hooks/useActionAndNavigate";
+
+import styles from "./ProfileOptionPopup.module.scss";
 
 const ProfileOptionPopup = () => {
     const actionAndNavigate = useActionAndNavigate();
@@ -36,15 +38,20 @@ const ProfileOptionPopup = () => {
     useEffect(() => {
         const updatePosition = () => {
             const targetElement = document.getElementById(EElementId.HeaderProfile);
-            if (targetElement) {
-                const rect = targetElement.getBoundingClientRect();
-                const thisRect = targetRef.current.getBoundingClientRect();
+
+            if (targetElement && targetRef.current) {
+                const element = targetRef.current as HTMLDivElement;
+                const thisRect = element.getBoundingClientRect();
+                const targetRect = targetElement.getBoundingClientRect();
+
                 popupController.openPopup(EPopup.ProfileOption, {
                     position: {
-                        top: rect.bottom - 10,
-                        left: rect.left - thisRect.width + 30
-                    }
+                        top: targetRect.bottom - 10,
+                        left: targetRect.left - thisRect.width + 30,
+                    },
                 });
+            } else {
+                popupController.openPopup(EPopup.ProfileOption);
             }
         };
 
@@ -65,16 +72,16 @@ const ProfileOptionPopup = () => {
                     top: popupController.getPopupData(EPopup.ProfileOption).position.top,
                     left: popupController.getPopupData(EPopup.ProfileOption).position.left
                 }}>
-                    <div className={styles.itemContainer} onClick={editProfile}>
+                    <button className={styles.itemContainer} onClick={editProfile}>
                         Profile
-                    </div>
-                    <div className={styles.itemContainer} onClick={onClick}>
+                    </button>
+                    <button className={styles.itemContainer} onClick={onClick}>
                         Posts
-                    </div>
+                    </button>
                     <div className={styles.line}/>
-                    <div className={styles.itemContainer} onClick={signOut}>
+                    <button className={styles.itemContainer} onClick={signOut}>
                         Sign Out
-                    </div>
+                    </button>
                 </div>
             }
         </>

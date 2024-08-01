@@ -1,6 +1,7 @@
 'use client';
 
 import { QueryClientProvider } from 'react-query';
+
 import queryClient from "@/libs/reactQuery";
 
 interface ReactQueryWrapperProps {

@@ -1,5 +1,7 @@
 import {atom} from "recoil";
+
 import {IUser} from "@/types/interfaces/common-interface";
+
 import localStorageEffect from './localStorageEffect';
 
 export const userAtom = atom<IUser>({

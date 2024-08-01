@@ -1,12 +1,13 @@
 'use client';
 
-
 import {useEffect, useRef} from "react";
 import {usePathname} from "next/navigation";
+
 import usePopup from "@/hooks/usePopup";
 import useActionAndNavigate from "@/hooks/useActionAndNavigate";
-import styles from './BoardOptionPopup.module.scss';
 import {EElementId, EPopup} from "@/types/enums/common-enum";
+
+import styles from './BoardOptionPopup.module.scss';
 
 const BoardOptionPopup = () => {
     const pathname = usePathname();
@@ -21,13 +22,20 @@ const BoardOptionPopup = () => {
             const targetElement = document.getElementById(EElementId.BoardOption);
             if (targetElement) {
                 const rect = targetElement.getBoundingClientRect();
-                const thisRect = targetRef.current.getBoundingClientRect();
-                popupController.openPopup(EPopup.BoardOption, {
-                    position: {
-                        top: rect.bottom - 10,
-                        left: rect.left - thisRect.width + 30
-                    }
-                });
+
+                if(targetRef.current) {
+                    const element = targetRef.current as HTMLDivElement;
+                    const thisRect = element.getBoundingClientRect();
+                    popupController.openPopup(EPopup.BoardOption, {
+                        position: {
+                            top: rect.bottom - 10,
+                            left: rect.left - thisRect.width + 30
+                        }
+                    });
+                }
+                else {
+                    popupController.openPopup(EPopup.BoardOption);
+                }
             }
         };
 
@@ -43,14 +51,15 @@ const BoardOptionPopup = () => {
 
     return (
         <>
-            {popupController.isPopupOpen(EPopup.BoardOption) &&
+            {
+                popupController.isPopupOpen(EPopup.BoardOption) &&
                 <div ref={targetRef} className={styles.baseContainer} style={{
                     top: popupController.getPopupData(EPopup.BoardOption).position.top,
                     left: popupController.getPopupData(EPopup.BoardOption).position.left
                 }}>
-                    <div className={styles.itemContainer} onClick={onClick}>
+                    <button className={styles.itemContainer} onClick={onClick}>
                         Edit Board
-                    </div>
+                    </button>
                     <div className={styles.line}/>
                     <div className={`${styles.itemContainer} ${styles.warn}`}>
                         Delete Board

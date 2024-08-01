@@ -1,7 +1,8 @@
+import {EBlank} from "@/types/enums/common-enum";
+
 import styles from './TagList.module.scss';
 import Tag from "@/components/read/Tag";
 import Blank from "@/components/blank/Blank";
-import {EBlank} from "@/types/enums/common-enum";
 
 const TagList = () => {
     return(

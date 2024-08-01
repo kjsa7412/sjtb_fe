@@ -1,10 +1,12 @@
 'use client';
 
+import {useState} from "react";
+
+import {EIcon} from "@/types/enums/common-enum";
+import useActionAndNavigate from "@/hooks/useActionAndNavigate";
+
 import styles from './SearchBar.module.scss';
 import Icons from "@/components/Icons";
-import {EIcon} from "@/types/enums/common-enum";
-import {useState} from "react";
-import useActionAndNavigate from "@/hooks/useActionAndNavigate";
 
 const SearchBar = () => {
     const [query, setQuery] = useState('');
@@ -25,9 +27,9 @@ const SearchBar = () => {
     return (
         <div className={styles.baseContainer}>
             <div className={styles.inputContainer}>
-                <div className={styles.buttonContainer} onClick={handleSearch}>
-                    <Icons iconType={EIcon.Search} fill={'#929292'} width={'20'} height={'20'}/>
-                </div>
+                <button className={styles.buttonContainer} onClick={handleSearch}>
+                    <Icons iconType={EIcon.Search} fill={'#929292'} width={20} height={20}/>
+                </button>
                 <input className={styles.input}
                        type="text"
                        value={query}

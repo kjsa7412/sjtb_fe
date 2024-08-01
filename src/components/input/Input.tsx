@@ -1,8 +1,10 @@
 'use client';
 
-import styles from './Input.module.scss';
-import {EInputShape} from "@/types/enums/common-enum";
 import {Controller, useFormContext, FieldValues, FieldPath} from "react-hook-form";
+
+import {EInputShape} from "@/types/enums/common-enum";
+
+import styles from './Input.module.scss';
 
 interface IInput<TFieldValues extends FieldValues> {
     formDataName: FieldPath<TFieldValues>,

@@ -1,5 +1,6 @@
-import {IPopupData} from "@/types/interfaces/popup-interface";
 import {useRecoilState, useResetRecoilState} from "recoil";
+
+import {IPopupData, IPopupDataDetail, IPopupState} from "@/types/interfaces/popup-interface";
 import {popupData, popupState} from "@/atoms/popupAtom";
 import {EPopup} from "@/types/enums/common-enum";
 
@@ -9,9 +10,9 @@ const usePopup = () => {
     const resetPopupState = useResetRecoilState(popupState);
     const resetPopupData = useResetRecoilState(popupData);
 
-    const openPopup = (popupName:EPopup, data?:IPopupData) => {
+    const openPopup = (popupName:EPopup, popupValue?:IPopupDataDetail) => {
         setState((prev) => ({ ...prev, [popupName]: true }));
-        setData((prev) => ({ ...prev, [popupName]: data }));
+        setData((prev) => ({ ...prev, [popupName]: popupValue }));
     };
 
     const closePopup = (popupName:EPopup) => {
@@ -19,9 +20,9 @@ const usePopup = () => {
         setData((prev) => ({ ...prev, [popupName]: undefined }));
     };
 
-    const isPopupOpen = (popupName) => state[popupName];
+    const isPopupOpen = (popupName: EPopup) => state[popupName as keyof IPopupState];
 
-    const getPopupData = (popupName) => data[popupName];
+    const getPopupData = (popupName: EPopup): IPopupDataDetail | any => data[popupName as keyof IPopupData];
 
     const closeAll = () => {
         resetPopupState();

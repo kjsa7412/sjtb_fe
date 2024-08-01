@@ -1,4 +1,5 @@
 import {EBannerType, EBlank} from "@/types/enums/common-enum";
+
 import PageContainer from "@/components/containers/PageContainer";
 import Blank from "@/components/blank/Blank";
 import Banner from "@/components/banner/Banner";

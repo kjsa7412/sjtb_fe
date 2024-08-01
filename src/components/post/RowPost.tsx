@@ -1,18 +1,20 @@
 'use client';
 
-import styles from './RowPost.module.scss';
 import Image from 'next/image';
-import Blank from "@/components/blank/Blank";
+
 import {EBlank} from "@/types/enums/common-enum";
 import {IPostData} from "@/types/interfaces/post-interface";
 import useActionAndNavigate from "@/hooks/useActionAndNavigate";
+
+import Blank from "@/components/blank/Blank";
+import styles from './RowPost.module.scss';
 
 const RowPost = (props: IPostData) => {
     const actionAndNavigate = useActionAndNavigate();
     const onClick = () => actionAndNavigate.actionAndNavigate(`/board/${props.slug}`)
 
     return (
-        <div className={styles.baseContainer} onClick={onClick}>
+        <button className={styles.baseContainer} onClick={onClick}>
             <div className={styles.thumbnail}>
                 <Image src={`${props.coverImage}`} alt='' fill style={{objectFit: 'cover'}}/>
             </div>
@@ -28,7 +30,7 @@ const RowPost = (props: IPostData) => {
                     {`${props.date} | ${props.writer}`}
                 </div>
             </div>
-        </div>
+        </button>
     )
 }
 

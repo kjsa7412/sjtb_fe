@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from 'react-query';
+
 import axiosInstance from "@/libs/axios";
 
 const fetchAuthStatus = async () => {

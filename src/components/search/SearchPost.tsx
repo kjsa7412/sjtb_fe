@@ -1,13 +1,15 @@
 'use client';
 
-import Label from "@/components/label/Label";
-import {getAllPosts} from "@/utils/postUtil";
-import RowPost from "@/components/post/RowPost";
-import Blank from "@/components/blank/Blank";
-import {EBlank} from "@/types/enums/common-enum";
-import axiosInstance from "@/libs/axios";
 import {useEffect, useState} from "react";
 import {useQuery} from "react-query";
+
+import {EBlank} from "@/types/enums/common-enum";
+import axiosInstance from "@/libs/axios";
+import {IPost, IPostData} from "@/types/interfaces/post-interface";
+
+import Label from "@/components/label/Label";
+import RowPost from "@/components/post/RowPost";
+import Blank from "@/components/blank/Blank";
 
 const searchAPI = (searchTerm: string) => {
     return axiosInstance.get('/api/search', {
@@ -16,8 +18,8 @@ const searchAPI = (searchTerm: string) => {
 };
 
 const SearchPost = ({keyword}: { keyword: string }) => {
-    const allPosts = [];
-    const [data, setData] = useState([]);
+    const allPosts: IPostData[] = [];
+    const [data, setData] = useState<{slug: string}[]>();
 
     const result_searchAPI = useQuery(
         ["result_searchAPI"],
@@ -32,8 +34,6 @@ const SearchPost = ({keyword}: { keyword: string }) => {
 
     useEffect(() => {
         result_searchAPI.refetch();
-        return () => {
-        }
     }, [keyword])
 
     return (
@@ -48,9 +48,9 @@ const SearchPost = ({keyword}: { keyword: string }) => {
                 )
             }
             {
-                data.map((value) => {
+                data?.map((value, index) => {
                     return (
-                        <p>{value.slug}</p>
+                        <p key={index}>{value.slug}</p>
                     )
                 })
             }

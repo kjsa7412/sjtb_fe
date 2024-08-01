@@ -1,4 +1,5 @@
 import markdownStyles from '@/styles/_markdown.module.scss';
+
 import styles from './ReadPost.module.scss';
 
 type Props = {

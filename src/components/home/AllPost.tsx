@@ -1,8 +1,10 @@
-import Label from "@/components/label/Label";
 import {getAllPosts} from "@/utils/postUtil";
+import {EBlank} from "@/types/enums/common-enum";
+
+import Label from "@/components/label/Label";
 import RowPost from "@/components/post/RowPost";
 import Blank from "@/components/blank/Blank";
-import {EBlank} from "@/types/enums/common-enum";
+
 
 const AllPost = () => {
     const allPosts = getAllPosts();

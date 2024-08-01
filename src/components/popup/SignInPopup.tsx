@@ -1,18 +1,20 @@
 'use client';
 
-import styles from './SignInPopup.module.scss';
-import CloseButton from "@/components/button/CloseButton";
-import TextButton from "@/components/button/TextButton";
-import {EButtonShape, EButtonSize, EButtonType, EInputShape, EPopup} from "@/types/enums/common-enum";
 import {useRecoilState} from "recoil";
-import Overlay from "@/components/overlay/Overlay";
 import {FormProvider, useForm} from 'react-hook-form';
-import Input from "@/components/input/Input";
 import {useEffect} from "react";
+
+import {EButtonShape, EButtonSize, EButtonType, EInputShape, EPopup} from "@/types/enums/common-enum";
 import {ILogin, IUser} from "@/types/interfaces/common-interface";
 import {loginAtom} from "@/atoms/loginAtom";
 import {userAtom} from "@/atoms/userAtom";
 import usePopup from "@/hooks/usePopup";
+
+import Input from "@/components/input/Input";
+import Overlay from "@/components/overlay/Overlay";
+import TextButton from "@/components/button/TextButton";
+import CloseButton from "@/components/button/CloseButton";
+import styles from './SignInPopup.module.scss';
 
 const SignInPopup = () => {
     const [rcLogin, setRcLogin] = useRecoilState<ILogin>(loginAtom);
@@ -39,12 +41,12 @@ const SignInPopup = () => {
         const data = methods.getValues();
 
         if (!data.id) {
-            popupController.openPopup(EPopup.Notify, {title: "로그인 실패", desc: "유저아이디 정보를 확인해주세요."});
+            popupController.openPopup(EPopup.Notify, {contents: {title: "로그인 실패", desc: "유저아이디 정보를 확인해주세요."}});
             return;
         }
 
         if (!data.pw) {
-            popupController.openPopup(EPopup.Notify, {title: "로그인 실패", desc: "비민번호를 확인해주세요."});
+            popupController.openPopup(EPopup.Notify, {contents: {title: "로그인 실패", desc: "비민번호를 확인해주세요."}});
             return;
         }
 

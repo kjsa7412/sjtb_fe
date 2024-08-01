@@ -1,5 +1,6 @@
-import styles from './Blank.module.scss';
 import {EBlank} from "@/types/enums/common-enum";
+
+import styles from './Blank.module.scss';
 
 interface Props {
     type: EBlank,

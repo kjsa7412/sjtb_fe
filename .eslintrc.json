@@ -12,7 +12,8 @@
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
     "eslint-config-prettier",
-    "next/core-web-vitals"
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended"
   ],
   "globals": {
     "NodeJS": true
@@ -53,7 +54,7 @@
     "react/prop-types": "off",
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
-    "no-restricted-exports": ["error", { "restrictDefaultExports": { "defaultFrom": false } }],
+    "no-restricted-exports": ["error", { "restrictedNamedExports": ["default"] }],
     "import/order": [
       "error",
       {
@@ -117,7 +118,6 @@
     ],
     "import/extensions": [
       "error",
-      "ignorePackages",
       {
         "js": "never",
         "jsx": "never",

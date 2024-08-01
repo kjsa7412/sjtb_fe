@@ -1,12 +1,13 @@
 'use client';
 
+import {EBlank, EButtonShape, EButtonSize, EButtonType, EPopup} from "@/types/enums/common-enum";
+import usePopup from "@/hooks/usePopup";
+
 import styles from './ConfirmPopup.module.scss';
 import CloseButton from "@/components/button/CloseButton";
 import TextButton from "@/components/button/TextButton";
-import {EBlank, EButtonShape, EButtonSize, EButtonType, EPopup} from "@/types/enums/common-enum";
 import Blank from "@/components/blank/Blank";
 import Overlay from "@/components/overlay/Overlay";
-import usePopup from "@/hooks/usePopup";
 
 const ConfirmPopup = () => {
     const popupController = usePopup();

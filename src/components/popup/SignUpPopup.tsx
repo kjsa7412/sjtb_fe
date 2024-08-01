@@ -1,14 +1,16 @@
 'use client';
 
+import {FormProvider, useForm} from 'react-hook-form';
+import {useEffect} from "react";
+
+import {EButtonShape, EButtonSize, EButtonType, EInputShape, EPopup} from "@/types/enums/common-enum";
+import usePopup from "@/hooks/usePopup";
+
 import styles from './SignUpPopup.module.scss';
 import CloseButton from "@/components/button/CloseButton";
 import TextButton from "@/components/button/TextButton";
-import {EButtonShape, EButtonSize, EButtonType, EInputShape, EPopup} from "@/types/enums/common-enum";
 import Overlay from "@/components/overlay/Overlay";
-import {FormProvider, useForm} from 'react-hook-form';
 import Input from "@/components/input/Input";
-import {useEffect} from "react";
-import usePopup from "@/hooks/usePopup";
 
 const SignUpPopup = () => {
     const popupController = usePopup();

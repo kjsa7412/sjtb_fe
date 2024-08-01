@@ -1,14 +1,15 @@
 import React from "react";
+
 import {EIcon} from "@/types/enums/common-enum";
 
 interface Props {
     iconType: EIcon;
     fill?: string;
-    width?: string;
-    height?: string;
+    width?: number;
+    height?: number;
 }
 
-const Icons = ({iconType, fill = "black", width = "16", height = "16"}: Props): JSX.Element => {
+const Icons = ({iconType, fill = "black", width = 16, height = 16}: Props): JSX.Element => {
     return (
         <svg clipRule="evenodd" viewBox={`0 0 ${width} ${height}`}
              xmlns="http://www.w3.org/2000/svg" width={width} height={height}>

@@ -1,7 +1,8 @@
 'use client';
 
-import styles from "@/components/footer/FooterItem.module.scss";
 import useActionAndNavigate from "@/hooks/useActionAndNavigate";
+
+import styles from "@/components/footer/FooterItem.module.scss";
 
 export const FooterLogo = () => {
     const actionAndNavigate = useActionAndNavigate();
@@ -10,8 +11,8 @@ export const FooterLogo = () => {
         actionAndNavigate.actionAndNavigate(`/`);
     }
     return (
-        <div className={styles.logoContainer} onClick={onClick}>
+        <button className={styles.logoContainer} onClick={onClick}>
             <p>TECH BLOG</p>
-        </div>
+        </button>
     );
 };

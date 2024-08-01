@@ -1,14 +1,16 @@
 'use client';
 
-import styles from "./HeaderItem.module.scss";
-import Icons from "@/components/Icons";
-import {EElementId, EIcon, EPopup} from "@/types/enums/common-enum";
 import {useRecoilState} from "recoil";
 import {useEffect, useRef, useState} from "react";
+
+import {EElementId, EIcon, EPopup} from "@/types/enums/common-enum";
 import {ILogin} from "@/types/interfaces/common-interface";
 import {loginAtom} from "@/atoms/loginAtom";
 import usePopup from "@/hooks/usePopup";
 import useActionAndNavigate from "@/hooks/useActionAndNavigate";
+
+import Icons from "@/components/Icons";
+import styles from "./HeaderItem.module.scss";
 
 export const HeaderLogo = () => {
     const actionAndNavigate = useActionAndNavigate();
@@ -17,9 +19,9 @@ export const HeaderLogo = () => {
         actionAndNavigate.actionAndNavigate(`/`);
     }
     return (
-        <div className={styles.logoContainer} onClick={onClick}>
+        <button className={styles.logoContainer} onClick={onClick}>
             <p>TECH BLOG</p>
-        </div>
+        </button>
     );
 };
 
@@ -32,8 +34,14 @@ export const HeaderProfile = () => {
         if (popupController.isPopupOpen(EPopup.ProfileOption)) {
             popupController.closePopup(EPopup.ProfileOption);
         } else {
-            const rect = targetRef.current.getBoundingClientRect();
-            popupController.openPopup(EPopup.ProfileOption, {position: {top: rect.bottom, left: rect.left}})
+            if(targetRef.current) {
+                const element = targetRef.current as HTMLDivElement;
+                const rect = element.getBoundingClientRect();
+                popupController.openPopup(EPopup.ProfileOption, {position: {top: rect.bottom, left: rect.left}})
+            }
+            else {
+                popupController.openPopup(EPopup.ProfileOption);
+            }
         }
     };
 
@@ -46,9 +54,9 @@ export const HeaderProfile = () => {
     };
 
     return (
-        <div id={EElementId.HeaderProfile} ref={targetRef} className={styles.profileContainer} onClick={onClick}>
-            <Icons iconType={EIcon.Avatar} width={'32'} height={'32'} fill={'#C0C0C0'}/>
-        </div>
+        <button id={EElementId.HeaderProfile} ref={targetRef} className={styles.profileContainer} onClick={onClick}>
+            <Icons iconType={EIcon.Avatar} width={32} height={32} fill={'#C0C0C0'}/>
+        </button>
     )
 }
 
@@ -63,10 +71,10 @@ export const HeaderAction = () => {
         <>
             {
                 rcLogin.isLogin &&
-                <div className={styles.actionContainer}
+                <button className={styles.actionContainer}
                      onClick={() => actionAndNavigate.actionAndNavigate('/board/new')}>
                     {action}
-                </div>
+                </button>
             }
         </>
     )

@@ -1,10 +1,12 @@
 'use client';
 
-import PageContainer from "@/components/containers/PageContainer";
-import { EBlank } from "@/types/enums/common-enum";
-import Blank from "@/components/blank/Blank";
 import {usePathname, } from "next/navigation";
 import {useEffect, useState} from "react";
+
+import { EBlank } from "@/types/enums/common-enum";
+
+import PageContainer from "@/components/containers/PageContainer";
+import Blank from "@/components/blank/Blank";
 
 const Edit = () => {
     const pathname = usePathname();

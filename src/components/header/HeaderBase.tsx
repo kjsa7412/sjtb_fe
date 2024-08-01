@@ -9,12 +9,12 @@ const HeaderBase = ({left = [], right = []}: Props) => {
     return (
         <div className={styles.baseContainer}>
             <div className={styles.leftContainer}>
-                {!!left && left.map((value) =>
+                {!!left && left.map((value, index) =>
                     value
                 )}
             </div>
             <div className={styles.rightContainer}>
-                {!!right && right.map((value) =>
+                {!!right && right.map((value, index) =>
                     value
                 )}
             </div>

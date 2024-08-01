@@ -1,6 +1,7 @@
+import {EBannerType, EBlank} from "@/types/enums/common-enum";
+
 import PageContainer from "@/components/containers/PageContainer";
 import Blank from "@/components/blank/Blank";
-import {EBannerType, EBlank} from "@/types/enums/common-enum";
 import Banner from "@/components/banner/Banner";
 import ContentsContainer from "@/components/containers/ContentsContainer";
 import BodyContainer from "@/components/containers/BodyContainer";
@@ -10,7 +11,7 @@ interface Props {
     params: {
         keyword: string
     }
-};
+}
 
 const Search = (props: Props) => {
     return(
