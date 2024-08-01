@@ -8,7 +8,7 @@ import {useEffect, useState} from "react";
 
 const Edit = () => {
     const pathname = usePathname();
-    const [slug, setSlug] = useState(null);
+    const [slug, setSlug] = useState<string>("");
     const [post, setPost] = useState(null);
 
     useEffect(() => {
