@@ -23,6 +23,11 @@ const Banner = (props: IBanner) => {
 
     return (
         <div className={styles.baseContainer}>
+            <div className={styles.imageWrapper}>
+                <div
+                    className={styles.backgroundImage}
+                />
+            </div>
             <div className={styles.overlay}>
                 <div className={styles.contentContainer}>
                     <div className={styles.content}>
