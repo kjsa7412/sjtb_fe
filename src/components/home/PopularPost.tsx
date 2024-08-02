@@ -3,6 +3,7 @@ import {getAllPosts} from "@/utils/postUtil";
 import Label from "@/components/label/Label";
 import RowContainer from "@/components/containers/RowContainer";
 import ColumnPost from "@/components/post/ColumnPost";
+import ColumnPostMotion from "@/components/post/ColumnPostMotion";
 
 const PopularPost = () => {
     const allPosts = getAllPosts();
@@ -12,7 +13,8 @@ const PopularPost = () => {
             <RowContainer>
                 {
                     allPosts?.map((value, index, array) =>
-                        <ColumnPost key={value.writer + value.slug + value.date} {...value}/>
+                        //<ColumnPost key={value.writer + value.slug + value.date} {...value}/>
+                        <ColumnPostMotion key={value.writer + value.slug + value.date} {...value}  totalPosts={allPosts.length}/>
                     )
                 }
             </RowContainer>

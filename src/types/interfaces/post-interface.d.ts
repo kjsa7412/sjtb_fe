@@ -23,4 +23,5 @@ export interface IPostData {
     };
     content: string;
     preview?: boolean;
+    totalPosts?: number;
 }
