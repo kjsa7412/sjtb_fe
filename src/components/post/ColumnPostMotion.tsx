@@ -36,7 +36,7 @@ const ColumnPostMotion = (props: IPostData) => {
             onClick={onClick}
         >
             <Image src={`${!!props.coverImage ? props.coverImage : "/images/banner.jpg"}`} alt='' fill
-                   style={{objectFit: 'cover'}}/>
+                   style={{objectFit: 'cover', borderRadius: '10px'}}/>
             <div className={styles.overlay}/>
             <div className={styles.infoContainer}>
                 <p className={styles.title}>{props.title}</p>

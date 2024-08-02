@@ -1,5 +1,10 @@
 @import "@/styles/variables.module.scss";
 
+$transition-duration: 0.5s;
+$transition-ease: ease;
+$background-overlay: rgba(0, 0, 0, 0.3);
+$background-overlay-hover: rgba(0, 0, 0, 0.5);
+
 .baseContainer {
   display: flex;
   flex-direction: row;
@@ -11,24 +16,20 @@
 .postContainer {
   position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  width: calc(100% / var(--post-count));
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex: 1;
   height: 388px;
   margin-right: 10px;
-  transition: width 0.5s ease;
+  transition: flex $transition-duration $transition-ease;
 
   &:hover {
-    width: calc(100% / var(--post-count) * 3);
-  }
-
-  &:not(:hover) {
-    width: calc(100% / var(--post-count));
+    flex: 3;
   }
 
   &:last-child {
-    margin-right: 0px;
+    margin-right: 0;
   }
 }
 
@@ -42,12 +43,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: $background-overlay;
   border-radius: 10px;
-  transition: background 0.5s ease;
+  transition: background $transition-duration $transition-ease;
 
   .postContainer:hover & {
-    background: rgba(0, 0, 0, 0.5);
+    background: $background-overlay-hover;
   }
 }
 
@@ -75,19 +76,3 @@
 .excerpt {
   padding-top: 20px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
