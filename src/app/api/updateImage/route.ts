@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import globalState from "@/server/GlobalState";
 
 
-const ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY; // Unsplash API 키
+const ACCESS_KEY = process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY; // Unsplash API 키
 
 async function fetchImage(topic: string, perPage: number) {
     try {
