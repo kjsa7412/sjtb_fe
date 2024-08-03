@@ -1,10 +1,14 @@
 'use client';
 
 import {useRecoilState} from "recoil";
+import {useQuery} from "react-query";
 
 import {IUser} from "@/types/interfaces/common-interface";
 import {userAtom} from "@/atoms/userAtom";
 import {EBannerType, EIcon} from "@/types/enums/common-enum";
+import {EQuerykey} from "@/types/enums/querykey-enum";
+import axiosInstance from "@/libs/axios";
+import {bannerAtom} from "@/atoms/bannerAtom";
 
 import styles from './Banner.module.scss';
 import Icons from "@/components/Icons";
@@ -20,13 +24,38 @@ interface IBanner {
 
 const Banner = (props: IBanner) => {
     const [rcUser, setRcUser] = useRecoilState<IUser>(userAtom);
+    const [rcBanner, setRcBanner] = useRecoilState<IBanner>(bannerAtom);
+
+    const resUpdateImage = useQuery(
+        [EQuerykey.UPDATE_IMAGE],
+        () => axiosInstance.get('/api/updateImage', {
+            params: {topic: "office", perPage: 30}
+        }),
+        {
+            onSuccess: (data) => {
+                !!data?.data?.imageUrl &&
+                (rcBanner.bannerUrl !== data.data.imageUrl) &&
+                setRcBanner({bannerUrl: data.data.imageUrl});
+            }
+        }
+    )
 
     return (
         <div className={styles.baseContainer}>
             <div className={styles.imageWrapper}>
-                <div
-                    className={styles.backgroundImage}
-                />
+                {
+                    resUpdateImage.status !== 'success' ||
+                    resUpdateImage.isFetching === true ? (
+                        <div
+                            className={styles.backgroundImage}
+                        />
+                    ) : (
+                        <div
+                            className={styles.backgroundImage}
+                            style={{backgroundImage: `url(${rcBanner.bannerUrl})`}}
+                        />
+                    )
+                }
             </div>
             <div className={styles.overlay}>
                 <div className={styles.contentContainer}>
