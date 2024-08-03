@@ -2,7 +2,7 @@
 
 import {useRecoilState, useResetRecoilState} from "recoil";
 import {useQuery} from "react-query";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 import {IBannerAtom, IUser} from "@/types/interfaces/common-interface";
 import {userAtom} from "@/atoms/userAtom";
@@ -26,6 +26,7 @@ interface IBanner {
 const Banner = (props: IBanner) => {
     const [rcUser, setRcUser] = useRecoilState<IUser>(userAtom);
     const [rcBanner, setRcBanner] = useRecoilState<IBannerAtom>(bannerAtom);
+    const [backgroundImage, setBackgroundImage] = useState('');
 
     const resUpdateImage = useQuery(
         [EQuerykey.UPDATE_IMAGE],
@@ -42,12 +43,18 @@ const Banner = (props: IBanner) => {
         }
     )
 
+    useEffect(() => {
+        if (rcBanner.bannerUrl) {
+            setBackgroundImage(`url(${rcBanner.bannerUrl})`);
+        }
+    }, [rcBanner.bannerUrl]);
+
     return (
         <div className={styles.baseContainer}>
             <div className={styles.imageWrapper}>
                 <div
                     className={styles.backgroundImage}
-                    style={{backgroundImage: `url(${rcBanner.bannerUrl})`}}
+                    style={{backgroundImage}}
                 />
             </div>
             <div className={styles.overlay}>
