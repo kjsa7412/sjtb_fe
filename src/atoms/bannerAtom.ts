@@ -1,9 +1,9 @@
 import {atom} from "recoil";
 
-import {IBanner} from "@/types/interfaces/common-interface";
+import {IBannerAtom} from "@/types/interfaces/common-interface";
 import localStorageEffect from "@/atoms/localStorageEffect";
 
-export const bannerAtom = atom<IBanner>({
+export const bannerAtom = atom<IBannerAtom>({
     key: 'bannerAtom',
     default: {
         bannerUrl : '/images/building02.jpg'

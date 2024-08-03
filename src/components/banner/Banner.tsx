@@ -3,7 +3,7 @@
 import {useRecoilState} from "recoil";
 import {useQuery} from "react-query";
 
-import {IUser} from "@/types/interfaces/common-interface";
+import {IBannerAtom, IUser} from "@/types/interfaces/common-interface";
 import {userAtom} from "@/atoms/userAtom";
 import {EBannerType, EIcon} from "@/types/enums/common-enum";
 import {EQuerykey} from "@/types/enums/querykey-enum";
@@ -24,7 +24,7 @@ interface IBanner {
 
 const Banner = (props: IBanner) => {
     const [rcUser, setRcUser] = useRecoilState<IUser>(userAtom);
-    const [rcBanner, setRcBanner] = useRecoilState<IBanner>(bannerAtom);
+    const [rcBanner, setRcBanner] = useRecoilState<IBannerAtom>(bannerAtom);
 
     const resUpdateImage = useQuery(
         [EQuerykey.UPDATE_IMAGE],

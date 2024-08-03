@@ -2,7 +2,7 @@ export interface ILogin {
     isLogin: boolean;
 }
 
-export interface IBanner {
+export interface IBannerAtom {
     bannerUrl: string;
 }
 

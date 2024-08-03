@@ -7,7 +7,7 @@ import globalState from "@/server/GlobalState";
 
 const ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY; // Unsplash API 키
 
-async function fetchImage(topic, perPage) {
+async function fetchImage(topic: string, perPage: number) {
     try {
         const response = await axios.get('https://api.unsplash.com/search/photos', {
             params: {
@@ -40,7 +40,9 @@ cron.schedule('*/30 * * * *', async () => {
 
 export async function GET(req: NextRequest) {
     const topic = req.nextUrl.searchParams.get('query') || globalState.getLastTopic();
-    const perPage = parseInt(req.nextUrl.searchParams.get('per_page')) || globalState.getLastPerPage();
+    const perPageParam = req.nextUrl.searchParams.get('per_page');
+    const perPage = perPageParam ? parseInt(perPageParam) : globalState.getLastPerPage();
+
 
     if (req.method === 'GET') {
         if (!globalState.getImageUrl()) {
