@@ -1,7 +1,8 @@
 'use client';
 
-import {useRecoilState} from "recoil";
+import {useRecoilState, useResetRecoilState} from "recoil";
 import {useQuery} from "react-query";
+import {useEffect} from "react";
 
 import {IBannerAtom, IUser} from "@/types/interfaces/common-interface";
 import {userAtom} from "@/atoms/userAtom";
@@ -33,9 +34,10 @@ const Banner = (props: IBanner) => {
         }),
         {
             onSuccess: (data) => {
-                !!data?.data?.imageUrl &&
-                (rcBanner.bannerUrl !== data.data.imageUrl) &&
-                setRcBanner({bannerUrl: data.data.imageUrl});
+                setRcBanner((prevState) => ({
+                    ...prevState,
+                    bannerUrl: data.data.imageUrl
+                }));
             }
         }
     )
@@ -43,19 +45,10 @@ const Banner = (props: IBanner) => {
     return (
         <div className={styles.baseContainer}>
             <div className={styles.imageWrapper}>
-                {
-                    resUpdateImage.status !== 'success' ||
-                    resUpdateImage.isFetching === true ? (
-                        <div
-                            className={styles.backgroundImage}
-                        />
-                    ) : (
-                        <div
-                            className={styles.backgroundImage}
-                            style={{backgroundImage: `url(${rcBanner.bannerUrl})`}}
-                        />
-                    )
-                }
+                <div
+                    className={styles.backgroundImage}
+                    style={{backgroundImage: `url(${rcBanner.bannerUrl})`}}
+                />
             </div>
             <div className={styles.overlay}>
                 <div className={styles.contentContainer}>
