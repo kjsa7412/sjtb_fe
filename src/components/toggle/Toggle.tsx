@@ -22,6 +22,7 @@ const Toggle = () => {
     }, [rcDarkMode.isDark]);
 
     return (
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <div className={styles.baseContainer} onClick={onChange}>
             <div className={styles.label} style={{marginRight: '5px'}}>LIGHT</div>
             <div className={`${styles.toggleContainer} ${isOn && styles.checked}`}>
