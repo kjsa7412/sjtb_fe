@@ -1,6 +1,5 @@
 export interface ILogin {
     isLogin: boolean;
-    isDark: boolean;
 }
 
 export interface IBannerAtom {

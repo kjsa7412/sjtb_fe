@@ -6,8 +6,7 @@ import localStorageEffect from "@/atoms/localStorageEffect";
 export const loginAtom = atom<ILogin>({
     key: 'loginAtom',
     default: {
-        isLogin: false,
-        isDark: false
+        isLogin: false
     },
     effects: [localStorageEffect('loginAtom')]
 });
