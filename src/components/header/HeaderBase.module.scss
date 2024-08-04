@@ -9,9 +9,9 @@
   padding-right: $default-padding;
   width: 100%;
   height: $height-header;
-  background-color: $color-white;
   z-index: $level-global-header;
   top: 0px;
+  background-color: var(--color-background-1);
 }
 
 .leftContainer {

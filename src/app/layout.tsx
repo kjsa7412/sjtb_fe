@@ -37,10 +37,10 @@ export default function RootLayout({children}: Props) {
                 href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700&family=Roboto:wght@100;400;700&display=swap"
                 rel="stylesheet"/>
         </head>
-        <body>
-        <MainContainer>
-            <ReactQueryWrapper>
-                <RecoilRootWrapper>
+        <body style={{backgroundColor: `var(--color-background-1)`}}>
+        <ReactQueryWrapper>
+            <RecoilRootWrapper>
+                <MainContainer>
                     {/* eslint-disable-next-line react/jsx-key */}
                     <HeaderBase left={[<HeaderLogo/>, <SearchBar/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>
                     {children}
@@ -51,9 +51,9 @@ export default function RootLayout({children}: Props) {
                     <SignUpPopup/>
                     <ConfirmPopup/>
                     <NotifyPopup/>
-                </RecoilRootWrapper>
-            </ReactQueryWrapper>
-        </MainContainer>
+                </MainContainer>
+            </RecoilRootWrapper>
+        </ReactQueryWrapper>
         </body>
         </html>
     );

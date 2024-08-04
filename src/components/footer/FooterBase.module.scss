@@ -23,9 +23,9 @@
 
 .content {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   max-width: $bp-lg;
   height: 100%;

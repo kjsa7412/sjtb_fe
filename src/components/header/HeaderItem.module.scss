@@ -11,7 +11,7 @@
   p {
     font-size: $font-footer;
     font-weight: bold;
-    color: $color-black;
+    color: var(--color-text-1);
   }
 }
 
@@ -33,4 +33,5 @@
   height: 100%;
   font-size: $font-header;
   font-weight: bold;
+  color: var(--color-text-1);
 }

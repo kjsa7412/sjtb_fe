@@ -1,5 +1,6 @@
 import styles from "@/components/footer/FooterBase.module.scss";
-import {FooterLogo} from "@/components/footer/FooterItem";
+import {DarkMode, FooterLogo} from "@/components/footer/FooterItem";
+import Toggle from "@/components/toggle/Toggle";
 
 
 const FooterBase = () => {
@@ -7,6 +8,7 @@ const FooterBase = () => {
         <div className={styles.baseContainer}>
             <div className={styles.content}>
                 <FooterLogo/>
+                <Toggle/>
             </div>
         </div>
     )

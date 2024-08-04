@@ -28,7 +28,7 @@
   font-size: 14px;
 }
 .writerInfoWriter {
-  color: $color-black;
+  color: var(--color-text-1);
 }
 
 .writerInfoDate {
@@ -43,4 +43,5 @@
   width: 100%;
   padding: 10px 20px;
   font-size: 14px;
+  color: var(--color-text-1);
 }

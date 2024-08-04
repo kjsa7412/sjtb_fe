@@ -13,6 +13,7 @@ import Reaction from "@/components/read/Reaction";
 import WriteComment from "@/components/read/WriteComment";
 import ReadComment from "@/components/read/ReadComment";
 import ReadPost from "@/components/read/ReadPost";
+import FooterBase from "@/components/footer/FooterBase";
 
 interface Props {
     params: {
@@ -40,6 +41,7 @@ const Post = async (props: Props) => {
                     <ReadComment/>
                 </ContentsContainer>
             </BodyContainer>
+            <FooterBase/>
         </PageContainer>
     )
 }
