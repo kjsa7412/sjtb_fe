@@ -10,11 +10,12 @@ interface IInput<TFieldValues extends FieldValues> {
     formDataName: FieldPath<TFieldValues>,
     width: string,
     placeholder: string,
-    shape?: EInputShape
+    shape?: EInputShape,
+    textAlign?: string
 }
 
 const Input = <TFieldValues extends FieldValues>(props: IInput<TFieldValues>) => {
-    const { control } = useFormContext<TFieldValues>();
+    const {control} = useFormContext<TFieldValues>();
 
     return (
         <Controller
@@ -22,8 +23,12 @@ const Input = <TFieldValues extends FieldValues>(props: IInput<TFieldValues>) =>
             name={props.formDataName}
             render={({field}) => (
                 <input
-                    className={`${styles.inputBox} ${styles[props.shape || EInputShape.Round]}`}
-                    style={{width: `${props.width}px`}}
+                    className={
+                        `${styles.inputBox} ${styles[props.shape || EInputShape.Round]} ${props.textAlign === 'left' ? styles.textAlignLeft : styles.textAlignCenter}`
+                    }
+                    style={{
+                        width: `${props.width.includes('%') ? props.width : `${props.width}px`}`
+                    }}
                     placeholder={props.placeholder}
                     {...field}
                 />
