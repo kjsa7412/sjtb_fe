@@ -3,7 +3,7 @@
 import {FormProvider, useForm} from 'react-hook-form';
 import {useEffect} from "react";
 
-import {EButtonShape, EButtonSize, EButtonType, EInputShape, EPopup} from "@/types/enums/common-enum";
+import {EBlank, EButtonShape, EButtonSize, EButtonType, EInputShape, EPopup} from "@/types/enums/common-enum";
 import usePopup from "@/hooks/usePopup";
 
 import styles from './SignUpPopup.module.scss';
@@ -11,6 +11,7 @@ import CloseButton from "@/components/button/CloseButton";
 import TextButton from "@/components/button/TextButton";
 import Overlay from "@/components/overlay/Overlay";
 import Input from "@/components/input/Input";
+import Blank from "@/components/blank/Blank";
 
 const SignUpPopup = () => {
     const popupController = usePopup();
@@ -87,6 +88,7 @@ const SignUpPopup = () => {
                                 </div>
                             </form>
                         </FormProvider>
+                        <Blank type={EBlank.Column} size={40}/>
                     </div>
                 </Overlay>
             }

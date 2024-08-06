@@ -3,7 +3,7 @@
 import {FormProvider, useForm} from 'react-hook-form';
 import {useEffect} from "react";
 
-import {EButtonShape, EButtonSize, EButtonType, EIcon, EInputShape, EPopup} from "@/types/enums/common-enum";
+import {EBlank, EButtonShape, EButtonSize, EButtonType, EIcon, EInputShape, EPopup} from "@/types/enums/common-enum";
 import usePopup from "@/hooks/usePopup";
 
 import styles from './EditProfilePopup.module.scss';
@@ -12,6 +12,7 @@ import TextButton from "@/components/button/TextButton";
 import Overlay from "@/components/overlay/Overlay";
 import Icons from "@/components/Icons";
 import Input from "@/components/input/Input";
+import Blank from "@/components/blank/Blank";
 
 const EditProfilePopup = () => {
     const popupController = usePopup();
@@ -87,6 +88,7 @@ const EditProfilePopup = () => {
                             }}/>
                         </div>
                         </FormProvider>
+                        <Blank type={EBlank.Column} size={40}/>
                     </div>
                 </Overlay>
             }

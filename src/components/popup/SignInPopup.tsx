@@ -4,7 +4,7 @@ import {useRecoilState} from "recoil";
 import {FormProvider, useForm} from 'react-hook-form';
 import {useEffect} from "react";
 
-import {EButtonShape, EButtonSize, EButtonType, EInputShape, EPopup} from "@/types/enums/common-enum";
+import {EBlank, EButtonShape, EButtonSize, EButtonType, EInputShape, EPopup} from "@/types/enums/common-enum";
 import {ILogin, IUser} from "@/types/interfaces/common-interface";
 import {loginAtom} from "@/atoms/loginAtom";
 import {userAtom} from "@/atoms/userAtom";
@@ -15,6 +15,7 @@ import Overlay from "@/components/overlay/Overlay";
 import TextButton from "@/components/button/TextButton";
 import CloseButton from "@/components/button/CloseButton";
 import styles from './SignInPopup.module.scss';
+import Blank from "@/components/blank/Blank";
 
 const SignInPopup = () => {
     const [rcLogin, setRcLogin] = useRecoilState<ILogin>(loginAtom);
@@ -98,6 +99,7 @@ const SignInPopup = () => {
                                 </div>
                             </form>
                         </FormProvider>
+                        <Blank type={EBlank.Column} size={40}/>
                     </div>
                 </Overlay>
             }
