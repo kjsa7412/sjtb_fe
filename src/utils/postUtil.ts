@@ -26,6 +26,6 @@ export function getAllPosts(): IPostData[] {
     const posts = slugs
         .map((slug) => getPostBySlug(slug))
         .filter((post): post is IPostData => post !== undefined) // undefined 제거
-        .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
+        .sort((post1, post2) => (post1.dateModified > post2.dateModified ? -1 : 1));
     return posts;
 }

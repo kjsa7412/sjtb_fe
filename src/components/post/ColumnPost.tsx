@@ -16,7 +16,7 @@ const ColumnPost = (props: IPostData) => {
     return (
         <button className={styles.baseContainer} onClick={onClick}>
             <div className={styles.thumbnail}>
-                <Image src={`${!!props.coverImage ? props.coverImage : "/images/banner.jpg"}`} alt='' fill
+                <Image src={`${!!props.thumbnail ? props.thumbnail : "/images/banner.jpg"}`} alt='' fill
                        style={{objectFit: 'cover'}}/>
             </div>
             <Blank type={EBlank.Column} size={20}/>
@@ -24,7 +24,7 @@ const ColumnPost = (props: IPostData) => {
                 {props.title}
             </div>
             <div className={styles.info}>
-                {`${props.date} | ${props.writer}`}
+                {`${props.dateModified} | ${props.author}`}
             </div>
         </button>
     )

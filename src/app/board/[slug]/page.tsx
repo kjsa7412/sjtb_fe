@@ -1,6 +1,7 @@
 import {EBannerType, EBlank} from "@/types/enums/common-enum";
 import {getPostBySlug} from "@/utils/postUtil";
 import markdownToHtml from "@/utils/markdownToHtml";
+import {IPostData} from "@/types/interfaces/post-interface";
 
 import Blank from "@/components/blank/Blank";
 import PageContainer from "@/components/containers/PageContainer";
@@ -22,12 +23,13 @@ interface Props {
 }
 
 const Post = async (props: Props) => {
-    const post = getPostBySlug(props.params.slug);
-    const content = await markdownToHtml(post?.content || "");
+    const post: IPostData | undefined = getPostBySlug(props.params.slug);
+    if(!post) return null;
+    const content = await markdownToHtml(post.content);
     return (
         <PageContainer>
             <Blank type={EBlank.Header}/>
-            <Banner type={EBannerType.Read} title={post?.title || ""} writer={post?.writer || ""} date={post?.date || ""} avatar={""}/>
+            <Banner type={EBannerType.Read} title={post.title} author={post.author} dateModified={post.dateModified}/>
             <BodyContainer>
                 <ContentsContainer>
                     <ReadPost content={content}/>

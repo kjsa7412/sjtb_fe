@@ -42,7 +42,7 @@ const SearchPost = ({keyword}: { keyword: string }) => {
             {
                 allPosts?.map((value, index, array) =>
                     <>
-                        <RowPost key={value.writer + value.slug + value.date} {...value}/>
+                        <RowPost key={value.slug + value.author + value.dateModified} postData={value}/>
                         <Blank type={EBlank.Column} size={60}/>
                     </>
                 )

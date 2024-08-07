@@ -8,9 +8,9 @@ import useActionAndNavigate from "@/hooks/useActionAndNavigate";
 
 import styles from './ColumnPostMotion.module.scss';
 
-const ColumnPostMotion = (props: IPostData) => {
+const ColumnPostMotion = ({postData, postCount}: {postData: IPostData, postCount: number}) => {
     const actionAndNavigate = useActionAndNavigate();
-    const onClick = () => actionAndNavigate.actionAndNavigate(`/board/${props.slug}`)
+    const onClick = () => actionAndNavigate.actionAndNavigate(`/board/${postData.slug}`)
 
 
     const [activeIndex, setActiveIndex] = useState<boolean>(false);
@@ -24,9 +24,8 @@ const ColumnPostMotion = (props: IPostData) => {
     };
 
     useEffect(() => {
-        // Set CSS variable --post-count based on the number of posts
-        document.documentElement.style.setProperty('--post-count', `${props.totalPosts}`);
-    }, [props.totalPosts]);
+        document.documentElement.style.setProperty('--post-count', `${postCount}`);
+    }, [postCount]);
 
     return (
         <button
@@ -35,16 +34,16 @@ const ColumnPostMotion = (props: IPostData) => {
             onMouseLeave={handleMouseLeave}
             onClick={onClick}
         >
-            <Image src={`${!!props.coverImage ? props.coverImage : "/images/banner.jpg"}`} alt='' fill
+            <Image src={`${postData.thumbnail ? postData.thumbnail : "/images/banner.jpg"}`} alt='' fill
                    style={{objectFit: 'cover', borderRadius: '10px'}}/>
             <div className={styles.overlay}/>
             <div className={styles.infoContainer}>
-                <p className={styles.title}>{props.title}</p>
-                <p>{`${props.date} | ${props.writer}`}</p>
+                <p className={styles.title}>{postData.title}</p>
+                <p>{`${postData.dateModified} | ${postData.author}`}</p>
                 {
                     activeIndex === true &&
                     <p className={styles.excerpt}>
-                        {props.excerpt}
+                        {postData.description}
                     </p>
                 }
             </div>

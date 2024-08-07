@@ -13,8 +13,7 @@ const PopularPost = () => {
             <RowContainer>
                 {
                     allPosts?.map((value, index, array) =>
-                        //<ColumnPost key={value.writer + value.slug + value.date} {...value}/>
-                        <ColumnPostMotion key={value.writer + value.slug + value.date} {...value}  totalPosts={allPosts.length}/>
+                        <ColumnPostMotion key={value.slug + value.author + value.datePublished} postData={value} postCount={allPosts.length}/>
                     )
                 }
             </RowContainer>

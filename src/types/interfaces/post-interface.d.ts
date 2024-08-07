@@ -10,18 +10,11 @@ export interface IPost {
 export interface IPostData {
     slug: string;
     title: string;
-    date: string;
-    coverImage: string;
-    author: {
-        name: string;
-        picture: string;
-    };
-    writer: string;
-    excerpt: string;
-    ogImage: {
-        url: string;
-    };
+    description: string;
+    thumbnail: string;
+    keywords: string[];
+    author: string
+    datePublished: string;
+    dateModified: string;
     content: string;
-    preview?: boolean;
-    totalPosts?: number;
 }
