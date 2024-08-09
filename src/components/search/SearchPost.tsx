@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {useQuery} from "react-query";
 
 import {EBlank} from "@/types/enums/common-enum";
-import axiosInstance from "@/libs/axios";
+import axiosClient from "@/libs/axiosClient";
 import {IPost, IPostData} from "@/types/interfaces/post-interface";
 
 import Label from "@/components/label/Label";
@@ -12,7 +12,7 @@ import RowPost from "@/components/post/RowPost";
 import Blank from "@/components/blank/Blank";
 
 const searchAPI = (searchTerm: string) => {
-    return axiosInstance.get('/api/search', {
+    return axiosClient.get('/api/search', {
         params: {q: searchTerm}
     });
 };

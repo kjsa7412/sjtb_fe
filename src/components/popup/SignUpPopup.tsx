@@ -2,9 +2,12 @@
 
 import {FormProvider, useForm} from 'react-hook-form';
 import {useEffect} from "react";
+import {useMutation, useQuery} from "react-query";
 
 import {EBlank, EButtonShape, EButtonSize, EButtonType, EInputShape, EPopup} from "@/types/enums/common-enum";
 import usePopup from "@/hooks/usePopup";
+import axiosClient from "@/libs/axiosClient";
+import {IParam_UserJoin} from "@/types/interfaces/user-interface";
 
 import styles from './SignUpPopup.module.scss';
 import CloseButton from "@/components/button/CloseButton";
@@ -31,17 +34,40 @@ const SignUpPopup = () => {
         },
     });
 
+    const signUp = useMutation(
+        (param: IParam_UserJoin) => axiosClient.post('/api/signUp', param),
+        {
+            onSuccess: (data) => {
+                if (data.data.isError) {
+                    alert(data.data.errorMsg)
+                } else {
+                    alert('회원가입 성공');
+                }
+                console.log('User added:', data);
+            },
+            onError: (error) => {
+                alert('회원가입 실패')
+                console.error('Error adding user:', error);
+            },
+        }
+    );
+
     // validation
     const handleFunction = () => {
         const data = methods.getValues();
 
         if (!data.id) {
+            alert('아이디 입력');
             return;
         }
 
         if (!data.pw) {
+            alert('비밀번호 입력');
             return;
         }
+
+        const param: IParam_UserJoin = { userEmail: data.id, userPw: data.pw };
+        signUp.mutate(param);
 
         closePopup();
     };

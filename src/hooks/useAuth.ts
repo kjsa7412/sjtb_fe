@@ -2,10 +2,10 @@
 
 import { useQuery } from 'react-query';
 
-import axiosInstance from "@/libs/axios";
+import axiosClient from "@/libs/axiosClient";
 
 const fetchAuthStatus = async () => {
-    const { data } = await axiosInstance.get('/api/auth/check');
+    const { data } = await axiosClient.get('/api/auth/check');
     return data;
 };
 

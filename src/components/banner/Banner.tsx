@@ -8,7 +8,7 @@ import {IBannerAtom, IUser} from "@/types/interfaces/common-interface";
 import {userAtom} from "@/atoms/userAtom";
 import {EBannerType, EIcon} from "@/types/enums/common-enum";
 import {EQuerykey} from "@/types/enums/querykey-enum";
-import axiosInstance from "@/libs/axios";
+import axiosClient from "@/libs/axiosClient";
 import {bannerAtom} from "@/atoms/bannerAtom";
 
 import styles from './Banner.module.scss';
@@ -29,7 +29,7 @@ const Banner = (props: IBanner) => {
 
     const resUpdateImage = useQuery(
         [EQuerykey.UPDATE_IMAGE],
-        () => axiosInstance.get('/api/updateImage', {
+        () => axiosClient.get('/api/updateImage', {
             params: {topic: "office", perPage: 30}
         }),
         {
