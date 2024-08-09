@@ -66,7 +66,7 @@ const SignUpPopup = () => {
             return;
         }
 
-        const param: IParam_UserJoin = { userEmail: data.id, userPw: data.pw };
+        const param: IParam_UserJoin = { userId: data.id, userPw: data.pw };
         signUp.mutate(param);
 
         closePopup();
