@@ -8,6 +8,7 @@ export interface ITextButton {
         onClick?: MouseEventHandler<HTMLButtonElement>,
         label?: string,
         isSubmit?: boolean
+        isLoading?: boolean
     },
     styles?: {
         size?: EButtonSize,

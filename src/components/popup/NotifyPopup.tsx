@@ -23,10 +23,10 @@ const NotifyPopup = () => {
                         </div>
                         <div className={styles.body}>
                             <div className={styles.body_mainText}>
-                                {popupController.getPopupData(EPopup.Notify).title}
+                                {popupController.getPopupData(EPopup.Notify).contents.title}
                             </div>
                             <div className={styles.body_mainSubText}>
-                                {popupController.getPopupData(EPopup.Notify).desc}
+                                {popupController.getPopupData(EPopup.Notify).contents.desc}
                             </div>
                             <Blank type={EBlank.Column} size={20}/>
                             <div className={styles.body_buttonContainer}>

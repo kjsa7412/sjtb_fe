@@ -42,12 +42,12 @@ const SignInPopup = () => {
         const data = methods.getValues();
 
         if (!data.id) {
-            popupController.openPopup(EPopup.Notify, {contents: {title: "로그인 실패", desc: "유저아이디 정보를 확인해주세요."}});
+            popupController.openPopup(EPopup.Notify, {contents: {title: "로그인 실패", desc: "유저정보를 확인해주세요."}});
             return;
         }
 
         if (!data.pw) {
-            popupController.openPopup(EPopup.Notify, {contents: {title: "로그인 실패", desc: "비민번호를 확인해주세요."}});
+            popupController.openPopup(EPopup.Notify, {contents: {title: "로그인 실패", desc: "비밀번호를 확인해주세요."}});
             return;
         }
 
