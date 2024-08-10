@@ -8,7 +8,7 @@
   align-items: center;
   width: 700px;
   height: 400px;
-  background-color: $color-white;
+  background-color: var(--color-background-2);
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
 
   @media (max-width: 700px) {
@@ -42,6 +42,7 @@
   padding: 10px;
   font-size: 28px;
   font-weight: bold;
+  color: var(--color-text-1);
 }
 
 .body_mainSubText {

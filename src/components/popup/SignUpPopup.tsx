@@ -69,12 +69,12 @@ const SignUpPopup = () => {
         const data = methods.getValues();
 
         if (!data.id) {
-            popupController.openPopup(EPopup.Notify, {contents: {title: "회원가입 실패", desc: "이메일을 작성해주세요."}});
+            popupController.openPopup(EPopup.Notify, {contents: {title: "회원가입 실패", desc: "이메일을 입력해주세요."}});
             return;
         }
 
         if (!data.pw) {
-            popupController.openPopup(EPopup.Notify, {contents: {title: "회원가입 실패", desc: "비밀번호를 작성해주세요."}});
+            popupController.openPopup(EPopup.Notify, {contents: {title: "회원가입 실패", desc: "비밀번호를 입력해주세요."}});
             return;
         }
 

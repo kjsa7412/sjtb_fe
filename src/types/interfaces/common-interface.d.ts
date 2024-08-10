@@ -11,6 +11,8 @@ export interface IUser {
     userId: string;
     userName: string;
     profileCont: string;
+    profilePic: string;
+    userAuth: string
 }
 
 export interface IAPIResponse<T> {

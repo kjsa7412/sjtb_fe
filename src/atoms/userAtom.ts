@@ -7,9 +7,11 @@ import localStorageEffect from './localStorageEffect';
 export const userAtom = atom<IUser>({
     key: 'userAtom',
     default: {
-        userId: "Admin",
-        userName: "Admin",
-        profileCont: "Admin"
+        userId: "",
+        userName: "",
+        profileCont: "",
+        profilePic: "",
+        userAuth: ""
     },
     effects: [localStorageEffect('userAtom')],
 });
