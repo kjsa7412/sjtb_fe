@@ -1,6 +1,6 @@
 import styles from './Loader.module.scss';
 
-const Loader = ({size = 20, color = '#000'}: { size: number, color: string }) => {
+const Loader = ({size = 20, color = '#000'}: { size?: number, color?: string }) => {
     const style = {
         width: `${size}px`,
         height: `${size}px`,

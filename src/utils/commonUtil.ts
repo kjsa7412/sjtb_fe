@@ -4,7 +4,7 @@ export function isValidEmail(email: string) {
     return emailPattern.test(email);
 }
 
-export function isValidPassword(password) {
+export function isValidPassword(password: string) {
     // 영어, 숫자, 특수문자를 포함하는 비밀번호 패턴 정의
     const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).+$/;
     return passwordPattern.test(password);

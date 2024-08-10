@@ -123,7 +123,7 @@ const SignUpPopup = () => {
                                         controller={{
                                             isSubmit: true,
                                             label: "Sign Up",
-                                            isLoading: (signUp.status !== 'success' && signUp.status !== 'idle') || signUp.isFetching
+                                            isLoading: (signUp.status !== 'success' && signUp.status !== 'idle')
                                         }}
                                         styles={{
                                             size: EButtonSize.Large,
