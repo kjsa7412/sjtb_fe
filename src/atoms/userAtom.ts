@@ -11,6 +11,7 @@ export const userAtom = atom<IUser>({
         userName: "",
         profileCont: "",
         profilePic: "",
+        loginToken: "",
         userAuth: ""
     },
     effects: [localStorageEffect('userAtom')],

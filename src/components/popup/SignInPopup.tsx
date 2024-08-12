@@ -68,7 +68,7 @@ const SignInPopup = () => {
                         }
                     });
                 } else {
-                    const {loginToken, ...content} = data.data.content;
+                    const {...content} = data.data.content;
                     popupController.closeAll();
                     setRcLogin({isLogin: true});
                     setRcUser({...content});

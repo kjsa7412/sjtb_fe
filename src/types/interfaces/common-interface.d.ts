@@ -12,7 +12,8 @@ export interface IUser {
     userName: string;
     profileCont: string;
     profilePic: string;
-    userAuth: string
+    loginToken: string;
+    userAuth: string;
 }
 
 export interface IAPIResponse<T> {
