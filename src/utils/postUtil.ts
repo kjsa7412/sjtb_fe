@@ -18,7 +18,12 @@ export function getPostBySlug(slug: string): IPostData | undefined {
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
 
-    return { ...data, slug: realSlug, content } as IPostData;
+    // Process the keywords field to be an array of strings
+    const keywords = data.keywords && typeof data.keywords === 'string'
+        ? data.keywords.split(',').map(keyword => keyword.trim())
+        : [];
+
+    return { ...data, slug: realSlug, content, keywords } as IPostData;
 }
 
 export function getAllPosts(): IPostData[] {

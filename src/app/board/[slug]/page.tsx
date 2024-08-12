@@ -1,7 +1,14 @@
+import {Metadata} from "next";
+import Head from "next/head";
+
 import {EBannerType, EBlank} from "@/types/enums/common-enum";
 import {getPostBySlug} from "@/utils/postUtil";
 import markdownToHtml from "@/utils/markdownToHtml";
 import {IPostData} from "@/types/interfaces/post-interface";
+import {getMetadata} from "@/seo/metadata/getMetadata";
+import {IMetadata} from "@/types/interfaces/metadata-interface";
+import {META} from "@/contants/metadata";
+import {getLdJsonArticle} from "@/seo/ldJson/getLdJsonArticle";
 
 import Blank from "@/components/blank/Blank";
 import PageContainer from "@/components/containers/PageContainer";
@@ -22,10 +29,35 @@ interface Props {
     }
 }
 
+export async function generateMetadata({params}: Props): Promise<Metadata> {
+    const post = getPostBySlug(params.slug)
+    if (!post) return {};
+    const metadata: IMetadata = {
+        title: post.title,
+        description: post.description,
+        keywords: post.keywords,
+        baseUrl: META.baseUrl,
+        pageUrl: `/board/${params.slug}`,
+        ogImage: post.thumbnail
+    };
+    return getMetadata(metadata);
+}
+
 const Post = async (props: Props) => {
     const post: IPostData | undefined = getPostBySlug(props.params.slug);
-    if(!post) return null;
+    if (!post) return null;
     const content = await markdownToHtml(post.content);
+
+    const structuredData = getLdJsonArticle({
+        id: `${META.baseUrl}/board/${props.params.slug}`,
+        headline: post.title,
+        image: [post.thumbnail],
+        datePublished: post.datePublished,
+        dateModified: post.dateModified,
+        author: {name: post.author, url: ''},
+        keywords: post.keywords,
+    });
+
     return (
         <PageContainer>
             <Blank type={EBlank.Header}/>
