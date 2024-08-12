@@ -5,16 +5,31 @@ import axiosServer from "@/libs/axiosServer";
 import {IAPIResponse, IUser} from "@/types/interfaces/common-interface";
 import {IParam_UserJoin} from "@/types/interfaces/user-interface";
 
-async function fetchJoin(param: IParam_UserJoin): Promise<AxiosResponse<IAPIResponse<IUser>>> {
+async function fetchSignIn(param: IParam_UserJoin): Promise<AxiosResponse<IAPIResponse<IUser>>> {
     return await axiosServer.post('/public/post/auth/signIn', param);
 }
 
 export async function POST(req: NextRequest) {
     try {
         const param: IParam_UserJoin = await req.json();
-        const response = await fetchJoin(param);
+        const response = await fetchSignIn(param);
 
-        return NextResponse.json(response.data, { status: 200 });
+        // Set-Cookie 값 추출
+        const setCookieHeader = response?.headers['set-cookie'];
+
+        // NextResponse 객체 생성
+        const nextResponse = NextResponse.json(response.data, { status: 200 });
+
+        // Set-Cookie 할당
+        if (Array.isArray(setCookieHeader)) {
+            setCookieHeader.forEach((cookie) => {
+                nextResponse.headers.append('Set-Cookie', cookie);
+            });
+        } else if (setCookieHeader) {
+            nextResponse.headers.set('Set-Cookie', setCookieHeader);
+        }
+
+        return nextResponse;
     } catch (error) {
         // 오류가 발생했을 경우
         console.error('Error during the signup process:', error);
