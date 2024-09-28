@@ -3,17 +3,17 @@
 import {useRecoilState, useResetRecoilState} from "recoil";
 import {FormProvider, useForm} from 'react-hook-form';
 import {useEffect} from "react";
-import {useMutation, useQuery} from "react-query";
+import {useMutation} from "react-query";
+import {AxiosResponse} from "axios";
 
 import {EBlank, EButtonShape, EButtonSize, EButtonType, EInputShape, EPopup} from "@/types/enums/common-enum";
-import {ILogin, IUser} from "@/types/interfaces/common-interface";
+import {IAPIResponse, ILogin, IUser} from "@/types/interfaces/common-interface";
 import {loginAtom} from "@/atoms/loginAtom";
 import {userAtom} from "@/atoms/userAtom";
 import usePopup from "@/hooks/usePopup";
-import {IParam_UserJoin} from "@/types/interfaces/user-interface";
-import axiosClient from "@/libs/axiosClient";
+import {IParam_UserSignIn} from "@/types/interfaces/user-interface";
 import {isValidEmail} from "@/utils/commonUtil";
-import {EQuerykey} from "@/types/enums/querykey-enum";
+import axiosServer from "@/libs/axiosServer";
 
 import Input from "@/components/input/Input";
 import Overlay from "@/components/overlay/Overlay";
@@ -22,8 +22,8 @@ import CloseButton from "@/components/button/CloseButton";
 import styles from './SignInPopup.module.scss';
 import Blank from "@/components/blank/Blank";
 
-const clientAPI_signIn = (param: IParam_UserJoin) => {
-    return axiosClient.post('/api/signIn', param);
+async function serverAPI_signIn(param: IParam_UserSignIn): Promise<AxiosResponse<IAPIResponse<IUser>>> {
+    return await axiosServer.post('/public/post/auth/signIn', param);
 }
 
 const SignInPopup = () => {
@@ -49,16 +49,14 @@ const SignInPopup = () => {
         },
     });
 
-    const signIn = useQuery(
-        [EQuerykey.SIGNIN],
+    const signIn = useMutation(
         () => {
             const data = methods.getValues();
-            return clientAPI_signIn({userId: data.id, userPw: data.pw});
+            return serverAPI_signIn({userId: data.id, userPw: data.pw});
         },
         {
-            enabled: false,
             onSuccess: (data) => {
-                if (data?.data?.isError) {
+                if (data?.data.isError) {
                     rcResetLogin();
                     rcResetUser();
                     popupController.openPopup(EPopup.Notify, {
@@ -75,10 +73,10 @@ const SignInPopup = () => {
                     popupController.openPopup(EPopup.Notify, {contents: {title: "로그인 성공", desc: "로그인 되었습니다."}});
                 }
             },
-            onError: (error) => {
+            onError: () => {
                 rcResetLogin();
                 rcResetUser();
-                popupController.openPopup(EPopup.Notify, {contents: {title: "로그인 실패", desc: `${error}`}});
+                popupController.openPopup(EPopup.Notify, {contents: {title: "로그인 실패", desc: "전산 오류입니다. 담당자에게 연락해주세요."}});
             }
         }
     );
@@ -102,7 +100,7 @@ const SignInPopup = () => {
             return;
         }
 
-        signIn.refetch();
+        signIn.mutate();
     };
 
     useEffect(() => {
@@ -130,14 +128,14 @@ const SignInPopup = () => {
                                     <Input width="300" formDataName="id" placeholder="ID" shape={EInputShape.Round}/>
                                 </div>
                                 <div className={styles.body_button}>
-                                    <Input width="300" formDataName="pw" placeholder="PW" shape={EInputShape.Round}/>
+                                    <Input width="300" formDataName="pw" placeholder="PW" type="password" shape={EInputShape.Round}/>
                                 </div>
                                 <div className={styles.body_button}>
                                     <TextButton
                                         controller={{
                                             isSubmit: true,
                                             label: "Sign In",
-                                            isLoading: (signIn.status !== 'success' && signIn.status !== 'idle') || signIn.isFetching
+                                            isLoading: (signIn.status !== 'success' && signIn.status !== 'idle')
                                         }}
                                         styles={{
                                             size: EButtonSize.Large,

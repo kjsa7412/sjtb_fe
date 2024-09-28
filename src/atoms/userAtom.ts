@@ -2,7 +2,7 @@ import {atom} from "recoil";
 
 import {IUser} from "@/types/interfaces/common-interface";
 
-import localStorageEffect from './localStorageEffect';
+import cookieStorageEffect from './cookieStorageEffect';
 
 export const userAtom = atom<IUser>({
     key: 'userAtom',
@@ -11,8 +11,7 @@ export const userAtom = atom<IUser>({
         userName: "",
         profileCont: "",
         profilePic: "",
-        loginToken: "",
         userAuth: ""
     },
-    effects: [localStorageEffect('userAtom')],
+    effects: [cookieStorageEffect('userAtom')],
 });

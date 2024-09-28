@@ -12,16 +12,15 @@ export interface IUser {
     userName: string;
     profileCont: string;
     profilePic: string;
-    loginToken: string;
     userAuth: string;
 }
 
 export interface IAPIResponse<T> {
-    IsError: boolean;
-    IsSessionError: boolean;
-    IsWarning: boolean;
-    ErrorMsg: string;
-    WarningMsg: string;
-    Content: [T];
+    isError: boolean;
+    isSessionError: boolean;
+    isWarning: boolean;
+    errorMsg: string;
+    warningMsg: string;
+    content: T;
 }
 

@@ -3,7 +3,9 @@ import {EPopup} from "@/types/enums/common-enum";
 interface IPopupDataDetail {
     contents?: {
         title: string,
-        desc: string
+        desc: string,
+        yesLabel?: string,
+        noLabel?: string
     }
     position?: {
         top: number;

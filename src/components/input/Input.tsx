@@ -11,7 +11,9 @@ interface IInput<TFieldValues extends FieldValues> {
     width: string,
     placeholder: string,
     shape?: EInputShape,
-    textAlign?: string
+    textAlign?: string,
+    type?: string,
+    maxLength?: number
 }
 
 const Input = <TFieldValues extends FieldValues>(props: IInput<TFieldValues>) => {
@@ -30,6 +32,8 @@ const Input = <TFieldValues extends FieldValues>(props: IInput<TFieldValues>) =>
                         width: `${props.width.includes('%') ? props.width : `${props.width}px`}`
                     }}
                     placeholder={props.placeholder}
+                    type={props.type || 'text'}
+                    maxLength={props.maxLength} // maxLength 속성 추가
                     {...field}
                 />
             )}

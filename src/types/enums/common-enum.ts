@@ -1,6 +1,11 @@
+import exp from "node:constants";
+
 export const enum EJWT {
     ExpiryTime = 60 * 60 * 1000,
-    ExpiryTimeForTest = 1 * 60 * 1000
+    ExpiryTimeForTest = 1 * 60 * 1000,
+    Expire_ERR = 'Expired TOKEN',
+    Invalid_ERR = 'Invalid TOKEN',
+    AccessToken = 'X-AUTH-TOKEN',
 }
 
 export const enum EIcon {

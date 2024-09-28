@@ -11,7 +11,7 @@ import Overlay from "@/components/overlay/Overlay";
 
 const ConfirmPopup = () => {
     const popupController = usePopup();
-    const closePopup = () => popupController.openPopup(EPopup.Confirm);
+    const closePopup = () => popupController.closePopup(EPopup.Confirm);
     return (
         <>
             {
@@ -23,20 +23,20 @@ const ConfirmPopup = () => {
                         </div>
                         <div className={styles.body}>
                             <div className={styles.body_mainText}>
-                                {popupController.getPopupData(EPopup.Confirm).title}
+                                {popupController.getPopupData(EPopup.Confirm).contents.title}
                             </div>
                             <div className={styles.body_mainSubText}>
-                                {popupController.getPopupData(EPopup.Confirm).desc}
+                                {popupController.getPopupData(EPopup.Confirm).contents.desc}
                             </div>
                             <Blank type={EBlank.Column} size={20}/>
                             <div className={styles.body_buttonContainer}>
-                                <TextButton controller={{onClick: closePopup, label: "Cancel"}} styles={{
+                                <TextButton controller={{onClick: closePopup, label: popupController.getPopupData(EPopup.Confirm).contents.noLabel}} styles={{
                                     size: EButtonSize.Medium,
                                     shape: EButtonShape.Round,
                                     type: EButtonType.Stroke
                                 }}/>
                                 <Blank type={EBlank.Row}/>
-                                <TextButton controller={{onClick: closePopup, label: "Save"}} styles={{
+                                <TextButton controller={{onClick: closePopup, label: popupController.getPopupData(EPopup.Confirm).contents.yesLabel}} styles={{
                                     size: EButtonSize.Medium,
                                     shape: EButtonShape.Round,
                                     type: EButtonType.Black

@@ -2,13 +2,15 @@
 
 import {FormProvider, useForm} from 'react-hook-form';
 import {useEffect} from "react";
-import {useMutation, useQuery} from "react-query";
+import {useMutation} from "react-query";
+import {AxiosResponse} from "axios";
 
 import {EBlank, EButtonShape, EButtonSize, EButtonType, EInputShape, EPopup} from "@/types/enums/common-enum";
 import usePopup from "@/hooks/usePopup";
-import axiosClient from "@/libs/axiosClient";
-import {IParam_UserJoin} from "@/types/interfaces/user-interface";
+import {IParam_UserSignUp, IResult_UserSignUp} from "@/types/interfaces/user-interface";
 import {isValidEmail, isValidPassword} from "@/utils/commonUtil";
+import {IAPIResponse} from "@/types/interfaces/common-interface";
+import axiosServer from "@/libs/axiosServer";
 
 import styles from './SignUpPopup.module.scss';
 import CloseButton from "@/components/button/CloseButton";
@@ -17,8 +19,8 @@ import Overlay from "@/components/overlay/Overlay";
 import Input from "@/components/input/Input";
 import Blank from "@/components/blank/Blank";
 
-const clientAPI_signUp = (param: IParam_UserJoin) => {
-    return axiosClient.post('/api/signUp', param);
+async function serverAPI_signUp(param: IParam_UserSignUp): Promise<AxiosResponse<IAPIResponse<IResult_UserSignUp>>> {
+    return await axiosServer.post('/public/post/user/signUp', param);
 }
 
 const SignUpPopup = () => {
@@ -42,7 +44,7 @@ const SignUpPopup = () => {
     const signUp = useMutation(
         () => {
             const data = methods.getValues();
-            return clientAPI_signUp({userId: data.id, userPw: data.pw});
+            return serverAPI_signUp({userId: data.id, userPw: data.pw});
         },
         {
             onSuccess: (data) => {
@@ -58,8 +60,8 @@ const SignUpPopup = () => {
                     popupController.openPopup(EPopup.Notify, {contents: {title: "회원가입 완료", desc: "회원가입을 성공했습니다."}});
                 }
             },
-            onError: (error) => {
-                popupController.openPopup(EPopup.Notify, {contents: {title: "회원가입 실패", desc: `${error}`}});
+            onError: () => {
+                popupController.openPopup(EPopup.Notify, {contents: {title: "회원가입 실패", desc: "전산 오류입니다. 담당자에게 연락해주세요."}});
             }
         }
     );
@@ -116,7 +118,7 @@ const SignUpPopup = () => {
                                     <Input width="300" formDataName="id" placeholder="email" shape={EInputShape.Square}/>
                                 </div>
                                 <div className={styles.body_button}>
-                                    <Input width="300" formDataName="pw" placeholder="password" shape={EInputShape.Square}/>
+                                    <Input width="300" formDataName="pw" placeholder="password" type="password" shape={EInputShape.Square}/>
                                 </div>
                                 <div className={styles.body_button}>
                                     <TextButton
