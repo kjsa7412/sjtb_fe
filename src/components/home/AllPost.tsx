@@ -2,17 +2,20 @@
 
 import {useQuery} from "react-query";
 import {useEffect, useState} from "react";
+import {AxiosResponse} from "axios";
 
 import {EBlank} from "@/types/enums/common-enum";
 import axiosClient from "@/libs/axiosClient";
 import {BREAKPOINT} from "@/contants/common";
+import {IAPIResponse} from "@/types/interfaces/common-interface";
+import {IPostData} from "@/types/interfaces/post-interface";
 
 import Label from "@/components/label/Label";
 import RowPost from "@/components/post/RowPost";
 import Blank from "@/components/blank/Blank";
 import RowPostMd from "@/components/post/RowPostMd";
 
-const allPostAPI = () => {
+const allPostAPI = ():Promise<AxiosResponse<IPostData[]>>  => {
     return axiosClient.get('/api/allPost');
 };
 
@@ -49,7 +52,7 @@ const AllPost = () => {
                 result_allPostAPI.isFetching === true ?
                     <p>loading</p>
                     :
-                    result_allPostAPI.data?.data?.map((value) =>
+                    result_allPostAPI.data?.data?.map((value: IPostData) =>
                         <>
                             {
                                 isLargeScreen ?
