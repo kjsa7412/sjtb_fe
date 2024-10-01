@@ -12,6 +12,8 @@ html[data-theme="light"] {
   --color-input-border: #{$input-border-color-light};
   --color-input-text: #{$input-text-color-light};
   --color-popupLabel-text: #{$popupLabel-text-color-light};
+  --color-dot-active: #{$dot-color-active-light};
+  --color-dot: #{$dot-color-light};
 }
 
 html[data-theme="dark"] {
@@ -24,4 +26,6 @@ html[data-theme="dark"] {
   --color-input-border: #{$input-border-color-dark};
   --color-input-text: #{$input-text-color-dark};
   --color-popupLabel-text: #{$popupLabel-text-color-dark};
+  --color-dot-active: #{$dot-color-active-dark};
+  --color-dot: #{$dot-color-dark};
 }
