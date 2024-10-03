@@ -11,7 +11,8 @@ export const popupState = atom<IPopupState>({
         Notify: false,
         ProfileOption: false,
         SignIn: false,
-        SignUp: false
+        SignUp: false,
+        Search: false
     },
 });
 
@@ -24,6 +25,7 @@ export const popupData = atom<IPopupData>({
         Notify: undefined,
         ProfileOption: undefined,
         SignIn: undefined,
-        SignUp: undefined
+        SignUp: undefined,
+        Search: undefined
     },
 });

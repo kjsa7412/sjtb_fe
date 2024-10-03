@@ -6,7 +6,7 @@ import ReactQueryWrapper from "@/providers/ReactQueryWrapper";
 import {getMetadata} from "@/seo/metadata/getMetadata";
 
 import HeaderBase from "@/components/header/HeaderBase";
-import {HeaderAction, HeaderLogo, HeaderProfile} from "@/components/header/HeaderItem";
+import {HeaderAction, HeaderLogo, HeaderProfile, HeaderSearch} from "@/components/header/HeaderItem";
 import MainContainer from "@/components/containers/MainContainer";
 import ProfileOptionPopup from "@/components/popup/ProfileOptionPopup";
 import ConfirmPopup from "@/components/popup/ConfirmPopup";
@@ -16,6 +16,7 @@ import SignInPopup from "@/components/popup/SignInPopup";
 import SignUpPopup from "@/components/popup/SignUpPopup";
 import BoardOptionPopup from "@/components/popup/BoardOptionPopup";
 import SearchBar from "@/components/searchBar/SearchBar";
+import SearchPopup from "@/components/popup/SearchPopup";
 
 export async function generateMetadata() {
     return getMetadata();
@@ -41,7 +42,7 @@ export default function RootLayout({children}: Props) {
             <RecoilRootWrapper>
                 <MainContainer>
                     {/* eslint-disable-next-line react/jsx-key */}
-                    <HeaderBase left={[<HeaderLogo/>, <SearchBar/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>
+                    <HeaderBase left={[<HeaderLogo/>, <HeaderSearch/>, <SearchBar/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>
                     {children}
                     <BoardOptionPopup/>
                     <ProfileOptionPopup/>
@@ -50,6 +51,7 @@ export default function RootLayout({children}: Props) {
                     <SignUpPopup/>
                     <ConfirmPopup/>
                     <NotifyPopup/>
+                    <SearchPopup/>
                 </MainContainer>
             </RecoilRootWrapper>
         </ReactQueryWrapper>

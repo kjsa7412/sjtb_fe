@@ -1,6 +1,6 @@
 // theme-dark
 $text-color-dark-1: white;
-$text-color-dark-2: #b6b6b6;
+$text-color-dark-2: black;
 $bg-color-dark-1: #2B2B2B;
 $bg-color-dark-2: #525252;
 $icon-color-dark: white;
@@ -18,7 +18,7 @@ $dot-color-dark: #ddd;
 
 // theme-light
 $text-color-light-1: black;
-$text-color-light-2: black;
+$text-color-light-2: white;
 $bg-color-light-1: white;
 $bg-color-light-2: #F9F9F9;
 $icon-color-light: #C0C0C0;
@@ -73,6 +73,7 @@ $font-popup-menu: 14px;
 $font-header: 14px;
 $font-footer: 14px;
 $font-banner: 60px;
+$font-search: 30px;
 
 // height
 $height-header: 54px;

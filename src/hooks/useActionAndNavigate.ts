@@ -10,8 +10,8 @@ const useActionAndNavigate = () => {
 
     const actionAndNavigate = (url: string, action?: () => void) => {
         !!action && action();
-        popupController.closeAll();
         router.push(url);
+        popupController.closeAll();
     };
 
     return { actionAndNavigate };

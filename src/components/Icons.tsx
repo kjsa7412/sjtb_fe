@@ -53,6 +53,14 @@ const Icons = ({iconType, fill, width = 16, height = 16}: Props): JSX.Element =>
                 />
             }
             {
+                EIcon.Close3 === iconType &&
+                <path
+                    fill={color}
+                    transform={`scale( ${width/22})`}
+                    d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z"
+                />
+            }
+            {
                 EIcon.SignOut === iconType &&
                 <path fill={color} d="M16 10v-5l8 7-8 7v-5h-8v-4h8zm-16-8v20h14v-2h-12v-16h12v-2h-14z"/>
             }

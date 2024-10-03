@@ -8,6 +8,7 @@ import {ILogin} from "@/types/interfaces/common-interface";
 import {loginAtom} from "@/atoms/loginAtom";
 import usePopup from "@/hooks/usePopup";
 import useActionAndNavigate from "@/hooks/useActionAndNavigate";
+import useIsLargeScreen from "@/hooks/useIsLargeScreen";
 
 import Icons from "@/components/Icons";
 import styles from "./HeaderItem.module.scss";
@@ -79,3 +80,24 @@ export const HeaderAction = () => {
         </>
     )
 }
+
+export const HeaderSearch = () => {
+    const isLargeScreen = useIsLargeScreen();
+    const popupController = usePopup();
+
+    const onClick = () => {
+        return popupController.openPopup(EPopup.Search);
+    };
+
+    return (
+        <>
+            {
+                !isLargeScreen &&
+                <button className={styles.profileContainer} onClick={onClick}>
+                    <Icons iconType={EIcon.Search} fill={'#929292'} width={20} height={20}/>
+                </button>
+            }
+        </>
+    )
+}
+

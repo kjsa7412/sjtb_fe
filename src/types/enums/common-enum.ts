@@ -11,6 +11,7 @@ export const enum EJWT {
 export const enum EIcon {
     Close = "Close",
     Close2 = "Close2",
+    Close3 = "Close3",
     SignOut = "SignOut",
     ArrowUp = "ArrowUp",
     ArrowDown = "ArrowDown",
@@ -65,7 +66,8 @@ export const enum EPopup {
     Notify = 'Notify',
     ProfileOption = 'ProfileOption',
     SignIn = 'SignIn',
-    SignUp = 'SjinUp'
+    SignUp = 'SignUp',
+    Search = 'Search'
 }
 
 export const enum EBannerType {

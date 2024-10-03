@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
         // 제목, 발췌문, 본문 내용에서 검색어를 찾습니다.
         if (
             data.title.includes(searchTerm) ||
-            data.excerpt.includes(searchTerm) ||
+            data.description.includes(searchTerm) ||
             mdContent.includes(searchTerm)
         ) {
             return { slug: file.replace('.md', '')};
