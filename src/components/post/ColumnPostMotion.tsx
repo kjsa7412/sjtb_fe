@@ -21,9 +21,11 @@ const ColumnPostMotion = ({posts = []}: { posts: IPostData[] }) => {
         setActiveIndex(false);
     };
 
+    /*
     useEffect(() => {
         document.documentElement.style.setProperty('--post-count', `${posts.length}`);
     }, [posts.length]);
+    */
 
     return (
         <RowContainer>

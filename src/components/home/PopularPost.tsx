@@ -7,6 +7,7 @@ import {useQuery} from "react-query";
 import {IPostData} from "@/types/interfaces/post-interface";
 import axiosClient from "@/libs/axiosClient";
 import {BREAKPOINT} from "@/contants/common";
+import useIsLargeScreen from "@/hooks/useIsLargeScreen";
 
 import Label from "@/components/label/Label";
 import ColumnPostMotion from "@/components/post/ColumnPostMotion";
@@ -18,7 +19,7 @@ const allPostAPI = (): Promise<AxiosResponse<IPostData[]>> => {
 };
 
 const PopularPost = () => {
-    const [isLargeScreen, setIsLargeScreen] = useState(true);
+    const isLargeScreen = useIsLargeScreen();
 
     const result_allPostAPI = useQuery(
         ["result_searchAPI"],
@@ -28,18 +29,8 @@ const PopularPost = () => {
         }
     )
 
-    const handleResize = () => {
-        setIsLargeScreen(window.innerWidth > BREAKPOINT.MD);
-    };
-
     useEffect(() => {
-        handleResize();
         result_allPostAPI.refetch();
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
     }, [])
 
     return (
