@@ -41,8 +41,7 @@ const AllPost = () => {
             {
                 result_allPostAPI.status !== 'success' ||
                 result_allPostAPI.isFetching === true ?
-                    <p>loading</p>
-                    :
+                    <div style={{width: '100%', height: '200px', borderRadius: '10px', background: 'lightgray'}}/> :
                     result_allPostAPI.data?.data?.map((value: IPostData) =>
                         <>
                             {

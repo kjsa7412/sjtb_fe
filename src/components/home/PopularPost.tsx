@@ -39,7 +39,8 @@ const PopularPost = () => {
             {
                 result_allPostAPI.status !== 'success' ||
                 result_allPostAPI.isFetching === true ?
-                    <p>loading</p> : (
+                    <div style={{width: '100%', height: '388px', borderRadius: '10px', background: 'lightgray'}}/> :
+                    (
                         isLargeScreen ?
                             <ColumnPostMotion posts={result_allPostAPI.data?.data}/> :
                             <ColumnPostSlider posts={result_allPostAPI.data?.data}/>
