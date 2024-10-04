@@ -99,7 +99,18 @@ textarea {
   border: 0;
   box-sizing: border-box;
   background-color: transparent;
+  -ms-user-select:none;
+  -moz-user-select:none;
+  -khtml-user-select:none;
+  -webkit-user-select:none;
+  -user-select:none;
 }
+
+html {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -122,6 +133,7 @@ body {
   -ms-overflow-style: none;
   /* 파이어폭스 스크롤바 옵션 */
   scrollbar-width: none;
+  overflow-y : auto
 }
 
 /* 크롬, 사파리, 오페라 스크롤바 옵션 */
@@ -157,4 +169,17 @@ table {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.stop-scroll{
+  height: 100%;
+  overflow: hidden;
+}
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 }

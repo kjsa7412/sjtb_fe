@@ -12,6 +12,7 @@
   align-items: center;
   z-index: $level-global-overlay;
   background-color: rgba(0, 0, 0, 0.8);
+  overflow: hidden;
 }
 
 .closeButton {

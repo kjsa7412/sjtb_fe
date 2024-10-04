@@ -11,11 +11,13 @@ const usePopup = () => {
     const resetPopupData = useResetRecoilState(popupData);
 
     const openPopup = (popupName:EPopup, popupValue?:IPopupDataDetail) => {
+        document.body.classList.add("stop-scroll");
         setState((prev) => ({ ...prev, [popupName]: true }));
         setData((prev) => ({ ...prev, [popupName]: popupValue }));
     };
 
     const closePopup = (popupName:EPopup) => {
+        document.body.classList.remove("stop-scroll");
         setState((prev) => ({ ...prev, [popupName]: false }));
         setData((prev) => ({ ...prev, [popupName]: undefined }));
     };

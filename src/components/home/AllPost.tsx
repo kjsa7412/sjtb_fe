@@ -6,8 +6,6 @@ import {AxiosResponse} from "axios";
 
 import {EBlank} from "@/types/enums/common-enum";
 import axiosClient from "@/libs/axiosClient";
-import {BREAKPOINT} from "@/contants/common";
-import {IAPIResponse} from "@/types/interfaces/common-interface";
 import {IPostData} from "@/types/interfaces/post-interface";
 import useIsLargeScreen from "@/hooks/useIsLargeScreen";
 

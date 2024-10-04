@@ -8,10 +8,10 @@
 .baseContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: $height-footer;
+  height: $height-footer * 2;
   background-color: $color-black;
 }
 
@@ -28,7 +28,7 @@
   align-items: center;
   width: 100%;
   max-width: $bp-lg;
-  height: 100%;
+  height: $height-footer;
   padding-right: $default-padding;
   padding-left: $default-padding;
 }

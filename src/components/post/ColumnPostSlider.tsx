@@ -24,6 +24,7 @@ const ColumnPostSlider = ({posts = []}: { posts: IPostData[] }) => {
     const handleMouseDown = (e: any) => {
         setIsDragging(true);
         setStartX(e.clientX);
+        document.body.classList.add("stop-scroll");
     };
 
     const handleMouseMove = (e: any) => {
@@ -33,11 +34,11 @@ const ColumnPostSlider = ({posts = []}: { posts: IPostData[] }) => {
     };
 
     const handleMouseUp = () => {
-        setIsDragging(false);
-
         if (Math.abs(translateX) === 0) {
             setIsClick(true);
         }
+
+        setIsDragging(false);
 
         if (translateX > 50 && currentIndex > 0) {
             setCurrentIndex(currentIndex - 1);
@@ -45,6 +46,7 @@ const ColumnPostSlider = ({posts = []}: { posts: IPostData[] }) => {
             setCurrentIndex(currentIndex + 1);
         }
         setTranslateX(0);
+        document.body.classList.remove("stop-scroll");
     };
 
     const handleTouchStart = (e: any) => {
