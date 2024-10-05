@@ -13,14 +13,15 @@ const SearchBar = () => {
     const actionAndNavigate = useActionAndNavigate();
 
     const handleSearch = () => {
-        actionAndNavigate.actionAndNavigate(`/board/search/${query}`);
-        setQuery('');
+        if(query) {
+            actionAndNavigate.actionAndNavigate(`/board/search/${query}`);
+            setQuery('');
+        }
     };
 
     const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            actionAndNavigate.actionAndNavigate(`/board/search/${query}`);
-            setQuery('');
+            handleSearch();
         }
     };
 

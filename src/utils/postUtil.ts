@@ -34,3 +34,21 @@ export function getAllPosts(): IPostData[] {
         .sort((post1, post2) => (post1.dateModified > post2.dateModified ? -1 : 1));
     return posts;
 }
+
+export function getPostByTerm(searchTerm: string): IPostData[] {
+    if (!searchTerm) return [];
+
+    const allPosts = getAllPosts();
+
+    return allPosts.filter((post) => {
+        const { title, description, content } = post;
+        const mdContent = content || "";
+
+        // 제목, 발췌문, 본문 내용에서 검색어를 찾습니다
+        return (
+            title.includes(searchTerm) ||
+            description.includes(searchTerm) ||
+            mdContent.includes(searchTerm)
+        );
+    }).sort((post1, post2) => (post1.dateModified > post2.dateModified ? -1 : 1));
+}
