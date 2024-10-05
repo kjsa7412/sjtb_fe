@@ -22,6 +22,7 @@ const SearchPopup = () => {
             if(query) {
                 actionAndNavigate.actionAndNavigate(`/board/search/${query}`);
                 setQuery('');
+                closePopup();
             }
         }
     };
