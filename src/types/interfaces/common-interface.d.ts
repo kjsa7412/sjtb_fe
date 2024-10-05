@@ -1,3 +1,5 @@
+import {EBreakPointType} from "@/types/enums/common-enum";
+
 export interface ILogin {
     isLogin: boolean;
 }
@@ -22,5 +24,9 @@ export interface IAPIResponse<T> {
     errorMsg: string;
     warningMsg: string;
     content: T;
+}
+
+export interface IBreakPoint {
+    breakPoint: EBreakPointType;
 }
 

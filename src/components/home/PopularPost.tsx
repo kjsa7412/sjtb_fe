@@ -8,6 +8,8 @@ import {IPostData} from "@/types/interfaces/post-interface";
 import axiosClient from "@/libs/axiosClient";
 import {BREAKPOINT} from "@/contants/common";
 import useIsLargeScreen from "@/hooks/useIsLargeScreen";
+import useBreakPoint from "@/hooks/useBreakPoint";
+import {EBreakPoint} from "@/types/enums/common-enum";
 
 import Label from "@/components/label/Label";
 import ColumnPostMotion from "@/components/post/ColumnPostMotion";
@@ -19,7 +21,7 @@ const allPostAPI = (): Promise<AxiosResponse<IPostData[]>> => {
 };
 
 const PopularPost = () => {
-    const isLargeScreen = useIsLargeScreen();
+    const breakPoint = useBreakPoint();
 
     const result_allPostAPI = useQuery(
         ["result_searchAPI"],
@@ -41,7 +43,7 @@ const PopularPost = () => {
                 result_allPostAPI.isFetching === true ?
                     <div style={{width: '100%', height: '388px', borderRadius: '10px', background: 'lightgray'}}/> :
                     (
-                        isLargeScreen ?
+                        breakPoint === EBreakPoint.LG ?
                             <ColumnPostMotion posts={result_allPostAPI.data?.data}/> :
                             <ColumnPostSlider posts={result_allPostAPI.data?.data}/>
                     )

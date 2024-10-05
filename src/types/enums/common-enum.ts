@@ -75,3 +75,10 @@ export const enum EBannerType {
     Search = 'Search',
     Read = 'Read'
 }
+
+export const enum EBreakPoint {
+    XS = 575,
+    SM = 767,
+    MD = 900,
+    LG = 1248
+}

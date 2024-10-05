@@ -15,7 +15,7 @@ import EditProfilePopup from "@/components/popup/EditProfilePopup";
 import SignInPopup from "@/components/popup/SignInPopup";
 import SignUpPopup from "@/components/popup/SignUpPopup";
 import BoardOptionPopup from "@/components/popup/BoardOptionPopup";
-import SearchBar from "@/components/searchBar/SearchBar";
+import SearchBar from "@/components/search/SearchBar";
 import SearchPopup from "@/components/popup/SearchPopup";
 
 export async function generateMetadata() {
@@ -42,7 +42,7 @@ export default function RootLayout({children}: Props) {
             <RecoilRootWrapper>
                 <MainContainer>
                     {/* eslint-disable-next-line react/jsx-key */}
-                    <HeaderBase left={[<HeaderLogo/>, <HeaderSearch/>, <SearchBar/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>
+                    <HeaderBase left={[<HeaderLogo/>, <HeaderSearch/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>
                     {children}
                     <BoardOptionPopup/>
                     <ProfileOptionPopup/>

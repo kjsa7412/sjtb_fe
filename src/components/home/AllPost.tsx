@@ -4,10 +4,10 @@ import {useQuery} from "react-query";
 import {useEffect, useState} from "react";
 import {AxiosResponse} from "axios";
 
-import {EBlank} from "@/types/enums/common-enum";
+import {EBlank, EBreakPoint} from "@/types/enums/common-enum";
 import axiosClient from "@/libs/axiosClient";
 import {IPostData} from "@/types/interfaces/post-interface";
-import useIsLargeScreen from "@/hooks/useIsLargeScreen";
+import useBreakPoint from "@/hooks/useBreakPoint";
 
 import Label from "@/components/label/Label";
 import RowPost from "@/components/post/RowPost";
@@ -19,7 +19,7 @@ const allPostAPI = ():Promise<AxiosResponse<IPostData[]>>  => {
 };
 
 const AllPost = () => {
-    const isLargeScreen = useIsLargeScreen();
+    const breakPoint = useBreakPoint();
 
     const result_allPostAPI = useQuery(
         ["result_searchAPI"],
@@ -43,7 +43,7 @@ const AllPost = () => {
                     result_allPostAPI.data?.data?.map((value: IPostData) =>
                         <>
                             {
-                                isLargeScreen ?
+                                breakPoint === EBreakPoint.LG ?
                                     <RowPost key={value.slug + value.author + value.datePublished} postData={value}/> :
                                     <RowPostMd key={value.slug + value.author + value.datePublished} postData={value}/>
                             }

@@ -1,5 +1,4 @@
 import {Metadata} from "next";
-import Head from "next/head";
 
 import {EBannerType, EBlank} from "@/types/enums/common-enum";
 import {getPostBySlug} from "@/utils/postUtil";

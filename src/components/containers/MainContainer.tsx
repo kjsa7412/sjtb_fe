@@ -14,9 +14,11 @@ type Props = {
 
 const MainContainer = ({children}: Props) => {
     const [rcDarkMode, setRcDarkMode] = useRecoilState(darkModeAtom);
+
     useEffect(() => {
         document.documentElement.setAttribute("data-theme", rcDarkMode.isDark ? "dark" : "light");
     }, [rcDarkMode.isDark]);
+
     return <main className={styles.baseContainer}>{children}</main>;
 }
 
