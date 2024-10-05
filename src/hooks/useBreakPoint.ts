@@ -15,16 +15,16 @@ const useBreakPoint = () => {
 
         switch (true) {
             case (width > EBreakPoint.MD):
-                setBreakPoint(EBreakPoint.LG);
+                setBreakPoint((prev) => ({...prev, breakPoint: EBreakPoint.LG}));
                 break;
             case (width > EBreakPoint.SM):
-                setBreakPoint(EBreakPoint.MD);
+                setBreakPoint((prev) => ({...prev, breakPoint: EBreakPoint.MD}));
                 break;
             case (width > EBreakPoint.XS):
-                setBreakPoint(EBreakPoint.SM);
+                setBreakPoint((prev) => ({...prev, breakPoint: EBreakPoint.SM}));
                 break;
             default:
-                setBreakPoint(EBreakPoint.XS);
+                setBreakPoint((prev) => ({...prev, breakPoint: EBreakPoint.XS}));
                 break;
         }
     };
@@ -38,7 +38,7 @@ const useBreakPoint = () => {
         };
     }, []);
 
-    return breakPoint;
+    return breakPoint.breakPoint;
 }
 
 export default useBreakPoint;
