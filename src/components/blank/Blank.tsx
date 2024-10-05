@@ -18,7 +18,7 @@ const Blank = ({type, size = 10}: Props) => {
     };
 
     return (
-        <div className={`${type === EBlank.Header && styles.HeaderBlank}`}
+        <div className={`${styles.baseContainer} ${type === EBlank.Header && styles.HeaderBlank}`}
              style={dynamicStyle()}
         />
     );

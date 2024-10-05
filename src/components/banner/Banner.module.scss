@@ -6,6 +6,8 @@
 }
 
 .baseContainer {
+  display: flex;
+  flex-shrink: 0;
   position: relative;
   width: 100%;
   height: $height-banner;

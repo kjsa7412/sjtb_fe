@@ -15,13 +15,15 @@ interface Props {
 }
 
 const Search = (props: Props) => {
+    const decodedKeyword = decodeURIComponent(props.params.keyword);
+
     return(
         <PageContainer>
             <Blank type={EBlank.Header}/>
-            <Banner type={EBannerType.Search} title={"Result for " + props.params.keyword}/>
+            <Banner type={EBannerType.Search} title={"Result for " + decodedKeyword}/>
             <BodyContainer>
                 <ContentsContainer>
-                    <SearchPost keyword={props.params.keyword}/>
+                    <SearchPost keyword={decodedKeyword}/>
                 </ContentsContainer>
             </BodyContainer>
             <FooterBase/>

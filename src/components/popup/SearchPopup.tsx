@@ -9,7 +9,6 @@ import useActionAndNavigate from "@/hooks/useActionAndNavigate";
 import styles from './SearchPopup.module.scss';
 import Icons from "@/components/Icons";
 
-
 const SearchPopup = () => {
     const inputRef = useRef<any>(null);
     const popupController = usePopup();
@@ -20,8 +19,10 @@ const SearchPopup = () => {
 
     const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            actionAndNavigate.actionAndNavigate(`/board/search/${query}`);
-            setQuery('');
+            if(query) {
+                actionAndNavigate.actionAndNavigate(`/board/search/${query}`);
+                setQuery('');
+            }
         }
     };
 

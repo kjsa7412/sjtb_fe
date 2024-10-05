@@ -36,7 +36,7 @@ const SearchPost = ({keyword}: { keyword: string }) => {
         result_searchAPI.refetch();
     }, [keyword])
 
-    console.log("result_searchAPI.data?.data : " + JSON.stringify(result_searchAPI.data?.data))
+    console.log("keyword : " + keyword)
 
     return (
         <div className={styles.baseContainer}>
