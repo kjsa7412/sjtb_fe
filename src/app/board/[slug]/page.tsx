@@ -64,8 +64,8 @@ const Post = async (props: Props) => {
             <BodyContainer>
                 <ContentsContainer>
                     <ReadPost content={content}/>
-                    <WriterInfo/>
-                    <TagList/>
+                    <WriterInfo author={post.author}/>
+                    {post.keywords.length > 0 && <TagList tags={post.keywords}/>}
                     <Reaction/>
                     <WriteComment/>
                     <ReadComment/>

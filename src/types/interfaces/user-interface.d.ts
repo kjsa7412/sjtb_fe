@@ -22,6 +22,14 @@ export interface IParam_UserEdit {
     delState: string;
 }
 
-export interface IResult_UserEdit {
+// 회원정보 조회
+export interface IParam_UserInfo {
     userId: string;
+}
+
+export interface IResult_UserInfo {
+    userId: string;
+    userName: string;
+    profilePicPath: string;
+    profileCont: string;
 }
