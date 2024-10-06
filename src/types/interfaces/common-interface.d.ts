@@ -14,6 +14,7 @@ export interface IUser {
     userName: string;
     profileCont: string;
     profilePic: string;
+    profilePicPath: string;
     userAuth: string;
 }
 

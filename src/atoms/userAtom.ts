@@ -11,6 +11,7 @@ export const userAtom = atom<IUser>({
         userName: "",
         profileCont: "",
         profilePic: "",
+        profilePicPath: "",
         userAuth: ""
     },
     effects: [cookieStorageEffect('userAtom')],

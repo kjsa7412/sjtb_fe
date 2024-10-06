@@ -4,7 +4,7 @@
   position: fixed;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  //justify-content: center;
   align-items: center;
   width: 500px;
   height: 650px;
@@ -78,6 +78,13 @@
   .avatarContainer {
     width: 80px;
     height: 80px;
+  }
+
+  .avatarImage {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%; /* 원형으로 만들기 */
+    object-fit: cover; /* 이미지 비율 유지 */
   }
 
   .infoContainer {

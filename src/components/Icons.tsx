@@ -14,6 +14,8 @@ interface Props {
 }
 
 const Icons = ({iconType, fill, width = 16, height = 16}: Props): JSX.Element => {
+    const [imageError, setImageError] = useState(false); // 이미지 로드 오류 상태
+
     return (
         <svg clipRule="evenodd" viewBox={`0 0 ${width} ${height}`}
              xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
@@ -25,10 +27,28 @@ const Icons = ({iconType, fill, width = 16, height = 16}: Props): JSX.Element =>
                     d="M14.863 15.031C13.389 16.269 11.4903 17.016 9.42018 17.016C4.73879 17.016 0.939453 13.204 0.939453 8.508C0.939453 3.812 4.73879 0 9.42018 0C14.0996 0 17.8999 3.812 17.8999 8.508C17.8999 10.586 17.1554 12.492 15.9215 13.969L20.6547 18.719C20.8003 18.865 20.873 19.057 20.873 19.25C20.873 19.837 20.3378 20 20.1255 20C19.9341 20 19.7428 19.927 19.5963 19.78L14.863 15.031ZM9.42018 1.501C5.56503 1.501 2.43646 4.641 2.43646 8.508C2.43646 12.375 5.56503 15.515 9.42018 15.515C13.2733 15.515 16.4039 12.375 16.4039 8.508C16.4039 4.641 13.2733 1.501 9.42018 1.501Z"
                 />
             }
-            {
-                EIcon.Avatar === iconType &&
-                <circle cx={width / 2} cy={width / 2} r={width / 2} fill={fill}/>
-            }
+            {EIcon.Avatar === iconType && (
+                fill.startsWith('http') ? (
+                    <>
+                        <image
+                            href={fill}
+                            width={width}
+                            height={height}
+                            preserveAspectRatio="none" // 비율을 유지하면서 꽉 차게
+                            style={{
+                                borderRadius: '50%', // 둥글게 만들기
+                                clipPath: 'circle(50%)', // 크기 조절을 위한 클리핑 경로
+                            }}
+                            onError={() => setImageError(true)} // 이미지 로드 실패 시 상태 업데이트
+                        />
+                        {imageError && (
+                            <circle cx={width / 2} cy={height / 2} r={width / 2} fill={'#C0C0C0'} />
+                        )}
+                    </>
+                ) : (
+                    <circle cx={width / 2} cy={height / 2} r={width / 2} fill={fill} />
+                )
+            )}
             {
                 EIcon.Close === iconType &&
                 <path
@@ -48,7 +68,7 @@ const Icons = ({iconType, fill, width = 16, height = 16}: Props): JSX.Element =>
                 EIcon.Close3 === iconType &&
                 <path
                     fill={fill}
-                    transform={`scale( ${width/22})`}
+                    transform={`scale( ${width / 22})`}
                     d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z"
                 />
             }

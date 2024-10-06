@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
 
     // API 주소로 프록시
     const response = NextResponse.rewrite(
-        new URL(`${process.env.NEXT_PUBLIC_REAL_SVR_BASE_URL}${newPathname}`, request.url)
+        new URL(`${process.env.NEXT_PUBLIC_REAL_SVR_BASE_URL}${newPathname}${request.nextUrl.search}`, request.url)
     );
 
     // AccessToken이 있는 경우 할당

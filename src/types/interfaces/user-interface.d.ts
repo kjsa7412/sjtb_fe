@@ -17,7 +17,9 @@ export interface IParam_UserSignIn {
 // 회원정보 수정
 export interface IParam_UserEdit {
     userName: string;
+    profilePic: string;
     profileCont: string;
+    delState: string;
 }
 
 export interface IResult_UserEdit {
