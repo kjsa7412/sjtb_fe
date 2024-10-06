@@ -41,15 +41,13 @@ const ProfileOptionPopup = () => {
     );
 
     const handleSignOut = () => {
+        //todo
+        // 로그아웃 시 yse no 팝업을 사용하려는 경우, yes no 팝업 전역 기능 구현 뒤 사용
         // if (true) {
         //     popupController.openPopup(EPopup.Confirm, {contents: {title: "로그아웃", desc: "로그아웃 하시겠습니까?", yesLabel: "YES", noLabel: "NO"}});
         //     return;
         // }
-        
-        /// 현재 위의 있는 핸들러 구현 필요
-        /// yes, no 에 따른 리턴 구분이 안됨
-        //todo :수정바람
-        
+
         signOut.mutate();
     };
 
