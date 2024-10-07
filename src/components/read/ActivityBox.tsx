@@ -11,7 +11,7 @@ import {IParam_CmmtList, IResult_CmmtList} from "@/types/interfaces/post-interfa
 import Reaction from "@/components/read/Reaction";
 import WriteComment from "@/components/read/WriteComment";
 import ReadComment from "@/components/read/ReadComment";
-import styles from "@/components/read/WriterInfo.module.scss";
+import styles from "@/components/read/ActivityBox.module.scss";
 
 interface Props {
     slug: string;
