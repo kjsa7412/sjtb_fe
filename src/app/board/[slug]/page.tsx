@@ -15,11 +15,9 @@ import WriterInfo from "@/components/read/WriterInfo";
 import ContentsContainer from "@/components/containers/ContentsContainer";
 import BodyContainer from "@/components/containers/BodyContainer";
 import TagList from "@/components/read/TagList";
-import Reaction from "@/components/read/Reaction";
-import WriteComment from "@/components/read/WriteComment";
-import ReadComment from "@/components/read/ReadComment";
 import ReadPost from "@/components/read/ReadPost";
 import FooterBase from "@/components/footer/FooterBase";
+import ActivityBox from "@/components/read/ActivityBox";
 
 interface Props {
     params: {
@@ -55,12 +53,7 @@ const Post = async (props: Props) => {
                     <ReadPost content={content}/>
                     <WriterInfo author={post.author}/>
                     {post.keywords.length > 0 && <TagList tags={post.keywords}/>}
-                    <Reaction/>
-                    <WriteComment/>
-                    <ReadComment/>
-                    <ReadComment/>
-                    <ReadComment/>
-                    <ReadComment/>
+                    <ActivityBox slug={post.slug}/>
                 </ContentsContainer>
             </BodyContainer>
             <FooterBase/>

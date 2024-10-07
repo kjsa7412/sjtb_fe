@@ -18,3 +18,18 @@ export interface IPostData {
     dateModified: string;
     content: string;
 }
+
+// 댓글 목록 조회
+export interface IParam_CmmtList {
+    boadId: number;
+}
+
+export interface IResult_CmmtList {
+    cmtId: number;
+    boadId: number;
+    userId: string;
+    userName: string;
+    profilePicPath: string;
+    cmt: string;
+    writeDate: string;
+}

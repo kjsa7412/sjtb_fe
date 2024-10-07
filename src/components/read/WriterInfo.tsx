@@ -35,7 +35,7 @@ const WriterInfo = ({ author }: Props) => {
 
     useEffect(() => {
         result_UserInfo.refetch();
-    }, [author])
+    }, [author]);
 
     return (
         <div className={styles.baseContainer}>
