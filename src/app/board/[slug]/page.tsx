@@ -7,7 +7,6 @@ import {IPostData} from "@/types/interfaces/post-interface";
 import {getMetadata} from "@/seo/metadata/getMetadata";
 import {IMetadata} from "@/types/interfaces/metadata-interface";
 import {META} from "@/contants/metadata";
-import {getLdJsonArticle} from "@/seo/ldJson/getLdJsonArticle";
 
 import Blank from "@/components/blank/Blank";
 import PageContainer from "@/components/containers/PageContainer";
@@ -46,16 +45,6 @@ const Post = async (props: Props) => {
     const post: IPostData | undefined = getPostBySlug(props.params.slug);
     if (!post) return null;
     const content = await markdownToHtml(post.content);
-
-    const structuredData = getLdJsonArticle({
-        id: `${META.baseUrl}/board/${props.params.slug}`,
-        headline: post.title,
-        image: [post.thumbnail],
-        datePublished: post.datePublished,
-        dateModified: post.dateModified,
-        author: {name: post.author, url: ''},
-        keywords: post.keywords,
-    });
 
     return (
         <PageContainer>
