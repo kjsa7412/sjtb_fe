@@ -21,9 +21,9 @@ export function middleware(request: NextRequest) {
     );
 
     // AccessToken이 있는 경우 할당
-    if (authToken) {
-        response.headers.set('Authorization', `Bearer ${authToken}`);
-    }
+    // if (authToken) {
+    //     response.headers.set('Authorization', `Bearer ${authToken}`);
+    // }
 
     return response;
 }
