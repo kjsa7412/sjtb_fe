@@ -37,5 +37,9 @@ export function middleware(request: NextRequest) {
         response.headers.set('Authorization', `Bearer ${authToken}`);
     }
 
+
+    console.log('response__________22222222222222_')
+    console.log(response)
+
     return response;
 }
