@@ -1,7 +1,6 @@
-import React from "react";
-
 import "@/styles/globals.scss";
 import {Viewport} from "next";
+import React from "react";
 
 import RecoilRootWrapper from "@/providers/RecoilWrapper";
 import ReactQueryWrapper from "@/providers/ReactQueryWrapper";
