@@ -7,13 +7,6 @@ import {META} from "@/contants/metadata";
 import {IPostData} from "@/types/interfaces/post-interface";
 import {getLdJsonArticle} from "@/seo/ldJson/getLdJsonArticle";
 
-export const viewport: Viewport = {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-};
-
 const Layout = ({children, params}: { children: ReactNode, params: { slug: string } }) => {
     const post: IPostData | undefined = getPostBySlug(params.slug);
 
