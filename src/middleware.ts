@@ -18,24 +18,33 @@ export function middleware(request: NextRequest) {
         ? originalPathname.substring('/APICALL'.length)
         : originalPathname;
 
-    // if (authToken) {
-    //     request.headers.set('Authorization', `Bearer ${authToken}`);
-    // }
 
 
+    // 새로운 요청 헤더 설정
+    const requestHeaders = new Headers(request.headers);
 
-    // API 주소로 프록시
+    // Authorization 헤더 추가
+    if (authToken) {
+        requestHeaders.set('Authorization', `Bearer ${authToken}`);
+    }
+
+    // API 주소로 프록시하면서 새로운 요청 헤더 설정
     const response = NextResponse.rewrite(
-        new URL(`${process.env.NEXT_PUBLIC_REAL_SVR_BASE_URL}${newPathname}${request.nextUrl.search}`, request.url)
+        new URL(`${process.env.NEXT_PUBLIC_REAL_SVR_BASE_URL}${newPathname}${request.nextUrl.search}`, request.url),
+        {
+            request: {
+                headers: requestHeaders,
+            },
+        }
     );
 
     console.log('response___________')
     console.log(response)
 
     // // AccessToken이 있는 경우 할당
-    if (authToken) {
-        response.headers.set('Authorization', `Bearer ${authToken}`);
-    }
+    // if (authToken) {
+    //     response.headers.set('Authorization', `Bearer ${authToken}`);
+    // }
 
 
     console.log('response__________22222222222222_')
