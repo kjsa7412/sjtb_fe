@@ -36,6 +36,7 @@ export default function RootLayout({children}: Props) {
             <link
                 href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700&family=Roboto:wght@100;400;700&display=swap"
                 rel="stylesheet"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         </head>
         <body style={{backgroundColor: `var(--color-background-1)`}}>
         <ReactQueryWrapper>

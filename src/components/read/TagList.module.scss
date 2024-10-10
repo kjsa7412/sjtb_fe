@@ -2,9 +2,9 @@
 
 .baseContainer {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 90px;
 }

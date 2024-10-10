@@ -52,7 +52,7 @@ const Post = async (props: Props) => {
                 <ContentsContainer>
                     <ReadPost content={content}/>
                     <WriterInfo author={post.author}/>
-                    {post.keywords.length > 0 && <TagList tags={post.keywords}/>}
+                    <TagList tags={post.keywords}/>
                     <ActivityBox slug={post.slug}/>
                 </ContentsContainer>
             </BodyContainer>
