@@ -76,7 +76,7 @@ export const HeaderAction = () => {
     const actionAndNavigate = useActionAndNavigate();
 
     useEffect(() => {
-        if (rcLogin.isLogin) {
+        if (!rcLogin.isLogin) {
             setAction('Write');
         } else {
             setAction('');
@@ -84,7 +84,7 @@ export const HeaderAction = () => {
     }, [rcLogin]);
 
     const onClick = () => {
-        if (rcLogin.isLogin) {
+        if (!rcLogin.isLogin) {
             actionAndNavigate.actionAndNavigate('/board/new')
         }
     };
