@@ -44,8 +44,6 @@ const Post = async (props: Props) => {
     if (!post) return null;
     const content = await markdownToHtml(post.content);
 
-    //todo: 게시물 조회 시 조회 수 늘려주는 코드 추가 필요
-
     return (
         <PageContainer>
             <Blank type={EBlank.Header}/>
