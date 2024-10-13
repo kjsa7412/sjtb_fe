@@ -1,23 +1,22 @@
 'use client';
 
-import React, {useEffect, useState} from "react";
-import {useRecoilState} from "recoil";
+import React, {useState} from "react";
 
 import {EIcon} from "@/types/enums/common-enum";
-import {darkModeAtom} from "@/atoms/darkModeAtom";
 
 interface Props {
     iconType: EIcon;
     fill: string;
     width?: number;
     height?: number;
+    styleTag?: string;
 }
 
-const Icons = ({iconType, fill, width = 16, height = 16}: Props): JSX.Element => {
+const Icons = ({iconType, fill, width = 16, height = 16, styleTag = ''}: Props): JSX.Element => {
     const [imageError, setImageError] = useState(false); // 이미지 로드 오류 상태
 
     return (
-        <svg clipRule="evenodd" viewBox={`0 0 ${width} ${height}`}
+        <svg className={styleTag} clipRule="evenodd" viewBox={`0 0 ${width} ${height}`}
              xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
 
             {

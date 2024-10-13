@@ -36,7 +36,7 @@ const ActivityBox = ({ slug }: Props) => {
     
     return (
         <>
-            <Reaction/>
+            <Reaction slug = {slug} commentCount={Array.isArray(result_CmmtList.data?.data?.content) ? result_CmmtList.data.data.content.length.toString() : '0'} />
             <WriteComment/>
             {result_CmmtList.isError ? (
                 <div className={styles.baseContainer}>

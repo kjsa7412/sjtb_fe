@@ -19,6 +19,26 @@ export interface IPostData {
     content: string;
 }
 
+// 좋아요 및 조회수 조회
+export interface IParam_CountList {
+    boadId: number;
+}
+
+export interface IResult_CountList {
+    viewCnt: string;
+    likeCnt: string;
+}
+
+// 좋아요 클릭
+export interface IParam_UpdateLike {
+    boadid: number;
+}
+
+export interface IResult_UpdateLike {
+    viewCnt: string;
+    likeCnt: string;
+}
+
 // 댓글 목록 조회
 export interface IParam_CmmtList {
     boadId: number;

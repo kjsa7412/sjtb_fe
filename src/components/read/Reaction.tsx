@@ -5,12 +5,17 @@ import Like from "@/components/read/Like";
 import Blank from "@/components/blank/Blank";
 import CommentCount from "@/components/read/CommentCount";
 
-const Reaction = () => {
+interface Props {
+    slug : string;
+    commentCount: string;
+}
+
+const Reaction = ({ slug, commentCount }: Props) => {
     return(
         <div className={styles.baseContainer}>
-            <Like/>
+            <Like slug={slug}/>
             <Blank type={EBlank.Row} size={20}/>
-            <CommentCount/>
+            <CommentCount commentCount={commentCount}/>
         </div>
     )
 }
