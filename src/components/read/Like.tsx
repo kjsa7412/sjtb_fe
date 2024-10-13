@@ -31,7 +31,7 @@ async function serverAPI_CountList(param: IParam_CountList): Promise<AxiosRespon
 }
 
 async function serverAPI_UpdateLike(param: IParam_UpdateLike): Promise<AxiosResponse<IAPIResponse<IResult_UpdateLike>>> {
-    return await axiosServer.post('/public/post/boad/like', param);
+    return await axiosServer.post('/private/post/boad/like', param);
 }
 
 const Like = ({ slug }: Props) => {
@@ -60,10 +60,6 @@ const Like = ({ slug }: Props) => {
             setLikeCount(result_CountList.data.data.content.likeCnt || '0');
         }
     }, [result_CountList.data]);
-
-    useEffect(() => {
-        console.log(rcLogin)
-    }, [rcLogin]);
 
     const updateLike = useMutation(
         () => {
