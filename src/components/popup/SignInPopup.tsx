@@ -70,7 +70,7 @@ const SignInPopup = () => {
                     popupController.closeAll();
                     setRcLogin({isLogin: true});
                     setRcUser({...content});
-                    popupController.openPopup(EPopup.Notify, {contents: {title: "로그인 성공", desc: "로그인 되었습니다."}});
+                    //popupController.openPopup(EPopup.Notify, {contents: {title: "로그인 성공", desc: "로그인 되었습니다."}});
                 }
             },
             onError: () => {
@@ -135,7 +135,7 @@ const SignInPopup = () => {
                                         controller={{
                                             isSubmit: true,
                                             label: "Sign In",
-                                            isLoading: (signIn.status !== 'success' && signIn.status !== 'idle')
+                                            isLoading: ((signIn.status !== 'success' && signIn.status !== 'idle') || signIn.isFetching === true)
                                         }}
                                         styles={{
                                             size: EButtonSize.Large,

@@ -204,7 +204,7 @@ const EditProfilePopup = () => {
                                         controller={{
                                             isSubmit: true,
                                             label: "Save",
-                                            isLoading: (signEdit.status !== 'success' && signEdit.status !== 'idle')
+                                            isLoading: ((signEdit.status !== 'success' && signEdit.status !== 'idle') || signEdit.isFetching === true )
                                         }}
                                         styles={{
                                             size: EButtonSize.Medium,
