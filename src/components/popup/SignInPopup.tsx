@@ -135,7 +135,7 @@ const SignInPopup = () => {
                                         controller={{
                                             isSubmit: true,
                                             label: "Sign In",
-                                            isLoading: ((signIn.status !== 'success' && signIn.status !== 'idle') || signIn.isFetching === true)
+                                            isLoading: (signIn.status !== 'success' && signIn.status !== 'idle')
                                         }}
                                         styles={{
                                             size: EButtonSize.Large,
