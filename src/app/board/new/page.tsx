@@ -6,6 +6,7 @@ import BodyContainer from "@/components/containers/BodyContainer";
 import ContentsContainer from "@/components/containers/ContentsContainer";
 import Title from "@/components/edit/Title";
 import EditorSection from "@/components/edit/EditorSection";
+import FooterBase from "@/components/footer/FooterBase";
 
 const New = () => {
     return (
@@ -18,6 +19,7 @@ const New = () => {
                     <EditorSection/>
                 </ContentsContainer>
             </BodyContainer>
+            <FooterBase/>
         </PageContainer>
     );
 };
