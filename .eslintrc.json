@@ -112,7 +112,10 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["**/*.test.tsx", "**/*.stories.*", "**/.storybook/**/*.*", "setupTests.ts"],
+        "devDependencies":[
+        "**/*.test.ts",
+        "**/*.test.tsx"
+        ],
         "peerDependencies": true
       }
     ],

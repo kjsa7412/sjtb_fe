@@ -6,7 +6,14 @@ import styles from './Title.module.scss';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-const Title = ({ onKeyPress }) => {
+const Title = () => {
+    const handleTitleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            // plainTextRefs.current[0]?.focus(); // 첫 번째 PlainText로 포커스 이동
+        }
+    };
+
     const handleResizeHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         // textarea의 높이를 scrollHeight에 맞춰 조정
         e.target.style.height = 'auto'; // 초기화
@@ -19,7 +26,7 @@ const Title = ({ onKeyPress }) => {
                 rows={1}
                 className={styles.inputBox}
                 placeholder="Title"
-                onKeyPress={onKeyPress}
+                onKeyPress={handleTitleKeyPress}
                 onChange={handleResizeHeight} // 높이 자동 조정 호출
                 style={{ resize: 'none', overflow: 'hidden' }} // 수동 크기 조정을 비활성화하고 overflow 숨김 처리
             />
