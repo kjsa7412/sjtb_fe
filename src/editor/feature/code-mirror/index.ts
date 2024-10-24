@@ -1,8 +1,6 @@
 import { codeBlockComponent, codeBlockConfig } from '@milkdown/kit/component/code-block'
 import { basicSetup } from 'codemirror'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { keymap } from '@codemirror/view'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { defaultKeymap, indentWithTab } from '@codemirror/commands'
 
 import type { Extension } from '@codemirror/state'
