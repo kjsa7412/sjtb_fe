@@ -1,6 +1,6 @@
 'use client';
 
-import {useRecoilState} from "recoil";
+import {useRecoilState, useRecoilValue} from "recoil";
 import {useEffect, useRef, useState} from "react";
 import {usePathname} from "next/navigation";
 
@@ -12,6 +12,7 @@ import useActionAndNavigate from "@/hooks/useActionAndNavigate";
 import useBreakPoint from "@/hooks/useBreakPoint";
 import {userAtom} from "@/atoms/userAtom";
 import {IMG} from "@/contants/common";
+import {editorAtom} from "@/atoms/editorAtom";
 
 import Icons from "@/components/Icons";
 import styles from "./HeaderItem.module.scss";
@@ -73,9 +74,10 @@ export const HeaderProfile = () => {
 
 export const HeaderAction = () => {
     const [action, setAction] = useState('')
-    const [rcLogin, setRcLogin] = useRecoilState<ILogin>(loginAtom);
+    const [rcLogin] = useRecoilState<ILogin>(loginAtom);
     const actionAndNavigate = useActionAndNavigate();
     const pathName = usePathname();
+    const editorRef = useRecoilValue(editorAtom);
 
     useEffect(()=> {
         if (pathName === '/board/new' && !rcLogin.isLogin) {
@@ -99,7 +101,9 @@ export const HeaderAction = () => {
         if (action === 'Write') {
             actionAndNavigate.actionAndNavigate('/board/new');
         } else if (action === 'Publish') {
-            console.log('작성');
+            if (editorRef) {
+                console.log(editorRef.getMarkdown());
+            }
         }
     };
 

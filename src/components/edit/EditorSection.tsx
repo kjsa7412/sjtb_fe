@@ -1,41 +1,37 @@
-'use client';
+'use client'
 
-import React, {useRef, useEffect, useState} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// eslint-disable-next-line import/extensions,import/order
-import { Crepe } from '@/editor/core/crepe.ts';
 
 import "@/editor/theme/common/style.css";
 import "@/editor/theme/frame/style.css";
+import { editorAtom } from "@/atoms/editorAtom";
 import { darkModeAtom } from "@/atoms/darkModeAtom";
+import {Crepe} from "@/editor";
 
 import styles from "@/components/edit/EditorSection.module.scss";
 
 const EditorSection = () => {
-    const crepeRef = useRef<Crepe | null>(null);
+    const localCrepeRef = useRef<Crepe | null>(null);
+    const [crepeRef, setCrepeRef] = useRecoilState(editorAtom);
     const [rcDarkMode] = useRecoilState(darkModeAtom);
     const [editorClassName, setEditorClassName] = useState(styles.baseContainer);
+    const editorSectionRef = useRef<HTMLDivElement | null>(null);
 
+    // 에디터 생성 useEffect
     useEffect(() => {
         const rootElement = document.getElementById('editorSection');
 
-        if (rootElement && !crepeRef.current) { // crepeRef가 null일 때만 생성
-            crepeRef.current = new Crepe({
-                root: rootElement
-            });
-
-            // 에디터 생성
-            crepeRef.current.create().then(() => {
-                console.log('Editor created');
+        if (rootElement && !localCrepeRef.current) {
+            localCrepeRef.current = new Crepe({ root: rootElement });
+            localCrepeRef.current.create().then(() => {
+                setCrepeRef(localCrepeRef.current); // Recoil 상태 업데이트
             });
         }
     }, []);
 
+    // 다크모드 전환 useEffect
     useEffect(() => {
-        // 다크 모드에 따라 클래스 변경
         if (rcDarkMode.isDark) {
             setEditorClassName(`${styles.baseContainer} ${styles.frameDark}`);
         } else {
@@ -43,17 +39,34 @@ const EditorSection = () => {
         }
     }, [rcDarkMode]);
 
+    /// 이거 지금 editor 위치 땡기는게 문제가 있음
+    useEffect(() => {
+        const handleResize = () => {
+            if (editorSectionRef.current) {
+                editorSectionRef.current.scrollIntoView({ behavior: "auto", block: "end" });
+            }
+        };
 
-    // const toMarkDown = () => {
-    //     if (crepeRef.current) {
-    //         console.log(crepeRef.current.getMarkdown());
-    //     }
-    // };
+        const resizeObserver = new ResizeObserver(handleResize);
+
+        if (editorSectionRef.current) {
+            resizeObserver.observe(editorSectionRef.current);
+        }
+
+        handleResize();
+
+        return () => {
+            if (editorSectionRef.current) {
+                resizeObserver.unobserve(editorSectionRef.current);
+            }
+        };
+    }, []);
 
     return (
         <div
             id="editorSection"
             className={editorClassName}
+            ref={editorSectionRef}
         />
     );
 };
