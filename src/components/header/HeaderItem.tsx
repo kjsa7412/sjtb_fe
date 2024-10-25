@@ -2,6 +2,7 @@
 
 import {useRecoilState} from "recoil";
 import {useEffect, useRef, useState} from "react";
+import {usePathname} from "next/navigation";
 
 import {EBreakPoint, EElementId, EIcon, EPopup} from "@/types/enums/common-enum";
 import {ILogin, IUser} from "@/types/interfaces/common-interface";
@@ -74,18 +75,31 @@ export const HeaderAction = () => {
     const [action, setAction] = useState('')
     const [rcLogin, setRcLogin] = useRecoilState<ILogin>(loginAtom);
     const actionAndNavigate = useActionAndNavigate();
+    const pathName = usePathname();
 
-    useEffect(() => {
-        if (rcLogin.isLogin) {
-            setAction('Write');
-        } else {
-            setAction('');
+    useEffect(()=> {
+        if (pathName === '/board/new' && !rcLogin.isLogin) {
+            alert('비 정상적인 접근입니다.')
+            actionAndNavigate.actionAndNavigate('/')
+            return;
         }
-    }, [rcLogin]);
+    }, []);
+
+    // 경로 변경을 감지해서 버튼값 설정
+    useEffect(() => {
+        if (pathName === '/board/new') {
+            setAction('Publish');
+        } else {
+            setAction(rcLogin.isLogin ? 'Write' : '');
+        }
+    }, [rcLogin, pathName]);
 
     const onClick = () => {
-        if (rcLogin.isLogin) {
-            actionAndNavigate.actionAndNavigate('/board/new')
+        // 게시물 작성 url 이동
+        if (action === 'Write') {
+            actionAndNavigate.actionAndNavigate('/board/new');
+        } else if (action === 'Publish') {
+            console.log('작성');
         }
     };
 
