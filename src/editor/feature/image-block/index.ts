@@ -52,7 +52,7 @@ const customUploadHandler = async (file: File): Promise<string> => {
     }
   });
 
-  if (result.data.content && !result.data.isError) {
+  if (result.status === 200 && result.data.content && !result.data.isError) {
     return IMG.DefaultPath + result.data.content.imgfullpath;
   } else {
     alert('이미지 업로드를 실패하였습니다.');
