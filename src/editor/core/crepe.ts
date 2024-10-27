@@ -58,11 +58,6 @@ export class Crepe {
           ...value,
           size: 4,
         }))
-
-        // listItem 수정 방안
-        // ctx.set(listItemAttr) 이런식으로 메소드 하나씩 까보면 나올꺼 같은데
-        // 근데 이상하게 https://milkdown.vercel.app/docs/recipes/react 여기선 또 잘됨
-        /// crepe 소스 자체 문제인것으로 추측
       })
       .use(commonmark)
       .use(history)

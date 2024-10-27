@@ -1,7 +1,9 @@
-import { listItemBlockComponent, listItemBlockConfig } from '@milkdown/kit/component/list-item-block'
+// import { listItemBlockConfig } from '@milkdown/kit/component/list-item-block'
 import { html } from 'atomico'
 import clsx from 'clsx'
 
+// 한글 작성 이슈 때문에 기존 라이브러리가 아닌 수정한 라이브러리 import
+import { listItemBlockComponent, listItemBlockConfig } from "@/editor/list-item-block";
 import type { Ctx } from '@milkdown/kit/ctx'
 import type { DefineFeature, Icon } from '../shared'
 
