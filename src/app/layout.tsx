@@ -35,9 +35,8 @@ interface Props {
 
 export default function RootLayout({children}: Props) {
     //todo: footer를 페이지별로가 아닌 여기서 추가해야 하는지 여쭤봐야함
-    //todo: 에디터에서 사진은 글 작성할 때 한번에 보내는걸로, 해시태그 작성하는 input 만들어줘야함
     //todo: 에디터 스크롤 자동 옮겨지는거 구현해야함
-    //todo: 해시태그 chatgpt로 생성 가능한지 여쭤보기 -> input 없애는 방향
+    //todo: 해시태그 chatgpt로 생성 -> input 없애는 방향
     
     return (
         <html lang="en">
