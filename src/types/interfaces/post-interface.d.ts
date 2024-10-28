@@ -19,6 +19,24 @@ export interface IPostData {
     content: string;
 }
 
+export interface IParam_CreatePost {
+    slug: string;
+    title: string;
+    description: string;
+    thumbnail: string;
+    keywords: string[];
+    author: string
+    datePublished: string;
+    dateModified: string;
+    content: string;
+}
+
+export interface IResult_CreatePost {
+    success: boolean;
+    message: string;
+    filePath?: string; // 성공 시에만 포함
+}
+
 // 좋아요 및 조회수 조회
 export interface IParam_CountList {
     boadId: number;

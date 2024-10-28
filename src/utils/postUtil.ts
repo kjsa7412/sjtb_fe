@@ -2,7 +2,7 @@ import { join } from "path";
 import fs from "fs";
 import matter from "gray-matter";
 
-import { IPostData } from "@/types/interfaces/post-interface";
+import {IParam_CreatePost, IPostData, IResult_CreatePost} from "@/types/interfaces/post-interface";
 
 const postsDirectory = join(process.cwd(), "_posts");
 
@@ -51,4 +51,44 @@ export function getPostByTerm(searchTerm: string): IPostData[] {
             mdContent.includes(searchTerm)
         );
     }).sort((post1, post2) => (post1.dateModified > post2.dateModified ? -1 : 1));
+}
+
+export function createPost(param: IParam_CreatePost): IResult_CreatePost {
+    try {
+        const fileName = `${param.slug}.md`;
+        const filePath = join(postsDirectory, fileName);
+
+        // param을 사용하여 메타데이터 구성
+        const data = {
+            title: param.title,
+            description: param.description,
+            thumbnail: param.thumbnail,
+            keywords: param.keywords.join(", "),
+            author: param.author,
+            datePublished: param.datePublished,
+            dateModified: param.dateModified,
+        };
+
+        // 포스트 내용과 메타데이터를 포함한 파일 내용을 작성
+        let fileContents = matter.stringify(param.content, data);
+
+        // 메타데이터와 내용 사이에 공백 한 줄 추가
+        fileContents = fileContents.replace(/\n---\n/, "\n---\n\n");
+
+        // 파일을 `_posts` 디렉토리에 저장
+        fs.writeFileSync(filePath, fileContents, "utf8");
+
+        // 성공 시 성공 메시지와 파일 경로를 반환
+        return {
+            success: true,
+            message: "파일 저장 성공",
+            filePath,
+        };
+    } catch (error) {
+        // 실패 시 실패 메시지와 에러 내용을 반환
+        return {
+            success: false,
+            message: `파일 저장 실패: ${(error as Error).message}`,
+        };
+    }
 }
