@@ -3,9 +3,10 @@
 import {useRecoilState, useRecoilValue} from "recoil";
 import {useEffect, useRef, useState} from "react";
 import {usePathname} from "next/navigation";
+import {AxiosResponse} from "axios";
 
 import {EBreakPoint, EElementId, EIcon, EPopup} from "@/types/enums/common-enum";
-import {ILogin, IUser} from "@/types/interfaces/common-interface";
+import {IAPIResponse, ILogin, IUser} from "@/types/interfaces/common-interface";
 import {loginAtom} from "@/atoms/loginAtom";
 import usePopup from "@/hooks/usePopup";
 import useActionAndNavigate from "@/hooks/useActionAndNavigate";
@@ -13,11 +14,18 @@ import useBreakPoint from "@/hooks/useBreakPoint";
 import {userAtom} from "@/atoms/userAtom";
 import {IMG} from "@/contants/common";
 import {editorAtom} from "@/atoms/editorAtom";
+import {IParam_UserSignUp, IResult_UserSignUp} from "@/types/interfaces/user-interface";
+import axiosServer from "@/libs/axiosServer";
 
 import Icons from "@/components/Icons";
 import styles from "./HeaderItem.module.scss";
 import SearchBar from "@/components/search/SearchBar";
 import SearchIcon from "@/components/search/SearchIcon";
+
+// 나중에 api 전달에 사용
+async function serverAPI_publishBoard(param: IParam_UserSignUp): Promise<AxiosResponse<IAPIResponse<IResult_UserSignUp>>> {
+    return await axiosServer.post('/public/post/user/signUp', param);
+}
 
 export const HeaderLogo = () => {
     const actionAndNavigate = useActionAndNavigate();
@@ -91,6 +99,8 @@ export const HeaderAction = () => {
     useEffect(() => {
         if (pathName === '/board/new') {
             setAction('Publish');
+        } else if (/^\/board\/\d+\/edit$/.test(pathName)) {
+            setAction('Edit');
         } else {
             setAction(rcLogin.isLogin ? 'Write' : '');
         }
@@ -100,8 +110,9 @@ export const HeaderAction = () => {
         // 게시물 작성 url 이동
         if (action === 'Write') {
             actionAndNavigate.actionAndNavigate('/board/new');
-        } else if (action === 'Publish') {
+        } else if (action === 'Publish' || action === 'Edit') {
             if (editorRef) {
+                console.log(editorRef);
                 console.log(editorRef.getMarkdown());
             }
         }

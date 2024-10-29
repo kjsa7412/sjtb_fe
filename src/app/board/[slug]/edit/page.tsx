@@ -1,36 +1,37 @@
-'use client';
-
-import {usePathname, } from "next/navigation";
-import {useEffect, useState} from "react";
-
 import { EBlank } from "@/types/enums/common-enum";
+import {IPostData} from "@/types/interfaces/post-interface";
+import {getPostBySlug} from "@/utils/postUtil";
 
 import PageContainer from "@/components/containers/PageContainer";
 import Blank from "@/components/blank/Blank";
+import BodyContainer from "@/components/containers/BodyContainer";
+import ContentsContainer from "@/components/containers/ContentsContainer";
+import Title from "@/components/edit/Title";
+import EditorSection from "@/components/edit/EditorSection";
+import FooterBase from "@/components/footer/FooterBase";
 
-const Edit = () => {
-    const pathname = usePathname();
-    const [slug, setSlug] = useState<string>("");
-    const [post, setPost] = useState(null);
+interface Props {
+    params: {
+        slug: string
+    }
+}
 
-    useEffect(() => {
-        if (pathname) {
-            const parts = pathname.split('/');
-            const slugValue = parts[2]; // "/board/[slug]/edit"에서 slug 부분 추출
-            setSlug(slugValue);
-        }
-    }, [pathname]);
-
-    useEffect(() => {
-        if (slug) {
-            // 서버에서 포스트 데이터 가져오기
-        }
-    }, [slug]);
+const Edit = (props: Props) => {
+    const post: IPostData | undefined = getPostBySlug(props.params.slug);
 
     return (
         <PageContainer>
             <Blank type={EBlank.Header} />
-            {`Edit: ${slug}`}
+            <BodyContainer>
+                <ContentsContainer>
+                    <Blank type={EBlank.Column} size={60}/>
+                    <Title title={post?.title}/>
+                    <EditorSection post={post}/>
+                    {/*임의로 비워둔 칸 -> 스크롤 비교용*/}
+                    <Blank type={EBlank.Column} size={120}/>
+                </ContentsContainer>
+            </BodyContainer>
+            <FooterBase/>
         </PageContainer>
     );
 };

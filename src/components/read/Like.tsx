@@ -56,9 +56,8 @@ const Like = ({ slug }: Props) => {
     }, [slug]);
 
     useEffect(() => {
-        if (result_CountList.data) {
-            setLikeCount(result_CountList.data.data.content.likeCnt || '0');
-        }
+        const likeCnt = result_CountList.data?.data?.content?.likeCnt ?? '0';
+        setLikeCount(likeCnt);
     }, [result_CountList.data]);
 
     const updateLike = useMutation(

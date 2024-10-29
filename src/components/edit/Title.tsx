@@ -4,9 +4,13 @@ import React from "react";
 
 import styles from './Title.module.scss';
 
+interface TitleProps {
+    title?: string;
+}
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-const Title = () => {
+const Title = (props: TitleProps) => {
     const handleTitleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === "Enter") {
             e.preventDefault();
@@ -26,6 +30,7 @@ const Title = () => {
                 rows={1}
                 className={styles.inputBox}
                 placeholder="Title"
+                defaultValue={props.title}
                 onKeyPress={handleTitleKeyPress}
                 onChange={handleResizeHeight} // 높이 자동 조정 호출
                 style={{ resize: 'none', overflow: 'hidden' }} // 수동 크기 조정을 비활성화하고 overflow 숨김 처리

@@ -8,10 +8,15 @@ import "@/editor/theme/frame/style.css";
 import { editorAtom } from "@/atoms/editorAtom";
 import { darkModeAtom } from "@/atoms/darkModeAtom";
 import {Crepe} from "@/editor";
+import {IPostData} from "@/types/interfaces/post-interface";
 
 import styles from "@/components/edit/EditorSection.module.scss";
 
-const EditorSection = () => {
+interface EditorSectionProps {
+    post?: IPostData;
+}
+
+const EditorSection = (props: EditorSectionProps) => {
     const localCrepeRef = useRef<Crepe | null>(null);
     const [crepeRef, setCrepeRef] = useRecoilState(editorAtom);
     const [rcDarkMode] = useRecoilState(darkModeAtom);
@@ -23,7 +28,7 @@ const EditorSection = () => {
         const rootElement = document.getElementById('editorSection');
 
         if (rootElement && !localCrepeRef.current) {
-            localCrepeRef.current = new Crepe({ root: rootElement });
+            localCrepeRef.current = new Crepe({ root: rootElement, defaultValue: props ? props.post?.content : '' });
             localCrepeRef.current.create().then(() => {
                 setCrepeRef(localCrepeRef.current); // Recoil 상태 업데이트
             });
