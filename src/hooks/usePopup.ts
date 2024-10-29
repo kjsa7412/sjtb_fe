@@ -29,6 +29,7 @@ const usePopup = () => {
     const getPopupData = (popupName: EPopup): IPopupDataDetail | any => data[popupName as keyof IPopupData];
 
     const closeAll = () => {
+        document.body.classList.remove("stop-scroll");
         resetPopupState();
         resetPopupData();
     }
