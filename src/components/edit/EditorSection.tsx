@@ -31,6 +31,21 @@ const EditorSection = (props: EditorSectionProps) => {
             localCrepeRef.current = new Crepe({ root: rootElement, defaultValue: props ? props.post?.content : '' });
             localCrepeRef.current.create().then(() => {
                 setCrepeRef(localCrepeRef.current); // Recoil 상태 업데이트
+
+                if (editorSectionRef.current) {
+                    const walker = document.createTreeWalker(
+                        editorSectionRef.current,
+                        NodeFilter.SHOW_TEXT,
+                        null
+                    );
+
+                    let node;
+                    while ((node = walker.nextNode())) {
+                        if (node.nodeValue && node.nodeValue.includes('\u00A0')) {
+                            node.nodeValue = node.nodeValue.replaceAll('\u00A0', '');
+                        }
+                    }
+                }
             });
         }
     }, []);
