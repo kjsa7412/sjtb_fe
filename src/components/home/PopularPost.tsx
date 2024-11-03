@@ -4,7 +4,7 @@ import {AxiosResponse} from "axios";
 import {useEffect, useState} from "react";
 import {useQuery} from "react-query";
 
-import {IPostData} from "@/types/interfaces/post-interface";
+import {IParam_CreatePost, IPostData} from "@/types/interfaces/post-interface";
 import axiosClient from "@/libs/axiosClient";
 import {BREAKPOINT} from "@/contants/common";
 import useIsLargeScreen from "@/hooks/useIsLargeScreen";
@@ -22,15 +22,20 @@ const allPostAPI = (): Promise<AxiosResponse<IPostData[]>> => {
 
 const PopularPost = () => {
     const breakPoint = useBreakPoint();
+    const [lastThreePosts, setLastThreePosts] = useState<IPostData[]>([]); // 상태 선언
 
     const result_allPostAPI = useQuery(
         ["result_searchAPI"],
         () => allPostAPI(),
         {
-            enabled: false
+            enabled: false,
+            onSuccess: (data) => {
+                // API 요청이 성공하면 마지막 3개의 포스트로 상태 업데이트
+                // todo: 인기 게시물 api 생성하면 이거도 수정 필요
+                setLastThreePosts(data.data.slice(-3));
+            }
         }
-    )
-
+    );
     useEffect(() => {
         result_allPostAPI.refetch();
     }, [])
@@ -44,8 +49,8 @@ const PopularPost = () => {
                     <div style={{width: '100%', height: '388px', borderRadius: '10px', background: 'lightgray'}}/> :
                     (
                         breakPoint === EBreakPoint.LG ?
-                            <ColumnPostMotion posts={result_allPostAPI.data?.data}/> :
-                            <ColumnPostSlider posts={result_allPostAPI.data?.data}/>
+                            <ColumnPostMotion posts={lastThreePosts}/> :
+                            <ColumnPostSlider posts={lastThreePosts}/>
                     )
             }
         </>
