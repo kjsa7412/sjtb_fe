@@ -52,12 +52,9 @@ axiosServer.interceptors.response.use(
 
                 // 토큰 재발급이 성공한 경우
                 if (renewResponse.status === 200 && !renewResponse.data.isError) {
-                    console.log('재발급성공')
                     // 실패했던 원래의 요청을 토큰을 재발급 받은뒤에 다시 요청
                     return axios(originalRequest);
                 } else {
-                    console.log('토큰 재발급 실패')
-
                     // 로그인 관련 정보 삭제
                     deleteCookie('userAtom');
                     deleteCookie('loginAtom')

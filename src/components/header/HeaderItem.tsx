@@ -1,9 +1,10 @@
 'use client';
 
 import {useRecoilState, useRecoilValue} from "recoil";
-import {useEffect, useRef, useState, useCallback} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {usePathname} from "next/navigation";
 import {AxiosResponse} from "axios";
+import {useMutation} from "react-query";
 
 import {EBreakPoint, EElementId, EIcon, EPopup} from "@/types/enums/common-enum";
 import {IAPIResponse, ILogin, IUser} from "@/types/interfaces/common-interface";
@@ -14,10 +15,9 @@ import useBreakPoint from "@/hooks/useBreakPoint";
 import {userAtom} from "@/atoms/userAtom";
 import {IMG} from "@/contants/common";
 import {editorAtom} from "@/atoms/editorAtom";
-import {IParam_UserSignUp, IResult_UserSignUp} from "@/types/interfaces/user-interface";
 import axiosServer from "@/libs/axiosServer";
-import axiosClient from "@/libs/axiosClient";
 import {editTitleAtom} from "@/atoms/editTitleAtom";
+import {IParam_InsertPost, IResult_InsertPost} from "@/types/interfaces/post-interface";
 
 import Icons from "@/components/Icons";
 import styles from "./HeaderItem.module.scss";
@@ -25,8 +25,10 @@ import SearchBar from "@/components/search/SearchBar";
 import SearchIcon from "@/components/search/SearchIcon";
 
 // 게시물 작성 함수
-async function serverAPI_InsertBoard(param: IParam_UserSignUp): Promise<AxiosResponse<IAPIResponse<IResult_UserSignUp>>> {
-    return await axiosServer.post('/public/post/user/signUp', param);
+async function serverAPI_InsertPost(param: IParam_InsertPost): Promise<AxiosResponse<IAPIResponse<IResult_InsertPost>>> {
+    //todo: temp 적힌 부분 제거 필요
+    //todo: 게시물 작성에 로딩바도 추가해야함
+    return await axiosServer.post('/private/post/boad/instTemp', param);
 }
 
 export const HeaderLogo = () => {
@@ -110,6 +112,30 @@ export const HeaderAction = () => {
         }
     }, [rcLogin, pathName]);
 
+    // 게시물 작성 Mutation
+    const insertPost = useMutation(
+        (formattedContent: string) => {
+            return serverAPI_InsertPost({title: editTitle, boadConts: formattedContent});
+        },
+        {
+            onSuccess: (data) => {
+                if (data.data.isError) {
+                    popupController.openPopup(EPopup.Notify, {
+                        contents: {
+                            title: "게시물 작성 실패",
+                            desc: "게시물 작성에 실패했습니다. 담당자에게 연락해주세요."
+                        }
+                    });
+                } else {
+                    actionAndNavigate.actionAndNavigate(`/board/${data.data.content.boadId}`);
+                }
+            },
+            onError: () => {
+                popupController.openPopup(EPopup.Notify, {contents: {title: "게시물 작성 실패", desc: "전산 오류입니다. 담당자에게 연락해주세요."}});
+            }
+        }
+    );
+
     const onClick = useCallback(() => {
         // 게시물 작성 url 이동
         if (action === 'Write') {
@@ -153,6 +179,8 @@ export const HeaderAction = () => {
                 console.log('게시물 작성')
                 console.log(editTitle);
                 console.log(formattedContent);
+
+                insertPost.mutate(formattedContent);
             }
             // 글 수정 프로세스
             else if (/^\/board\/\d+\/edit$/.test(pathName)) {
@@ -160,21 +188,6 @@ export const HeaderAction = () => {
                 console.log(editTitle);
                 console.log(formattedContent);
             }
-
-            const post = {
-                slug: "4",
-                title: "Sample Post Title",
-                description: "This is a sample description for the post.",
-                thumbnail: "/assets/blog/dynamic-routing/cover.jpg",
-                keywords: ["sample", "test", "post", "data"],
-                author: "123@123.com",
-                datePublished: "2024-10-29T00:00:00Z",
-                dateModified: "2024-10-29T00:00:00Z",
-                content: formattedContent
-            };
-
-            // axiosClient.post('/api/createPost', post);
-            // console.log(editorRef.getMarkdown());
         }
     }, [action, actionAndNavigate, editorRef]);
 

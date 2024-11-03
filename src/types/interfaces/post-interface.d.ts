@@ -19,7 +19,17 @@ export interface IPostData {
     content: string;
 }
 
-// 게시물 작성
+// 게시물 작성 (브라우저 to API)
+export interface IParam_InsertPost {
+    title: string;
+    boadConts: string;
+}
+
+export interface IResult_InsertPost {
+    boadId: string;
+}
+
+// 게시물 작성 (API to NODE)
 export interface IParam_CreatePost {
     slug: string;
     title: string;
