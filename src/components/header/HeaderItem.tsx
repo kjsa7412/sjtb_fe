@@ -17,14 +17,15 @@ import {editorAtom} from "@/atoms/editorAtom";
 import {IParam_UserSignUp, IResult_UserSignUp} from "@/types/interfaces/user-interface";
 import axiosServer from "@/libs/axiosServer";
 import axiosClient from "@/libs/axiosClient";
+import {editTitleAtom} from "@/atoms/editTitleAtom";
 
 import Icons from "@/components/Icons";
 import styles from "./HeaderItem.module.scss";
 import SearchBar from "@/components/search/SearchBar";
 import SearchIcon from "@/components/search/SearchIcon";
 
-// 나중에 api 전달에 사용
-async function serverAPI_publishBoard(param: IParam_UserSignUp): Promise<AxiosResponse<IAPIResponse<IResult_UserSignUp>>> {
+// 게시물 작성 함수
+async function serverAPI_InsertBoard(param: IParam_UserSignUp): Promise<AxiosResponse<IAPIResponse<IResult_UserSignUp>>> {
     return await axiosServer.post('/public/post/user/signUp', param);
 }
 
@@ -85,8 +86,10 @@ export const HeaderAction = () => {
     const [action, setAction] = useState('')
     const [rcLogin] = useRecoilState<ILogin>(loginAtom);
     const actionAndNavigate = useActionAndNavigate();
+    const popupController = usePopup();
     const pathName = usePathname();
     const editorRef = useRecoilValue(editorAtom);
+    const editTitle = useRecoilValue(editTitleAtom);
 
     useEffect(()=> {
         if (pathName === '/board/new' && !rcLogin.isLogin) {
@@ -107,49 +110,71 @@ export const HeaderAction = () => {
         }
     }, [rcLogin, pathName]);
 
-    /// 이거 useCallback 써야할듯
     const onClick = useCallback(() => {
         // 게시물 작성 url 이동
         if (action === 'Write') {
             actionAndNavigate.actionAndNavigate('/board/new');
         } else if (action === 'Publish') {
-            if (editorRef) {
-                const lines: string[] = editorRef.getMarkdown().split('\n');
-                let formattedContent = '';
-                let lineBreakCount = 0;
+            if (!editTitle) {
+                popupController.openPopup(EPopup.Notify, {contents: {title: "게시물 작성 실패", desc: "제목을 입력해주세요."}});
+                return;
+            }
 
-                for (let i = 0; i < lines.length; i++) {
-                    formattedContent += lines[i]; // 현재 줄 추가
+            if (!editorRef?.getMarkdown()) {
+                popupController.openPopup(EPopup.Notify, {contents: {title: "게시물 작성 실패", desc: "내용을 입력해주세요."}});
+                return;
+            }
 
-                    if (lines[i] === '') {
-                        lineBreakCount++;
-                    } else {
-                        lineBreakCount = 0; // 줄바꿈 카운트 초기화
-                    }
+            // md 파일을 html로 출력하기 위한 전처리
+            // \n\n이 두번 발생한 경우 &nbsp; 추가
+            const lines: string[] = editorRef.getMarkdown().split('\n');
+            let formattedContent = '';
+            let lineBreakCount = 0;
 
-                    // 줄바꿈이 두 번 연속되면 `&nbsp;` 추가
-                    if (lineBreakCount === 2) {
-                        formattedContent += '&nbsp;';
-                        lineBreakCount = 0; // 카운트 초기화
-                    }
-                    formattedContent += '\n'; // 각 줄 끝에 줄바꿈 추가
+            for (let i = 0; i < lines.length; i++) {
+                formattedContent += lines[i]; // 현재 줄 추가
+
+                if (lines[i] === '') {
+                    lineBreakCount++;
+                } else {
+                    lineBreakCount = 0; // 줄바꿈 카운트 초기화
                 }
 
-                const post = {
-                    slug: "4",
-                    title: "Sample Post Title",
-                    description: "This is a sample description for the post.",
-                    thumbnail: "/assets/blog/dynamic-routing/cover.jpg",
-                    keywords: ["sample", "test", "post", "data"],
-                    author: "123@123.com",
-                    datePublished: "2024-10-29T00:00:00Z",
-                    dateModified: "2024-10-29T00:00:00Z",
-                    content: formattedContent
-                };
-
-                axiosClient.post('/api/createPost', post);
-                // console.log(editorRef.getMarkdown());
+                // 줄바꿈이 두 번 연속되면 `&nbsp;` 추가
+                if (lineBreakCount === 2) {
+                    formattedContent += '&nbsp;';
+                    lineBreakCount = 0; // 카운트 초기화
+                }
+                formattedContent += '\n'; // 각 줄 끝에 줄바꿈 추가
             }
+
+            // 글 작성 프로세스
+            if (pathName === '/board/new') {
+                console.log('게시물 작성')
+                console.log(editTitle);
+                console.log(formattedContent);
+            }
+            // 글 수정 프로세스
+            else if (/^\/board\/\d+\/edit$/.test(pathName)) {
+                console.log('게시물 수정')
+                console.log(editTitle);
+                console.log(formattedContent);
+            }
+
+            const post = {
+                slug: "4",
+                title: "Sample Post Title",
+                description: "This is a sample description for the post.",
+                thumbnail: "/assets/blog/dynamic-routing/cover.jpg",
+                keywords: ["sample", "test", "post", "data"],
+                author: "123@123.com",
+                datePublished: "2024-10-29T00:00:00Z",
+                dateModified: "2024-10-29T00:00:00Z",
+                content: formattedContent
+            };
+
+            // axiosClient.post('/api/createPost', post);
+            // console.log(editorRef.getMarkdown());
         }
     }, [action, actionAndNavigate, editorRef]);
 

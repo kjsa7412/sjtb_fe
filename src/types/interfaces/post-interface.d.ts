@@ -19,6 +19,7 @@ export interface IPostData {
     content: string;
 }
 
+// 게시물 작성
 export interface IParam_CreatePost {
     slug: string;
     title: string;

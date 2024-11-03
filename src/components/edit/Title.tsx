@@ -1,6 +1,9 @@
 'use client'
 
-import React from "react";
+import React, {useEffect} from "react";
+import {useRecoilState} from "recoil";
+
+import {editTitleAtom} from "@/atoms/editTitleAtom";
 
 import styles from './Title.module.scss';
 
@@ -11,6 +14,14 @@ interface TitleProps {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const Title = (props: TitleProps) => {
+    const [rcTitle, setRcTitle] = useRecoilState(editTitleAtom);
+
+    useEffect(() => {
+        if (props.title) {
+            setRcTitle(props.title);
+        }
+    }, [props.title, setRcTitle]);
+
     const handleTitleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === "Enter") {
             e.preventDefault();
@@ -22,6 +33,7 @@ const Title = (props: TitleProps) => {
         // textarea의 높이를 scrollHeight에 맞춰 조정
         e.target.style.height = 'auto'; // 초기화
         e.target.style.height = `${e.target.scrollHeight}px`; // 스크롤 높이에 맞추기
+        setRcTitle(e.target.value);
     };
 
     return (
