@@ -25,6 +25,22 @@ const EditorSection = (props: EditorSectionProps) => {
 
     // 에디터 생성 useEffect
     useEffect(() => {
+        /*
+        * 현재 에디터에서 이미지 업로드 할때 브라우저 내장 함수인 crypto.randomUUID()를 사용
+        * SSL이 적용된 페이지 또는 localhost의 경우 브라우저에서 crypto.randomUUID()를 정상적으로 호출 가능
+        * 하지만 내부용으로 배포 예정인 10.10.20.187 서버는 SSL 적용이 어려운 상태
+        * 따라서 http 환경에서 crypto.randomUUID 사용을 위한 함수 재선언
+        *
+        * */
+        if (window.location.hostname === `${process.env.NEXT_PUBLIC_NO_HTTPS_URL}`) {
+            crypto.randomUUID = function (): `${string}-${string}-${string}-${string}-${string}` {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    const r = Math.random() * 16 | 0;
+                    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                }) as `${string}-${string}-${string}-${string}-${string}`; // 타입 단언 추가
+            };
+        }
         const rootElement = document.getElementById('editorSection');
 
         if (rootElement && !localCrepeRef.current) {
