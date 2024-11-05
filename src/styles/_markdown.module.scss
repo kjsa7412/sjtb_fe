@@ -171,5 +171,31 @@
     }
   }
 
-  //toto리스트 부터 이어서 작업
+  // 투두 리스트
+  :global(.contains-task-list) {
+    list-style: none;
+    padding-left: 0 !important;
+
+    svg {
+      fill: var(--board-color-outline);
+    }
+
+    p {
+      padding: 4px 0;
+      margin-left: 0;
+    }
+
+    ul {
+      padding-left: 36px !important;
+    }
+
+    :global(.task-list-item) {
+      list-style: none;
+      padding-left: 0;
+
+      input[type="checkbox"] {
+        margin-right: 8px;
+      }
+    }
+  }
 }
