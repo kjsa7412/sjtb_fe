@@ -53,7 +53,7 @@ const BoardOptionPopup = () => {
         const handleClickOutside = (event: MouseEvent) => {
             if (targetRef.current) {
                 const element = targetRef.current as HTMLDivElement;
-                !element.contains(event.target as Node)
+                if(!element.contains(event.target as Node))
                 {
                     popupController.closePopup(EPopup.BoardOption);
                 }
