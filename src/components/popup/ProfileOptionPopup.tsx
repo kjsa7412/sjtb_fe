@@ -92,8 +92,12 @@ const ProfileOptionPopup = () => {
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (targetRef.current && !targetRef.current.contains(event.target as Node)) {
-                popupController.closePopup(EPopup.ProfileOption);
+            if (targetRef.current) {
+                const element = targetRef.current as HTMLDivElement;
+                !element.contains(event.target as Node)
+                {
+                    popupController.closePopup(EPopup.ProfileOption);
+                }
             }
         };
 
