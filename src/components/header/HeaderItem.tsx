@@ -6,7 +6,7 @@ import {usePathname} from "next/navigation";
 import {AxiosResponse} from "axios";
 import {useMutation} from "react-query";
 
-import {EBreakPoint, EElementId, EIcon, EPopup} from "@/types/enums/common-enum";
+import {EBreakPoint, EButtonType, EElementId, EIcon, EPopup} from "@/types/enums/common-enum";
 import {IAPIResponse, ILogin, IUser} from "@/types/interfaces/common-interface";
 import {loginAtom} from "@/atoms/loginAtom";
 import usePopup from "@/hooks/usePopup";
@@ -23,6 +23,7 @@ import Icons from "@/components/Icons";
 import styles from "./HeaderItem.module.scss";
 import SearchBar from "@/components/search/SearchBar";
 import SearchIcon from "@/components/search/SearchIcon";
+import Loader from "@/components/loader/Loader";
 
 // 게시물 작성 함수
 async function serverAPI_InsertPost(param: IParam_InsertPost): Promise<AxiosResponse<IAPIResponse<IResult_InsertPost>>> {
@@ -79,7 +80,9 @@ export const HeaderProfile = () => {
 
     return (
         <button id={EElementId.HeaderProfile} ref={targetRef} className={styles.profileContainer} onClick={onClick}>
-            {isMounted && (rcUser.profilePicPath ? <Icons iconType={EIcon.Avatar} width={32} height={32} fill={IMG.DefaultPath + rcUser.profilePicPath} /> : <Icons iconType={EIcon.Avatar} width={32} height={32} fill={'#C0C0C0'} />)}
+            {isMounted && (rcUser.profilePicPath ?
+                <Icons iconType={EIcon.Avatar} width={32} height={32} fill={IMG.DefaultPath + rcUser.profilePicPath}/> :
+                <Icons iconType={EIcon.Avatar} width={32} height={32} fill={'#C0C0C0'}/>)}
         </button>
     );
 }
@@ -93,7 +96,7 @@ export const HeaderAction = () => {
     const editorRef = useRecoilValue(editorAtom);
     const editTitle = useRecoilValue(editTitleAtom);
 
-    useEffect(()=> {
+    useEffect(() => {
         if (pathName === '/board/new' && !rcLogin.isLogin) {
             alert('비 정상적인 접근입니다.')
             actionAndNavigate.actionAndNavigate('/')
@@ -131,7 +134,12 @@ export const HeaderAction = () => {
                 }
             },
             onError: () => {
-                popupController.openPopup(EPopup.Notify, {contents: {title: "게시물 작성 실패", desc: "전산 오류입니다. 담당자에게 연락해주세요."}});
+                popupController.openPopup(EPopup.Notify, {
+                    contents: {
+                        title: "게시물 작성 실패",
+                        desc: "전산 오류입니다. 담당자에게 연락해주세요."
+                    }
+                });
             }
         }
     );
@@ -193,9 +201,16 @@ export const HeaderAction = () => {
 
     return (
         <>
-            <button className={styles.actionContainer} onClick={onClick}>
-                {action}
-            </button>
+            {
+                insertPost.isLoading ?
+                    <div className={styles.actionContainer}>
+                        <Loader color={`${"var(--color-text-1)"}`}/>
+                    </div>
+                    :
+                    <button className={styles.actionContainer} onClick={onClick}>
+                        {action}
+                    </button>
+            }
         </>
     )
 }

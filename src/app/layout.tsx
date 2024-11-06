@@ -1,10 +1,10 @@
+'use client';
+
 import "@/styles/globals.scss";
-import {Viewport} from "next";
 import React from "react";
 
 import RecoilRootWrapper from "@/providers/RecoilWrapper";
 import ReactQueryWrapper from "@/providers/ReactQueryWrapper";
-import {getMetadata} from "@/seo/metadata/getMetadata";
 
 import HeaderBase from "@/components/header/HeaderBase";
 import {HeaderAction, HeaderLogo, HeaderProfile, HeaderSearch} from "@/components/header/HeaderItem";
@@ -17,27 +17,16 @@ import SignInPopup from "@/components/popup/SignInPopup";
 import SignUpPopup from "@/components/popup/SignUpPopup";
 import BoardOptionPopup from "@/components/popup/BoardOptionPopup";
 import SearchPopup from "@/components/popup/SearchPopup";
-
-export async function generateMetadata() {
-    return getMetadata();
-}
-
-export const viewport: Viewport = {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-};
+import FooterBase from "@/components/footer/FooterBase";
 
 interface Props {
     children: React.ReactNode;
 }
 
 export default function RootLayout({children}: Props) {
-    //todo: footer를 페이지별로가 아닌 여기서 추가해야 하는지 여쭤봐야함
-    //todo: 에디터 스크롤 자동 옮겨지는거 구현해야함
-    //todo: 해시태그 chatgpt로 생성 -> input 없애는 방향
-    
+    // todo: 에디터 스크롤 자동 옮겨지는거 구현해야함
+    // todo: 해시태그 chatgpt로 생성 -> input 없애는 방향
+
     return (
         <html lang="en">
         <head>
@@ -47,6 +36,7 @@ export default function RootLayout({children}: Props) {
             <link
                 href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700&family=Roboto:wght@100;400;700&display=swap"
                 rel="stylesheet"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
         </head>
         <body style={{backgroundColor: `var(--color-background-1)`}}>
         <ReactQueryWrapper>
@@ -55,6 +45,7 @@ export default function RootLayout({children}: Props) {
                     {/* eslint-disable-next-line react/jsx-key */}
                     <HeaderBase left={[<HeaderLogo/>, <HeaderSearch/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>
                     {children}
+                    <FooterBase/>
                     <BoardOptionPopup/>
                     <ProfileOptionPopup/>
                     <EditProfilePopup/>

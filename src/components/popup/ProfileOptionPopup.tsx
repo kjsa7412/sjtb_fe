@@ -90,6 +90,22 @@ const ProfileOptionPopup = () => {
         };
     }, [popupController.isPopupOpen(EPopup.ProfileOption)]);
 
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (targetRef.current && !targetRef.current.contains(event.target as Node)) {
+                popupController.closePopup(EPopup.ProfileOption);
+            }
+        };
+
+        // document에 이벤트 리스너 추가
+        document.addEventListener('mousedown', handleClickOutside);
+
+        // 컴포넌트 언마운트 시 이벤트 리스너 제거
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
         <>
             {popupController.isPopupOpen(EPopup.ProfileOption) &&

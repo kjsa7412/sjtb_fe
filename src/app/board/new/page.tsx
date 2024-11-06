@@ -6,7 +6,6 @@ import BodyContainer from "@/components/containers/BodyContainer";
 import ContentsContainer from "@/components/containers/ContentsContainer";
 import Title from "@/components/edit/Title";
 import EditorSection from "@/components/edit/EditorSection";
-import FooterBase from "@/components/footer/FooterBase";
 
 const New = () => {
     return (
@@ -21,7 +20,6 @@ const New = () => {
                     <Blank type={EBlank.Column} size={120}/>
                 </ContentsContainer>
             </BodyContainer>
-            <FooterBase/>
         </PageContainer>
     );
 };

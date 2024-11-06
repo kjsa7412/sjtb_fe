@@ -1,9 +1,10 @@
+'use client';
+
 import {EBannerType, EBlank} from "@/types/enums/common-enum";
 
 import PageContainer from "@/components/containers/PageContainer";
 import Blank from "@/components/blank/Blank";
 import Banner from "@/components/banner/Banner";
-import FooterBase from "@/components/footer/FooterBase";
 import BodyContainer from "@/components/containers/BodyContainer";
 import ContentsContainer from "@/components/containers/ContentsContainer";
 import PopularPost from "@/components/home/PopularPost";
@@ -21,7 +22,6 @@ const Home = () => {
                     <AllPost/>
                 </ContentsContainer>
             </BodyContainer>
-            <FooterBase/>
         </PageContainer>
     );
 }
