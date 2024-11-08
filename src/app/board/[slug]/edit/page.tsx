@@ -3,10 +3,14 @@
 import {AxiosResponse} from "axios";
 import {useEffect, useState} from "react";
 import {useQuery} from "react-query";
+import {useRecoilState} from "recoil";
 
-import { EBlank } from "@/types/enums/common-enum";
+import {EBlank} from "@/types/enums/common-enum";
 import {IPostData} from "@/types/interfaces/post-interface";
 import axiosClient from "@/libs/axiosClient";
+import {IUser} from "@/types/interfaces/common-interface";
+import {userAtom} from "@/atoms/userAtom";
+import useActionAndNavigate from "@/hooks/useActionAndNavigate";
 
 import PageContainer from "@/components/containers/PageContainer";
 import Blank from "@/components/blank/Blank";
@@ -29,6 +33,8 @@ const getPostBySlugAPI = (slug: string): Promise<AxiosResponse<IPostData>> => {
 };
 
 const Edit = (props: Props) => {
+    const [rcUser, setRcUser] = useRecoilState<IUser>(userAtom);
+    const actionAndNavigate = useActionAndNavigate();
     const [post, setPost] = useState<IPostData | undefined>();
 
     const result_getPostBySlugAPI = useQuery(
@@ -44,6 +50,12 @@ const Edit = (props: Props) => {
     useEffect(() => {
         result_getPostBySlugAPI.refetch();
     }, [])
+
+    useEffect(()=> {
+        if (!!post && (post.author != rcUser.userId)) {
+            actionAndNavigate.actionAndNavigate('/');
+        }
+    }, [post]);
 
     return (
         <PageContainer>

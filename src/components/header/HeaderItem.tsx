@@ -98,7 +98,6 @@ export const HeaderAction = () => {
 
     useEffect(() => {
         if (pathName === '/board/new' && !rcLogin.isLogin) {
-            alert('비 정상적인 접근입니다.')
             actionAndNavigate.actionAndNavigate('/')
             return;
         }
