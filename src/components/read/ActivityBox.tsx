@@ -17,61 +17,42 @@ interface Props {
     slug: string;
 }
 
-async function serverAPI_CmmtList(param: IParam_CmmtList): Promise<AxiosResponse<IAPIResponse<IResult_CmmtList>>> {
-    return await axiosServer.get('/public/get/cmmt/list', { params: param });
+async function serverAPI_CmmtList(param: IParam_CmmtList): Promise<AxiosResponse<IAPIResponse<IResult_CmmtList[]>>> {
+    return await axiosServer.get('/public/get/cmmt/list', {params: param});
 }
 
-const ActivityBox = ({ slug }: Props) => {
-    const queryClient = useQueryClient();
+
+const ActivityBox = ({slug}: Props) => {
 
     const result_CmmtList = useQuery(
-        ["result_CmmtList", slug],
-        () => serverAPI_CmmtList({ boadId: parseInt(slug) }),
-        {
-            enabled: false,
-        }
+        ["serverAPI_CmmtList", slug],
+        () => serverAPI_CmmtList({boadId: parseInt(slug)})
     )
 
-    useEffect(() => {
+    const handleAddComment = () => {
         result_CmmtList.refetch();
-    }, [slug]);
-
-    // 댓글 입력, 삭제 시 result_CmmtList 리스트의 값 변경하는 함수
-    const handleAddComment = (newComment: IResult_CmmtList[]) => {
-        queryClient.setQueryData(["result_CmmtList", slug], (oldData: any) => {
-
-            if (!oldData || !oldData.data) return oldData;
-            return {
-                ...oldData,
-                data: {
-                    ...oldData.data,
-                    content: newComment
-                },
-            };
-        });
     };
+
+    const comments = result_CmmtList?.data?.data?.content ?? [];
 
     return (
         <>
-            <Reaction slug = {slug} commentCount={Array.isArray(result_CmmtList.data?.data?.content) ? result_CmmtList.data.data.content.length.toString() : '0'} />
-            <WriteComment slug = {slug} resetCommentList={handleAddComment}/>
+            <Reaction slug={slug} commentCount={comments.length.toString()} />
+            <WriteComment slug={slug} resetCommentList={handleAddComment} />
+
             {result_CmmtList.isError ? (
                 <div className={styles.baseContainer}>
                     댓글 조회에 실패하였습니다.
                 </div>
-            ) : !Array.isArray(result_CmmtList.data?.data?.content) || result_CmmtList.data.data.content.length === 0 ? (
+            ) : comments.length === 0 ? (
                 <div className={styles.baseContainer}>
                     작성된 댓글이 존재하지 않습니다.
                 </div>
-            ) : <>
-                {result_CmmtList.data?.data?.content?.map((comment: IResult_CmmtList) => (
-                        <ReadComment
-                            key={comment.cmtId}
-                            comment={comment}
-                        />
-                    ))}
-                </>
-            }
+            ) : (
+                comments.map((comment: IResult_CmmtList) => (
+                    <ReadComment key={comment.cmtId} comment={comment} />
+                ))
+            )}
         </>
     )
 }

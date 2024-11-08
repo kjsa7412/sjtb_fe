@@ -18,6 +18,7 @@ import SignUpPopup from "@/components/popup/SignUpPopup";
 import BoardOptionPopup from "@/components/popup/BoardOptionPopup";
 import SearchPopup from "@/components/popup/SearchPopup";
 import FooterBase from "@/components/footer/FooterBase";
+import ModalMutation from "@/components/modal/ModalMutation";
 
 interface Props {
     children: React.ReactNode;
@@ -46,6 +47,7 @@ export default function RootLayout({children}: Props) {
                     <HeaderBase left={[<HeaderLogo/>, <HeaderSearch/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>
                     {children}
                     <FooterBase/>
+                    <ModalMutation/>
                     <BoardOptionPopup/>
                     <ProfileOptionPopup/>
                     <EditProfilePopup/>

@@ -82,3 +82,11 @@ export const enum EBreakPoint {
     MD = 900,
     LG = 1248
 }
+
+export const enum EModalMutationStatus {
+    Close = 'Close',
+    Confirm = 'Confirm',
+    Progress = 'Progress',
+    Success = 'Success',
+    Error = 'Error',
+}
