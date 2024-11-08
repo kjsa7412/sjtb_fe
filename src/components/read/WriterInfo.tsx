@@ -41,12 +41,13 @@ const WriterInfo = ({ author }: Props) => {
         <div className={styles.baseContainer}>
             <div className={styles.avatarContainer}>
                 {result_UserInfo.isLoading ? (
-                    <Icons iconType={EIcon.Avatar} width={62} height={62} fill={'#C0C0C0'}/>
-                ) : result_UserInfo.isError ? (
-                    <Icons iconType={EIcon.Avatar} width={62} height={62} fill={'#C0C0C0'}/>
-                ) :  result_UserInfo.data?.data.content.profilePicPath && (
-                    <Icons iconType={EIcon.Avatar} width={62} height={62} fill={IMG.DefaultPath + result_UserInfo.data?.data.content.profilePicPath}/>
-                )}
+                        <Icons iconType={EIcon.Avatar} width={62} height={62} fill={'#C0C0C0'}/>
+                    ) : result_UserInfo.isError ? (
+                        <Icons iconType={EIcon.Avatar} width={62} height={62} fill={'#C0C0C0'}/>
+                    ) :  result_UserInfo.data?.data.content.profilePicPath ? (
+                        <Icons iconType={EIcon.Avatar} width={62} height={62} fill={IMG.DefaultPath + result_UserInfo.data?.data.content.profilePicPath}/>
+                    ) :  <Icons iconType={EIcon.Avatar} width={62} height={62} fill={'#C0C0C0'}/>
+                }
             </div>
             <div className={styles.infoContainer}>
                 {result_UserInfo.isLoading ? (

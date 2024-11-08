@@ -82,3 +82,19 @@ export interface IResult_CmmtList {
     cmt: string;
     writeDate: string;
 }
+
+// 댓글 작성
+export interface IParam_InsertCmmt {
+    boadId: number;
+    cmt: string;
+}
+
+export interface IResult_InsertCmmt {
+    cmtId: number;
+    boadId: number;
+    userId: string;
+    userName: string;
+    profilePicPath: string;
+    cmt: string;
+    writeDate: string;
+}
