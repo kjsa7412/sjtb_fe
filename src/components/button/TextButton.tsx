@@ -6,7 +6,7 @@ import Loader from "@/components/loader/Loader";
 
 
 const TextButton = (props: ITextButton) => {
-    const isOpen = props.controller?.isOpen || true;
+    const isOpen = props.controller?.isOpen ?? true;
     return (
         <>
             {

@@ -1,13 +1,17 @@
 'use client'
 
 import {useRecoilState} from "recoil";
+import {AxiosResponse} from "axios";
+import {useMutation} from "react-query";
 
-import {EBlank, EIcon, EPopup} from "@/types/enums/common-enum";
-import {IResult_CmmtList} from "@/types/interfaces/post-interface";
+import {EBlank, EIcon, EModalMutationStatus} from "@/types/enums/common-enum";
+import {IParam_DeleteCmmt, IResult_CmmtList, IResult_DeleteCmmt} from "@/types/interfaces/post-interface";
 import {IMG} from "@/contants/common";
-import {IUser} from "@/types/interfaces/common-interface";
+import {IAPIResponse, IUser} from "@/types/interfaces/common-interface";
 import {userAtom} from "@/atoms/userAtom";
-import usePopup from "@/hooks/usePopup";
+import axiosServer from "@/libs/axiosServer";
+import {IModalMutation} from "@/types/interfaces/modal-interface";
+import {modalMutationAtom} from "@/atoms/modalMutationAtom";
 
 import styles from './ReadComment.module.scss';
 import Icons from "@/components/Icons";
@@ -16,19 +20,65 @@ import Line from "@/components/line/Line";
 
 interface Props {
     comment: IResult_CmmtList; // comment prop 추가
+    resetCommentList: () => void;
 }
 
-const ReadComment = ({ comment }: Props) => {
-    const popupController = usePopup();
+async function serverAPI_DeleteComment(param: IParam_DeleteCmmt): Promise<AxiosResponse<IAPIResponse<IResult_DeleteCmmt>>> {
+    return await axiosServer.post('/private/post/cmmt/dlte', param);
+}
+
+const ReadComment = ({ comment, resetCommentList }: Props) => {
     const [rcUser, setRcUser] = useRecoilState<IUser>(userAtom);
+    const [, setRcModalMutation] = useRecoilState<IModalMutation>(modalMutationAtom);
+
+    const resultMutation_deleteCmmt = useMutation(
+        () => serverAPI_DeleteComment({cmtId: comment.cmtId,  boadId: comment.boadId}),
+        {
+            onSuccess: (data) => {
+                if (data.data.isError) {
+                    setRcModalMutation(() => ({
+                        resultMutation: resultMutation_deleteCmmt,
+                        message: "삭제",
+                        desc: "전산 오류입니다. 담당자에게 연락해주세요.",
+                        modalMutationStatus: EModalMutationStatus.Error
+                    }));
+                } else {
+                    // 팝업 띄우려면 사용
+                    // setRcModalMutation(() => ({
+                    //     resultMutation: resultMutation_deleteCmmt,
+                    //     message: "삭제",
+                    //     desc: "댓글이 삭제되었습니다.",
+                    //     modalMutationStatus: EModalMutationStatus.Success
+                    // }));
+
+                    setRcModalMutation(() => ({
+                        resultMutation: null,
+                        message: "",
+                        desc: "",
+                        modalMutationStatus: EModalMutationStatus.Close
+                    }));
+
+                    resetCommentList();
+                }
+            },
+            onError: () => {
+                setRcModalMutation(() => ({
+                    resultMutation: resultMutation_deleteCmmt,
+                    message: "삭제",
+                    desc: "전산 오류입니다. 담당자에게 연락해주세요.",
+                    modalMutationStatus: EModalMutationStatus.Error
+                }));
+            }
+        }
+    );
 
     const handleDeleteComment = () => {
-        if (true) {
-            popupController.openPopup(EPopup.Confirm, {contents: {title: "댓글 삭제(미구현)", desc: "댓글을 삭제 하시겠습니까?", yesLabel: "YES", noLabel: "NO"}});
-            return;
-        }
-
-        // signOut.mutate();
+        setRcModalMutation(() => ({
+            resultMutation: resultMutation_deleteCmmt,
+            message: "삭제",
+            desc: "댓글을 삭제하시겠습니까?",
+            modalMutationStatus: EModalMutationStatus.Confirm
+        }));
     };
 
     return (

@@ -50,7 +50,7 @@ const ActivityBox = ({slug}: Props) => {
                 </div>
             ) : (
                 comments.map((comment: IResult_CmmtList) => (
-                    <ReadComment key={comment.cmtId} comment={comment} />
+                    <ReadComment key={comment.cmtId} comment={comment} resetCommentList={handleAddComment} />
                 ))
             )}
         </>

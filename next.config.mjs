@@ -1,13 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    images: {
+        domains: ['images.unsplash.com', 'localhost', '10.10.20.187'],
+    },
     reactStrictMode: false,
 
     env: {
         NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_CLI_BASE_URL,
     },
-    images: {
-        domains: ['images.unsplash.com'], // 이미지 도메인 추가
-    },
+
     logging: {
         fetches: {
             fullUrl: true,

@@ -98,3 +98,19 @@ export interface IResult_InsertCmmt {
     cmt: string;
     writeDate: string;
 }
+
+// 댓글 삭제
+export interface IParam_DeleteCmmt {
+    cmtId: number;
+    boadId: number;
+}
+
+export interface IResult_DeleteCmmt {
+    cmtId: number;
+    boadId: number;
+    userId: string;
+    userName: string;
+    profilePicPath: string;
+    cmt: string;
+    writeDate: string;
+}
