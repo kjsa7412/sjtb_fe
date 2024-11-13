@@ -43,6 +43,9 @@ const Edit = (props: Props) => {
         {
             onSuccess: (data) => {
                 setPost(data.data);
+            },
+            onError: () => {
+                actionAndNavigate.actionAndNavigate('/');
             }
         }
     );

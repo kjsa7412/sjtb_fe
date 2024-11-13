@@ -5,7 +5,6 @@ import {useQuery} from "react-query";
 import {AxiosResponse} from "axios";
 
 import {EBannerType, EBlank} from '@/types/enums/common-enum';
-import markdownToHtml from '@/utils/markdownToHtml';
 import {IPostData} from "@/types/interfaces/post-interface";
 import axiosClient from "@/libs/axiosClient";
 import useActionAndNavigate from "@/hooks/useActionAndNavigate";
@@ -54,13 +53,6 @@ const Post = (props: Props) => {
     useEffect(() => {
         result_getPostBySlugAPI.refetch();
     }, [])
-
-    useEffect(() => {
-        const convertMarkdown = async () => {
-            post?.content && setContent(await markdownToHtml(post.content));
-        };
-        convertMarkdown();
-    }, [post]);
 
     return (
         <PageContainer>

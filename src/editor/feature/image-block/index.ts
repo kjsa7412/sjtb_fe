@@ -26,7 +26,6 @@ interface ImageBlockConfig {
 }
 
 // 커스텀 이미지 저장 시작
-// todo: 이미지 크기 조절하면 [0.82] 이렇게 주는데 백에서 어찌 가공?
 const customUploadHandler = async (file: File): Promise<string> => {
   const maxSizeInMB = 5;
   const allowedExtensions = ['png', 'jpg', 'gif'];

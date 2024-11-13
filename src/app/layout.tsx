@@ -25,9 +25,6 @@ interface Props {
 }
 
 export default function RootLayout({children}: Props) {
-    // todo: 에디터 스크롤 자동 옮겨지는거 구현해야함
-    // todo: 해시태그 chatgpt로 생성 -> input 없애는 방향
-
     return (
         <html lang="en">
         <head>

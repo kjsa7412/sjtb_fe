@@ -28,7 +28,6 @@ import Loader from "@/components/loader/Loader";
 // 게시물 작성 함수
 async function serverAPI_InsertPost(param: IParam_InsertPost): Promise<AxiosResponse<IAPIResponse<IResult_InsertPost>>> {
     //todo: temp 적힌 부분 제거 필요
-    //todo: 게시물 작성에 로딩바도 추가해야함
     return await axiosServer.post('/private/post/boad/instTemp', param);
 }
 

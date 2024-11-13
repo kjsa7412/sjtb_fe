@@ -1,5 +1,7 @@
-import { tableBlock, tableBlockConfig } from '@milkdown/kit/component/table-block'
+// import { tableBlock, tableBlockConfig } from '@milkdown/kit/component/table-block'
 
+// 한글 작성 이슈 때문에 기존 라이브러리가 아닌 수정한 라이브러리 import
+import { tableBlock, tableBlockConfig } from "@/editor/table-block";
 import type { DefineFeature, Icon } from '../shared'
 
 import {
