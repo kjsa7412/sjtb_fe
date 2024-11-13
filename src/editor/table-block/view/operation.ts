@@ -10,6 +10,7 @@ import {
   selectRowCommand,
   setAlignCommand,
 } from '@milkdown/preset-gfm'
+
 import type { Ctx } from '@milkdown/ctx'
 import type { Refs } from './types'
 

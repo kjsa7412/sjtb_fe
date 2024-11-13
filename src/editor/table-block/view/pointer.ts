@@ -1,7 +1,8 @@
 import { computePosition, offset } from '@floating-ui/dom'
-import type { EditorView } from '@milkdown/prose/view'
 import throttle from 'lodash.throttle'
 import { useMemo } from 'atomico'
+
+import type { EditorView } from '@milkdown/prose/view'
 import type { Refs } from './types'
 import {
   computeColHandlePositionByIndex,

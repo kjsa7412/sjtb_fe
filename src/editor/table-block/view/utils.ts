@@ -1,12 +1,13 @@
-import type { Node } from '@milkdown/prose/model'
-import type { EditorView } from '@milkdown/prose/view'
 import { findParent } from '@milkdown/prose'
-import type { Ref } from 'atomico'
 import { editorViewCtx } from '@milkdown/core'
 import { CellSelection } from '@milkdown/prose/tables'
 import { findTable } from '@milkdown/preset-gfm'
 import { computePosition } from '@floating-ui/dom'
+
+import type { Node } from '@milkdown/prose/model'
+import type { EditorView } from '@milkdown/prose/view'
 import type { Ctx } from '@milkdown/ctx'
+import type { Ref } from 'atomico'
 import type { CellIndex, Refs } from './types'
 
 export function findNodeIndex(parent: Node, child: Node) {
@@ -37,9 +38,9 @@ export function findPointerIndex(event: PointerEvent, view?: EditorView): CellIn
     const cellType = ['table_cell', 'table_header']
     const rowType = ['table_row', 'table_header_row']
 
-    const cell = cellType.includes(node.type.name) ? node : findParent(node => cellType.includes(node.type.name))($pos)?.node
-    const row = findParent(node => rowType.includes(node.type.name))($pos)?.node
-    const table = findParent(node => node.type.name === 'table')($pos)?.node
+    const cell = cellType.includes(node.type.name) ? node : findParent(tempNode => cellType.includes(tempNode.type.name))($pos)?.node
+    const row = findParent(tempNode => rowType.includes(tempNode.type.name))($pos)?.node
+    const table = findParent(tempNode => tempNode.type.name === 'table')($pos)?.node
     if (!cell || !row || !table)
       return
 
@@ -113,7 +114,7 @@ export function recoveryStateBetweenUpdate(
   }
   if (selection.isRowSelection()) {
     const { $head } = selection
-    const rowNode = findParent(node => node.type.name === 'table_row' || node.type.name === 'table_header_row')($head)
+    const rowNode = findParent(tempNode => tempNode.type.name === 'table_row' || tempNode.type.name === 'table_header_row')($head)
     if (!rowNode)
       return
     const rowIndex = findNodeIndex(table.node, rowNode.node)

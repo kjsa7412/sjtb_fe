@@ -1,14 +1,15 @@
-import type { Component } from 'atomico'
 import { c, html, useHost, useLayoutEffect, useMemo, useRef } from 'atomico'
+import clsx from 'clsx'
+
+import type { Component } from 'atomico'
 import type { Node } from '@milkdown/prose/model'
 import type { EditorView } from '@milkdown/prose/view'
 import type { Ctx } from '@milkdown/ctx'
-
-import clsx from 'clsx'
 import type { TableBlockConfig } from '../config'
-import { useDragHandlers } from './drag'
 import type { CellIndex, DragInfo, Refs } from './types'
 import { recoveryStateBetweenUpdate } from './utils'
+
+import { useDragHandlers } from './drag'
 import { usePointerHandlers } from './pointer'
 import { useOperation } from './operation'
 
@@ -20,7 +21,7 @@ export interface TableComponentProps {
   config: TableBlockConfig
 }
 
-export const tableComponent: Component<TableComponentProps> = ({
+export const TableComponent: Component<TableComponentProps> = ({
   view,
   ctx,
   getPos,
@@ -54,7 +55,7 @@ export const tableComponent: Component<TableComponentProps> = ({
   }, [])
 
   useLayoutEffect(() => {
-    const current = contentWrapperRef.current
+    const {current} = contentWrapperRef
     if (!current)
       return
 
@@ -186,7 +187,7 @@ export const tableComponent: Component<TableComponentProps> = ({
   `
 }
 
-tableComponent.props = {
+TableComponent.props = {
   getPos: Function,
   view: Object,
   ctx: Object,
@@ -194,4 +195,4 @@ tableComponent.props = {
   config: Object,
 }
 
-export const TableElement = c(tableComponent)
+export const TableElement = c(TableComponent)

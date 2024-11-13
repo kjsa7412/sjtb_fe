@@ -1,5 +1,7 @@
 import { $ctx } from '@milkdown/utils'
+
 import type { html } from 'atomico'
+
 import { withMeta } from '../__internal__/meta'
 
 export type RenderType =

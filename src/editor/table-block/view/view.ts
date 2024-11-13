@@ -68,7 +68,7 @@ export class TableNodeView implements NodeView {
       return false
 
     const $pos = state.doc.resolve(pos.inside)
-    const node = findParent(node => node.type.name === 'table_cell' || node.type.name === 'table_header')($pos)
+    const node = findParent(tempNode => tempNode.type.name === 'table_cell' || tempNode.type.name === 'table_header')($pos)
     if (!node)
       return false
 

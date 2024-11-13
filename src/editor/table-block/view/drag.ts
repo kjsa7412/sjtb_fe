@@ -3,6 +3,7 @@ import { computePosition, offset } from '@floating-ui/dom'
 import { useEffect, useHost, useMemo } from 'atomico'
 import { commandsCtx, editorViewCtx } from '@milkdown/core'
 import { moveColCommand, moveRowCommand, selectColCommand, selectRowCommand } from '@milkdown/preset-gfm'
+
 import type { Ctx } from '@milkdown/ctx'
 import { computeColHandlePositionByIndex, computeRowHandlePositionByIndex, getRelatedDOM } from './utils'
 import type { CellIndex, DragContext, Refs } from './types'
@@ -118,7 +119,7 @@ export function createDragRowHandler(refs: Refs, ctx?: Ctx) {
         return
 
       previewRoot.appendChild(row.cloneNode(true))
-      const height = row.getBoundingClientRect().height
+      const {height} = row.getBoundingClientRect()
 
       const { width } = content.querySelector('tbody')!.getBoundingClientRect()
       Object.assign(preview.style, {
@@ -170,6 +171,7 @@ export function createDragColHandler(refs: Refs, ctx?: Ctx) {
           return
 
         if (width === undefined)
+            // eslint-disable-next-line prefer-destructuring
           width = col.getBoundingClientRect().width
 
         const tr = col.parentElement!.cloneNode(false)
@@ -222,7 +224,7 @@ export function createDragOverHandler(refs: Refs): (e: DragEvent) => void {
     const wrapperOffsetLeft = (contentRoot.offsetParent as HTMLElement).offsetLeft
 
     if (info.type === 'col') {
-      const width = dom.col.getBoundingClientRect().width
+      const {width} = dom.col.getBoundingClientRect()
       const { left, width: fullWidth } = contentRoot.getBoundingClientRect()
       const leftGap = wrapperOffsetLeft - left
       const previewLeft = e.clientX + leftGap - width / 2
@@ -241,6 +243,7 @@ export function createDragOverHandler(refs: Refs): (e: DragEvent) => void {
       preview.style.left = `${previewLeftOffset}px`
 
       const children = Array.from(firstRow.children)
+      // eslint-disable-next-line @typescript-eslint/no-shadow
       const col = children.find((col, index) => {
         const boundary = col.getBoundingClientRect()
         let boundaryLeft = boundary.left + wrapperOffsetLeft - left
@@ -285,7 +288,7 @@ export function createDragOverHandler(refs: Refs): (e: DragEvent) => void {
       }
     }
     else if (info.type === 'row') {
-      const height = dom.row.getBoundingClientRect().height
+      const {height} = dom.row.getBoundingClientRect()
       const { top, height: fullHeight } = contentRoot.getBoundingClientRect()
 
       const topGap = wrapperOffsetTop - top
@@ -305,6 +308,7 @@ export function createDragOverHandler(refs: Refs): (e: DragEvent) => void {
       preview.style.left = `${wrapperOffsetLeft}px`
 
       const rows = Array.from(contentRoot.querySelectorAll('tr'))
+      // eslint-disable-next-line @typescript-eslint/no-shadow
       const row = rows.find((row, index) => {
         const boundary = row.getBoundingClientRect()
         let boundaryTop = boundary.top + wrapperOffsetTop - top
