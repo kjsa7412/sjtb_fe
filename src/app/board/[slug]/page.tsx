@@ -8,6 +8,7 @@ import {EBannerType, EBlank} from '@/types/enums/common-enum';
 import markdownToHtml from '@/utils/markdownToHtml';
 import {IPostData} from "@/types/interfaces/post-interface";
 import axiosClient from "@/libs/axiosClient";
+import useActionAndNavigate from "@/hooks/useActionAndNavigate";
 
 import Blank from '@/components/blank/Blank';
 import PageContainer from '@/components/containers/PageContainer';
@@ -16,8 +17,8 @@ import WriterInfo from '@/components/read/WriterInfo';
 import ContentsContainer from '@/components/containers/ContentsContainer';
 import BodyContainer from '@/components/containers/BodyContainer';
 import TagList from '@/components/read/TagList';
-import ReadPost from '@/components/read/ReadPost';
 import ActivityBox from '@/components/read/ActivityBox';
+import EditorSection from "@/components/edit/EditorSection";
 
 
 interface Props {
@@ -35,6 +36,7 @@ const getPostBySlugAPI = (slug: string): Promise<AxiosResponse<IPostData>> => {
 const Post = (props: Props) => {
     const [post, setPost] = useState<IPostData | undefined>();
     const [content, setContent] = useState<string>('');
+    const actionAndNavigate = useActionAndNavigate();
 
     const result_getPostBySlugAPI = useQuery(
         ["result_getPostBySlugAPI"],
@@ -42,6 +44,9 @@ const Post = (props: Props) => {
         {
             onSuccess: (data) => {
                 setPost(data.data);
+            },
+            onError: () => {
+                actionAndNavigate.actionAndNavigate('/');
             }
         }
     );
@@ -69,7 +74,7 @@ const Post = (props: Props) => {
                                 dateModified={post.dateModified}/>
                         <BodyContainer>
                             <ContentsContainer>
-                                <ReadPost content={content}/>
+                                <EditorSection post={post} readOnly={true}/>
                                 <WriterInfo author={post.author}/>
                                 <TagList tags={post.keywords}/>
                                 <ActivityBox slug={post.slug}/>

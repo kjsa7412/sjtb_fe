@@ -7,16 +7,17 @@ import "@/editor/theme/common/style.css";
 import "@/editor/theme/frame/style.css";
 import { editorAtom } from "@/atoms/editorAtom";
 import { darkModeAtom } from "@/atoms/darkModeAtom";
-import {Crepe} from "@/editor";
+import {Crepe, CrepeFeature} from "@/editor";
 import {IPostData} from "@/types/interfaces/post-interface";
 
 import styles from "@/components/edit/EditorSection.module.scss";
 
 interface EditorSectionProps {
     post?: IPostData;
+    readOnly?: boolean;
 }
 
-const EditorSection = (props: EditorSectionProps) => {
+const EditorSection = ({ post, readOnly = false }: EditorSectionProps) => {
     const localCrepeRef = useRef<Crepe | null>(null);
     const [crepeRef, setCrepeRef] = useRecoilState(editorAtom);
     const [rcDarkMode] = useRecoilState(darkModeAtom);
@@ -44,9 +45,17 @@ const EditorSection = (props: EditorSectionProps) => {
         const rootElement = document.getElementById('editorSection');
 
         if (rootElement && !localCrepeRef.current) {
-            localCrepeRef.current = new Crepe({ root: rootElement, defaultValue: props ? props.post?.content : '' });
+            localCrepeRef.current = new Crepe({
+                root: rootElement,
+                defaultValue: post ? post?.content : '',
+                features: {
+                    [CrepeFeature.Placeholder]: !readOnly, // placeholder 활성화 유무
+                    [CrepeFeature.BlockEdit]: !readOnly // Toolbar 활성화 유무
+                },
+            });
             localCrepeRef.current.create().then(() => {
                 setCrepeRef(localCrepeRef.current); // Recoil 상태 업데이트
+                localCrepeRef.current?.setReadonly(readOnly); // readOnly 설정
 
                 if (editorSectionRef.current) {
                     const walker = document.createTreeWalker(
@@ -66,36 +75,39 @@ const EditorSection = (props: EditorSectionProps) => {
         }
     }, []);
 
-    // 다크모드 전환 useEffect
+    // 다크모드, readOnly 전환 useEffect
     useEffect(() => {
-        if (rcDarkMode.isDark) {
-            setEditorClassName(`${styles.baseContainer} ${styles.frameDark}`);
-        } else {
-            setEditorClassName(`${styles.baseContainer} ${styles.frame}`);
-        }
-    }, [rcDarkMode]);
+        const baseClass = `${styles.baseContainer}`;
+        const frameClass = rcDarkMode.isDark ? styles.frameDark : styles.frame;
+        const readOnlyClass = readOnly ? styles.readOnly : ''; // readOnly가 true일 때만 readOnly 클래스 적용
 
-    /// 이거 지금 editor 위치 땡기는게 문제가 있음
+        setEditorClassName(`${baseClass} ${frameClass} ${readOnlyClass}`);
+    }, [rcDarkMode, readOnly]);
+
+    // 이거 지금 editor 위치 땡기는게 문제가 있음
     useEffect(() => {
-        const handleResize = () => {
+        /// readOnly 일 경우 가장 위부터 페이지가 보여야하기 때문에 예외처리
+        if (!readOnly) {
+            const handleResize = () => {
+                if (editorSectionRef.current) {
+                    editorSectionRef.current.scrollIntoView({ behavior: "auto", block: "end" });
+                }
+            };
+
+            const resizeObserver = new ResizeObserver(handleResize);
+
             if (editorSectionRef.current) {
-                editorSectionRef.current.scrollIntoView({ behavior: "auto", block: "end" });
+                resizeObserver.observe(editorSectionRef.current);
             }
-        };
 
-        const resizeObserver = new ResizeObserver(handleResize);
+            handleResize();
 
-        if (editorSectionRef.current) {
-            resizeObserver.observe(editorSectionRef.current);
+            return () => {
+                if (editorSectionRef.current) {
+                    resizeObserver.unobserve(editorSectionRef.current);
+                }
+            };
         }
-
-        handleResize();
-
-        return () => {
-            if (editorSectionRef.current) {
-                resizeObserver.unobserve(editorSectionRef.current);
-            }
-        };
     }, []);
 
     return (

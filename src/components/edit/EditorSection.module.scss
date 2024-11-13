@@ -63,3 +63,40 @@
   --crepe-shadow-1: 0px 1px 2px 0px rgba(255, 255, 255, 0.30), 0px 1px 3px 1px rgba(255, 255, 255, 0.15);
   --crepe-shadow-2: 0px 1px 2px 0px rgba(255, 255, 255, 0.30), 0px 2px 6px 2px rgba(255, 255, 255, 0.15);
 }
+
+.readOnly {
+  // 이미지 관련 css 처리
+  :global(.image-wrapper) {
+    &::before {
+      content: none !important;
+    }
+  }
+
+  :global(.image-resize-handle) {
+    display: none;
+  }
+
+  :global(.operation-item) {
+    display: none;
+  }
+
+  :global(.caption-input) {
+    pointer-events: none;
+    -ms-user-select:none;
+    -moz-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -user-select:none;
+  }
+
+  // todoList css 처리
+  :global(.label-wrapper) {
+    pointer-events: none;
+    -ms-user-select:none;
+    -moz-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -user-select:none;
+    cursor: default !important;
+  }
+}
