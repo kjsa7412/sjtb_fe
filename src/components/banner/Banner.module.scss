@@ -116,13 +116,9 @@
   }
 
   .avatar {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 54px;
-    height: 54px;
-    font-size: 14px;
+    border: 1px solid rgba(192, 192, 192, 0.5);
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   }
 
   .option {

@@ -1,8 +1,9 @@
 'use client'
 
 import {AxiosResponse} from "axios";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useQuery} from "react-query";
+import {useRecoilState} from "recoil";
 
 import {EIcon} from "@/types/enums/common-enum";
 import {
@@ -12,6 +13,7 @@ import {
 import {IAPIResponse} from "@/types/interfaces/common-interface";
 import axiosServer from "@/libs/axiosServer";
 import {IMG} from "@/contants/common";
+import {writerAtom} from "@/atoms/writerAtom";
 
 import Icons from "@/components/Icons";
 import styles from './WriterInfo.module.scss';
@@ -25,11 +27,14 @@ async function serverAPI_userInfo(param: IParam_UserInfo): Promise<AxiosResponse
 }
 
 const WriterInfo = ({ author }: Props) => {
+    const [, setUserInfo] = useRecoilState(writerAtom);
+
     const result_UserInfo = useQuery(
         ["result_UserInfo", author],
-        () => serverAPI_userInfo({ userId: author }),
+        () => serverAPI_userInfo({ userId: author }).then(res => res),
         {
             enabled: false,
+            onSuccess: (data) => setUserInfo(data?.data.content),
         }
     )
 

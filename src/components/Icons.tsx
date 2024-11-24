@@ -27,7 +27,7 @@ const Icons = ({iconType, fill, width = 16, height = 16, styleTag = ''}: Props):
                 />
             }
             {EIcon.Avatar === iconType && (
-                fill.startsWith('http') ? (
+                (fill.startsWith('http') || fill.startsWith('https')) ? (
                     <>
                         <image
                             href={fill}

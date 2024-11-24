@@ -10,6 +10,8 @@ import {EBannerType, EIcon} from "@/types/enums/common-enum";
 import {EQuerykey} from "@/types/enums/querykey-enum";
 import axiosClient from "@/libs/axiosClient";
 import {bannerAtom} from "@/atoms/bannerAtom";
+import {writerAtom} from "@/atoms/writerAtom";
+import {IMG} from "@/contants/common";
 
 import styles from './Banner.module.scss';
 import Icons from "@/components/Icons";
@@ -25,6 +27,7 @@ interface IBanner {
 const Banner = (props: IBanner) => {
     const [rcUser, setRcUser] = useRecoilState<IUser>(userAtom);
     const [rcBanner, setRcBanner] = useRecoilState<IBannerAtom>(bannerAtom);
+    const [writerInfo, setWriterInfo] = useRecoilState(writerAtom);
     const [backgroundImage, setBackgroundImage] = useState('');
 
     const resUpdateImage = useQuery(
@@ -67,7 +70,7 @@ const Banner = (props: IBanner) => {
                             <div className={styles.date}>
                                 {props.dateModified}
                             </div>
-                            <Icons iconType={EIcon.Avatar} width={32} height={32} fill={'#C0C0C0'}/>
+                            {writerInfo.profilePicPath ? <Icons iconType={EIcon.Avatar} width={32} height={32} fill={IMG.DefaultPath + writerInfo.profilePicPath} styleTag={styles.avatar}/> : <Icons iconType={EIcon.Avatar} width={32} height={32} fill={'#C0C0C0'} />}
                             {
                                 rcUser.userId === props.author &&
                                 <BoardOptionButton/>
