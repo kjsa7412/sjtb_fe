@@ -84,32 +84,6 @@ const EditorSection = ({ post, readOnly = false }: EditorSectionProps) => {
         setEditorClassName(`${baseClass} ${frameClass} ${readOnlyClass}`);
     }, [rcDarkMode, readOnly]);
 
-    // 이거 지금 editor 위치 땡기는게 문제가 있음
-    useEffect(() => {
-        /// readOnly 일 경우 가장 위부터 페이지가 보여야하기 때문에 예외처리
-        if (!readOnly) {
-            const handleResize = () => {
-                if (editorSectionRef.current) {
-                    editorSectionRef.current.scrollIntoView({ behavior: "auto", block: "end" });
-                }
-            };
-
-            const resizeObserver = new ResizeObserver(handleResize);
-
-            if (editorSectionRef.current) {
-                resizeObserver.observe(editorSectionRef.current);
-            }
-
-            handleResize();
-
-            return () => {
-                if (editorSectionRef.current) {
-                    resizeObserver.unobserve(editorSectionRef.current);
-                }
-            };
-        }
-    }, []);
-
     return (
         <div
             id="editorSection"
