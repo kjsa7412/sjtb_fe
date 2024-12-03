@@ -48,6 +48,17 @@ export interface IResult_CreatePost {
     filePath?: string; // 성공 시에만 포함
 }
 
+// 게시물 수정 (브라우저 to API)
+export interface IParam_UpdatePost {
+    boadid: number;
+    title: string;
+    boadConts: string;
+}
+
+export interface IResult_UpdatePost {
+    boadId: string;
+}
+
 // 좋아요 및 조회수 조회
 export interface IParam_CountList {
     boadId: number;

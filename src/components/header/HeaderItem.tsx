@@ -2,7 +2,7 @@
 
 import {useRecoilState, useRecoilValue} from "recoil";
 import {useCallback, useEffect, useRef, useState} from "react";
-import {usePathname} from "next/navigation";
+import {usePathname, useParams} from "next/navigation";
 import {AxiosResponse} from "axios";
 import {useMutation} from "react-query";
 
@@ -17,7 +17,12 @@ import {IMG} from "@/contants/common";
 import {editorAtom} from "@/atoms/editorAtom";
 import axiosServer from "@/libs/axiosServer";
 import {editTitleAtom} from "@/atoms/editTitleAtom";
-import {IParam_InsertPost, IResult_InsertPost} from "@/types/interfaces/post-interface";
+import {
+    IParam_InsertPost,
+    IParam_UpdatePost,
+    IResult_InsertPost,
+    IResult_UpdatePost
+} from "@/types/interfaces/post-interface";
 
 import Icons from "@/components/Icons";
 import styles from "./HeaderItem.module.scss";
@@ -29,6 +34,11 @@ import Loader from "@/components/loader/Loader";
 async function serverAPI_InsertPost(param: IParam_InsertPost): Promise<AxiosResponse<IAPIResponse<IResult_InsertPost>>> {
     //todo: temp 적힌 부분 제거 필요
     return await axiosServer.post('/private/post/boad/instTemp', param);
+}
+
+// 게시물 수정 함수
+async function serverAPI_UpdatePost(param: IParam_UpdatePost): Promise<AxiosResponse<IAPIResponse<IResult_UpdatePost>>> {
+    return await axiosServer.post('/private/post/boad/updt', param);
 }
 
 export const HeaderLogo = () => {
@@ -94,6 +104,7 @@ export const HeaderAction = () => {
     const pathName = usePathname();
     const editorRef = useRecoilValue(editorAtom);
     const editTitle = useRecoilValue(editTitleAtom);
+    const { slug } = useParams();
 
     useEffect(() => {
         if (pathName === '/board/new' && !rcLogin.isLogin) {
@@ -142,18 +153,47 @@ export const HeaderAction = () => {
         }
     );
 
+    // 게시물 수정 Mutation
+    const updatePost = useMutation(
+        (formattedContent: string) => {
+            return serverAPI_UpdatePost({boadid: parseInt(slug as string, 10), title: editTitle, boadConts: formattedContent});
+        },
+        {
+            onSuccess: (data) => {
+                if (data.data.isError) {
+                    popupController.openPopup(EPopup.Notify, {
+                        contents: {
+                            title: "게시물 수정 실패",
+                            desc: "게시물 수정에 실패했습니다. 담당자에게 연락해주세요."
+                        }
+                    });
+                } else {
+                    actionAndNavigate.actionAndNavigate(`/board/${data.data.content.boadId}`);
+                }
+            },
+            onError: () => {
+                popupController.openPopup(EPopup.Notify, {
+                    contents: {
+                        title: "게시물 수정 실패",
+                        desc: "전산 오류입니다. 담당자에게 연락해주세요."
+                    }
+                });
+            }
+        }
+    );
+
     const onClick = useCallback(() => {
         // 게시물 작성 url 이동
         if (action === 'Write') {
             actionAndNavigate.actionAndNavigate('/board/new');
         } else if (action === 'Publish') {
             if (!editTitle) {
-                popupController.openPopup(EPopup.Notify, {contents: {title: "게시물 작성 실패", desc: "제목을 입력해주세요."}});
+                popupController.openPopup(EPopup.Notify, {contents: {title: `게시물 ${slug ? '수정' : '작성'} 실패`, desc: "제목을 입력해주세요."}});
                 return;
             }
 
             if (!editorRef?.getMarkdown()) {
-                popupController.openPopup(EPopup.Notify, {contents: {title: "게시물 작성 실패", desc: "내용을 입력해주세요."}});
+                popupController.openPopup(EPopup.Notify, {contents: {title: `게시물 ${slug ? '수정' : '작성'} 실패`, desc: "내용을 입력해주세요."}});
                 return;
             }
 
@@ -182,17 +222,11 @@ export const HeaderAction = () => {
 
             // 글 작성 프로세스
             if (pathName === '/board/new') {
-                console.log('게시물 작성')
-                console.log(editTitle);
-                console.log(formattedContent);
-
                 insertPost.mutate(formattedContent);
             }
             // 글 수정 프로세스
             else if (/^\/board\/\d+\/edit$/.test(pathName)) {
-                console.log('게시물 수정')
-                console.log(editTitle);
-                console.log(formattedContent);
+                updatePost.mutate(formattedContent);
             }
         }
     }, [action, actionAndNavigate, editorRef]);
@@ -200,7 +234,7 @@ export const HeaderAction = () => {
     return (
         <>
             {
-                insertPost.isLoading ?
+                insertPost.isLoading || updatePost.isLoading ?
                     <div className={styles.actionContainer}>
                         <Loader color={`${"var(--color-text-1)"}`}/>
                     </div>
