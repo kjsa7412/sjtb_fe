@@ -18,6 +18,7 @@ import BodyContainer from '@/components/containers/BodyContainer';
 import TagList from '@/components/read/TagList';
 import ActivityBox from '@/components/read/ActivityBox';
 import EditorSection from "@/components/edit/EditorSection";
+import Summary from "@/components/read/Summary";
 
 
 interface Props {
@@ -66,6 +67,7 @@ const Post = (props: Props) => {
                                 dateModified={post.dateModified}/>
                         <BodyContainer>
                             <ContentsContainer>
+                                <Summary description={post.description}/>
                                 <EditorSection post={post} readOnly={true}/>
                                 <WriterInfo author={post.author}/>
                                 <TagList tags={post.keywords}/>
