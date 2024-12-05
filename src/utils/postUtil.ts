@@ -1,8 +1,14 @@
-import { join } from "path";
+import {join} from "path";
 import fs from "fs";
 import matter from "gray-matter";
 
-import {IParam_CreatePost, IPostData, IResult_CreatePost} from "@/types/interfaces/post-interface";
+import {
+    IParam_CreatePost,
+    IParam_DropPost,
+    IPostData,
+    IResult_CreatePost,
+    IResult_DropPost
+} from "@/types/interfaces/post-interface";
 
 const postsDirectory = join(process.cwd(), "_posts");
 
@@ -89,6 +95,34 @@ export function createPost(param: IParam_CreatePost): IResult_CreatePost {
         return {
             success: false,
             message: `파일 저장 실패: ${(error as Error).message}`,
+        };
+    }
+}
+
+export function deletePost(param: IParam_DropPost): IResult_DropPost {
+    try {
+        const fileName = `${param.slug}.md`;
+        const filePath = join(postsDirectory, fileName);
+
+        // 파일 존재 여부 확인 후 삭제
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+
+            return {
+                success: true,
+                message: "파일 삭제 성공"
+            };
+        } else {
+            return {
+                success: false,
+                message: "파일을 찾을 수 없습니다."
+            };
+        }
+    } catch (error) {
+        // 실패 시 에러 메시지 반환
+        return {
+            success: false,
+            message: `파일 삭제 실패: ${(error as Error).message}`,
         };
     }
 }

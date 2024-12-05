@@ -59,6 +59,25 @@ export interface IResult_UpdatePost {
     boadId: string;
 }
 
+// 게시물 삭제 (브라우저 to API)
+export interface IParam_DeletePost {
+    boadid: number;
+}
+
+export interface IResult_DeletePost {
+    boadId: string;
+}
+
+// 게시물 삭제 (API to NODE)
+export interface IParam_DropPost {
+    slug: string;
+}
+
+export interface IResult_DropPost {
+    success: boolean;
+    message: string;
+}
+
 // 좋아요 및 조회수 조회
 export interface IParam_CountList {
     boadId: number;
