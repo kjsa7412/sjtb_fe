@@ -19,6 +19,25 @@ export interface IPostData {
     content: string;
 }
 
+// 인기 게시물 조회
+export interface IResult_PopPostList {
+    map(arg0: (item: IResult_PopPostList) => string): string[];
+    boadId: number
+    title: string
+    summary: string
+    useYN: string
+    openStatus: string
+    hashtag: string
+    thumbnailid: number
+    thumbnailpath: string
+    views: number
+    likes: number
+    lastMd: number
+    conts: string
+    userId: string
+    userName: string
+}
+
 // 게시물 작성 (브라우저 to API)
 export interface IParam_InsertPost {
     title: string;
