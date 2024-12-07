@@ -47,14 +47,16 @@ export function getPostByTerm(searchTerm: string): IPostData[] {
     const allPosts = getAllPosts();
 
     return allPosts.filter((post) => {
-        const { title, description, content } = post;
+        const { title, description, content, author } = post;
         const mdContent = content || "";
 
         // 제목, 발췌문, 본문 내용에서 검색어를 찾습니다
+        // 작성자의 경우 완전 일치의 경우에만 검색
         return (
             title.includes(searchTerm) ||
             description.includes(searchTerm) ||
-            mdContent.includes(searchTerm)
+            mdContent.includes(searchTerm) ||
+            author === searchTerm
         );
     }).sort((post1, post2) => (post1.dateModified > post2.dateModified ? -1 : 1));
 }
