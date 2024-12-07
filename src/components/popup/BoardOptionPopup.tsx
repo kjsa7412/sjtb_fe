@@ -85,6 +85,7 @@ const BoardOptionPopup = () => {
 
     // 게시물 삭제 핸들러
     const handleDeletePost = () => {
+        popupController.closeAll();
         setRcModalMutation(() => ({
             resultMutation: deletePost,
             message: "삭제",
